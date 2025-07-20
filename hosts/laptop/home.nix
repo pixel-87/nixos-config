@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/common/git.nix
+    #../../home/programs/git.nix
   ];
   home = {
     username = "pixel";

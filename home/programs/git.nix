@@ -1,4 +1,4 @@
-{ config, pkgs, ... }
+{ config, pkgs, ... }:
 
 { 
   programs.git = {
@@ -9,7 +9,7 @@
 
     extraConfig = {
       init.defaultBranch = "main";
-      pull.rebase;
+      pull.rebase = true;
       color.ui = true;
       status.branch = true;
 

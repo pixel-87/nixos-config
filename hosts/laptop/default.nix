@@ -1,14 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # inputs.home-manager.nixosModules.default
+      inputs.home-manager.nixosModules.default
     ];
  
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -16,7 +12,7 @@
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
