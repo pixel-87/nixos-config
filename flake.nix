@@ -12,11 +12,15 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: 
+  outputs = { nixpkgs, home-manager, firefox-addons, ... }@inputs: 
 
     let
       system = "x86_64-linux";
@@ -35,10 +39,12 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.users.pixel = import ./hosts/laptop/home.nix;
+              home-manager.users.pixel = imports [./hosts/laptop/home.nix];
+
+              _module.args = { inherit inputs; };
             }  
           ];
-          specialArgs = {inherit inputs;};
+         specialArgs = {inherit inputs;};
         };
       };
 
