@@ -39,9 +39,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.users.pixel = imports [./hosts/laptop/home.nix];
+              home-manager.users.pixel = import ./hosts/laptop/home.nix;
 
-              _module.args = { inherit inputs; };
             }  
           ];
          specialArgs = {inherit inputs;};
