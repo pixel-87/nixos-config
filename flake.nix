@@ -25,27 +25,29 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      root =./.;
+      lib = pkgs.lib;
     in
     {
-    
-      nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./hosts/laptop/default.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.users.pixel = import ./hosts/laptop/home.nix;
-
-            }  
-          ];
-         specialArgs = {inherit inputs;};
-        };
-      };
-
+      nixosConfigurations = builtins.listToAttrs [
+        {
+          name = "laptop";
+          value = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {inherit inputs root; };
+            modules = [
+              ./hosts/laptop/default.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.users.pixel = import ./hosts/laptop/home.nix {
+                  pkgs = pkgs;
+                  lib = lib;
+                  configs = {};
+                };
+              }  
+	    ];
+	  };
+        }
+      ];
     };
 }

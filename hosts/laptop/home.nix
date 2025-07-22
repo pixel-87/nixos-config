@@ -1,9 +1,9 @@
 { configs, pkgs, lib, ... }:
 
 #let
-#  startUpScript = pkgs.pkgs.writeShellScriptBin "start" ''
-#    programs.waybar &
-#    services.swww init &
+#  startUpScript = pkgs.writeShellScriptBin "start" ''
+#    waybar &
+#    swww init &
 #
 #    sleep 1
 #  '';
@@ -12,6 +12,7 @@
   imports = [
     ../../home/programs/git.nix
     #../../home/programs/firefox.nix
+    ../../home/hyprland/hyprland.nix
   ];
   home = {
     username = "pixel";
@@ -23,6 +24,7 @@
       vim
       home-manager
       wl-clipboard
+      playerctl
     ];
   };
   programs = {
@@ -31,12 +33,14 @@
     waybar.enable = true;
     wofi.enable = true;
     gh.enable = true;
+    #thunar.enable = true;
   };
 
   services = {
     mako.enable = true;
     swww.enable = true;
     cliphist.enable = true;
+    playerctld.enable = true;
   };
 
 
@@ -60,7 +64,7 @@
   #wayland.windowManager.hyprland = {
   #  enable = true;
   #  settings = {
-  #    exec-once = ''${startUpScript}/bin/start'';
+  #    exec-once = "${startUpScript}";
   #  }; 
   #};
   
