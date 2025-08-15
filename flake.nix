@@ -16,38 +16,34 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   
 
-  outputs = { nixpkgs, home-manager, firefox-addons, ... }@inputs: 
+  outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, ... }@inputs: 
 
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      root =./.;
-      lib = pkgs.lib;
     in
     {
-      nixosConfigurations = builtins.listToAttrs [
-        {
-          name = "laptop";
-          value = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {inherit inputs root; };
-            modules = [
-              ./hosts/laptop/default.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.users.pixel = import ./hosts/laptop/home.nix {
-                  pkgs = pkgs;
-                  lib = lib;
-                  configs = {};
-                };
-              }  
-	    ];
-	  };
-        }
-      ];
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs; root = ./.; };
+        modules = [
+          ./hosts/laptop/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.pixel = import ./hosts/laptop/home.nix {
+              pkgs = nixpkgs.legacyPackages.${system}; 
+              lib = nixpkgs.lib;
+              configs = {};
+            };
+          }  
+        ];
+      };
     };
 }

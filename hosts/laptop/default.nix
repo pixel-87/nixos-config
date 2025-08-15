@@ -20,6 +20,27 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true; 
+  
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16384;
+    }
+  ];
+  boot.kernelParams = [
+    "resume=/swapfile"
+    "resume_offset=18919424"
+  ];
+
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30min
+  '';
+
+  services.logind.extraConfig = ''
+    HandleHibernateKey = hibernate
+    HandleLidSwitch = hibernate
+    handleLidSwitchDocked = ignore
+  '';
 
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";

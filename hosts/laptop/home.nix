@@ -1,18 +1,10 @@
 { configs, pkgs, lib, ... }:
 
-#let
-#  startUpScript = pkgs.writeShellScriptBin "start" ''
-#    waybar &
-#    swww init &
-#
-#    sleep 1
-#  '';
-#in
 {
   imports = [
-    ../../home/programs/git.nix
+    ../../modules/home/programs/git.nix
     #../../home/programs/firefox.nix
-    ../../home/hyprland/hyprland.nix
+    ../../modules/home/hyprland/hyprland.nix
   ];
   home = {
     username = "pixel";
@@ -25,15 +17,26 @@
       home-manager
       wl-clipboard
       playerctl
+      xfce.thunar
+      brightnessctl
+      wireplumber
     ];
   };
   programs = {
+    fastfetch.enable = true;
     firefox.enable = true;
-    kitty.enable = true;
+    kitty= {
+      enable = true; 
+      enableGitIntegration = true;
+      extraConfig = ''
+        confirm_os_window_close 0
+      '';
+    };
     waybar.enable = true;
     wofi.enable = true;
     gh.enable = true;
-    #thunar.enable = true;
+    btop.enable = true;
+    #Thunar.enable = true;
   };
 
   services = {
@@ -59,14 +62,6 @@
     };
   };
 
-  # swww img ${./wallpaper.png} &
-  #wayland.windowManager.hyprland.enable = true;
-  #wayland.windowManager.hyprland = {
-  #  enable = true;
-  #  settings = {
-  #    exec-once = "${startUpScript}";
-  #  }; 
-  #};
   
 
 
