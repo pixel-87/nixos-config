@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #inputs.home-manager.nixosModules.default
+      inputs.lanzaboote.nixosModules.lanzaboote
     ];
  
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -15,7 +16,9 @@
   hardware.graphics.enable = true;
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.lanzaboote.enable = true;
+  boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
+  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -98,7 +101,7 @@
 
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

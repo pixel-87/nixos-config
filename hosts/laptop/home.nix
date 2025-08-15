@@ -12,6 +12,7 @@
     stateVersion = "25.05";
 
     packages = with pkgs; [
+      sbctl
       git
       vim
       home-manager
