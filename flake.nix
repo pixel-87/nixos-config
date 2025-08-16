@@ -24,7 +24,7 @@
 
   
 
-  outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, ... }@inputs: 
+  outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, hyprland, ... }@inputs: 
 
     let
       system = "x86_64-linux";
@@ -37,10 +37,12 @@
           ./hosts/laptop/default.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.users.pixel = import ./hosts/laptop/home.nix {
-              pkgs = nixpkgs.legacyPackages.${system}; 
-              lib = nixpkgs.lib;
-              configs = {};
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+
+              extraSpecialArgs = { inherit inputs; };
+              users.pixel = import ./hosts/laptop/home.nix;
             };
           }  
         ];
