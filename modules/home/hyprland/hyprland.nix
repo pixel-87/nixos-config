@@ -73,7 +73,7 @@ in
         "CTRL ALT, up, exec, hyprct dispatch focuswindow floating"
         "CTRL ALT, down, exec, hyprct dispatch focuswindow tiled"
 
-        "mainMod CTRL, c, movetoworkspace, empty"
+        "$mainMod CTRL, c, movetoworkspace, empty"
 
 	# Example special workspace (scratchpad)
 	"$mainMod, S, togglespecialworkspace, magic"
