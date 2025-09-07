@@ -2,10 +2,7 @@
 
 {
   imports = [
-    ../../modules/home/programs/git.nix
-    #../../home/programs/firefox.nix
-    ../../modules/home/hyprland/hyprland.nix
-    ../../modules/home/programs/vim.nix
+    ./../modules/home
   ];
   home = {
     username = "pixel";

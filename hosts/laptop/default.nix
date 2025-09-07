@@ -45,6 +45,11 @@
     handleLidSwitchDocked = ignore
   '';
 
+  services.tuned = {
+    enable = true;
+
+    ppdSettings.main.battery_detection = true;
+  };
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   
@@ -88,8 +93,10 @@
    #git
    #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    qmk
   ];
-
+  
+  hardware.keyboard.qmk.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
