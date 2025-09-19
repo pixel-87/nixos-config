@@ -7,6 +7,6 @@
     extensions = pkgs.firefox-addons; [ 
       ublock-origin
       Consent-O-Matic
-    ];
+    ]:
   };
 }

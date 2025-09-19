@@ -39,11 +39,11 @@
     HibernateDelaySec=30min
   '';
 
-  services.logind.extraConfig = ''
-    HandleHibernateKey = hibernate
-    HandleLidSwitch = hibernate
-    handleLidSwitchDocked = ignore
-  '';
+  #services.logind.settings.Login = ''
+  #  HandleHibernateKey = hibernate
+  #  HandleLidSwitch = hibernate
+  #  handleLidSwitchDocked = ignore
+  #'';
 
   services.tuned = {
     enable = true;
