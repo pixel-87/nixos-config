@@ -27,25 +27,41 @@
   outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, hyprland, ... }@inputs: 
 
     let
-      system = "x86_64-linux";
-    in
-    {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs; root = ./.; };
-        modules = [
-          ./hosts/laptop/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-
-              extraSpecialArgs = { inherit inputs; };
-              users.pixel = import ./hosts/laptop/home.nix;
-            };
-          }  
+      mkNixosSystem = { system, modules }: nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = modules ++ [
+          { nixpkgs.hostPlatform = system; }
         ];
       };
+    in
+    {
+      nixosConfigurations = {
+
+        laptop = mkNixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/laptop/default.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.users.pixel = import ./hosts/laptop/home.nix {
+                pkgs = nixpkgs.legacyPackages.${system}; 
+                lib = nixpkgs.lib;
+                configs = {};
+              };
+            }  
+          ];
+        };
+        lithium = mkNixosSystem {
+          system = "x86_64-linux";
+          modules = [];
+        };
+      };
+
+      #homeConfigurations = let
+      #  pkgs-x86 = nixpkgs.legacyPackages."x86_64-linux";
+      #  in {
+      #    
+      #  };
+
     };
 }
