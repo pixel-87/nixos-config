@@ -27,6 +27,7 @@
   outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, hyprland, ... }@inputs: 
 
     let
+      system = "x86_64-linux";
       mkNixosSystem = { system, modules }: nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = modules ++ [
@@ -53,7 +54,10 @@
         };
         lithium = mkNixosSystem {
           system = "x86_64-linux";
-          modules = [];
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/lithium
+          ];
         };
       };
 
