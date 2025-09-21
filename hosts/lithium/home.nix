@@ -1,7 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ../..modules/home/programs/git.nix  
+    ../../modules/home/git.nix  
+    ../../modules/home/vim.nix  
   ];
 
   home = {

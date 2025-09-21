@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/nixos/roles/k3s-server.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -16,6 +17,8 @@
   boot.loader.systemd-boot.graceful = true;
 
   home-manager.users.lithium = import ./home.nix;
+  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
