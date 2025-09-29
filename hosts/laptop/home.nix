@@ -4,6 +4,10 @@
   imports = [
     (import ../../modules/home)
   ];
+
+  
+  nixpkgs.config.allowUnfree = true;
+
   home = {
     username = "pixel";
     homeDirectory = "/home/pixel";
@@ -18,6 +22,9 @@
       xfce.thunar
       brightnessctl
       wireplumber
+      openssh
+      onedrive
+      qmk
     ];
   };
   programs = {
@@ -26,11 +33,24 @@
     kitty= {
       enable = true; 
       enableGitIntegration = true;
+      font.name = "Maple Mono NF";
       extraConfig = ''
         confirm_os_window_close 0
       '';
     };
-    waybar.enable = true;
+    waybar = {
+      enable = true;
+      settings = {
+        mainBar = {
+          font = "Maple Mono NF 11";
+          layer = "top";
+          position = "top";
+          height = 30;
+          modules-left = [ "clock" "cpu" "memory" "temperature"];
+          modules-right = [ "pulseaudio" "battery" "network#speed" ];
+        };
+      };  
+    };
     wofi.enable = true;
     gh.enable = true;
     btop.enable = true;

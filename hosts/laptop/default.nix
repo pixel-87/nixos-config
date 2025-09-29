@@ -15,6 +15,8 @@
 
   hardware.graphics.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   # Bootloader.
   boot.lanzaboote.enable = true;
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
@@ -87,16 +89,10 @@
     packages = with pkgs; [];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
-   #git
-   #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    openssh
   ];
   
-  hardware.keyboard.qmk.enable = true;
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
