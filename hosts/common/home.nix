@@ -2,9 +2,9 @@
 
 {
   home = {
-    username = "pixel";
-    homeDirectory = "/home/pixel";
-    stateVersion = "24.05";
+    username = lib.mkDefault "pixel";
+    homeDirectory = lib.mkDefault "/home/pixel";
+    stateVersion = lib.mkDefault "24.05";
   };
 
   programs.home-manager.enable = true;

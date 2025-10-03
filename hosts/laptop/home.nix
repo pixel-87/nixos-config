@@ -5,8 +5,6 @@
     (import ../../modules/home)
   ];
 
-  
-  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = "pixel";

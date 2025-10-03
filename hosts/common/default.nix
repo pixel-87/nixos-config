@@ -15,13 +15,13 @@
     #};
   };
 
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     gh
     wget
     curl
   ];
-  
-  #system.stateVersion = lib.mkDefault "24.05";
+
+  system.stateVersion = lib.mkDefault "25.05";
 }

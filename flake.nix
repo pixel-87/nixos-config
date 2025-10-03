@@ -27,9 +27,10 @@
   outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, hyprland, ... }@inputs: 
 
     let
-      mkNixosSystem =  modules: nixpkgs.lib.nixosSystem {
+      mkNixosSystem =  hostPath: nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = modules ++ [
+        modules = [
+          hostPath
           ./hosts/common
           inputs.home-manager.nixosModules.home-manager
           {
@@ -37,7 +38,13 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit inputs; };
-              users.pixel = { imports = [ ./hosts/common/home.nix ]; };
+	      backupFileExtension = "backup";
+              users.pixel = {
+                imports = [ 
+                  ./hosts/common/home.nix
+                  (hostPath + /home.nix)
+                ]; 
+              };
             };
           }
         ];
@@ -45,8 +52,8 @@
     in
     {
       nixosConfigurations = {
-        laptop = mkNixosSystem [./hosts/laptop ];
-        lithium = mkNixosSystem [./hosts/lithium ];
+        laptop = mkNixosSystem ./hosts/laptop;
+        lithium = mkNixosSystem ./hosts/lithium;
       };
     };
 }
