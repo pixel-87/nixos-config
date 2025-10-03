@@ -16,17 +16,28 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.graceful = true;
 
-  home-manager.users.lithium = import ./home.nix;
+  #home-manager.users.lithium = import ./home.nix;
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.hostName = "lithium"; # Define your hostname.
+  networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 22 ];
+  #networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Set your time zone.
   time.timeZone = "Europe/London";
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.pixel = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      tree
+      vim
+      git
+    ];
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -42,12 +53,6 @@
 
   # Enable the X11 windowing system.
   #services.xserver.enable = true;
-
-
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -66,17 +71,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.lithium = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-      vim
-      git
-    ];
-  };
 
   # programs.firefox.enable = true;
 
@@ -101,11 +95,7 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  #networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-  networking.hostName = "lithium";
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
