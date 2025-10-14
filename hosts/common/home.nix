@@ -8,4 +8,16 @@
   };
 
   programs.home-manager.enable = true;
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+      editor = "git";
+    };
+  };
+
+  home.sessionsVariables = {
+    KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+  };
 }

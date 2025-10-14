@@ -4,7 +4,7 @@ let
   acmeEmail = "edwardoliverthomas@gmail.com";
 in
 {
-  # Deploy cert-manager first
+  # Deploy cert-manager
   environment.etc."rancher/k3s/server/manifests/01-cert-manager.yaml".text = ''
     apiVersion: v1
     kind: Namespace
@@ -25,50 +25,37 @@ in
         installCRDs: true
   '';
 
-  # Job that waits for cert-manager, then creates ClusterIssuers
-  environment.etc."rancher/k3s/server/manifests/02-cert-manager-setup.yaml".text = ''
-    apiVersion: v1
-    kind: ServiceAccount
+  # ClusterIssuers - these will be applied after cert-manager is ready
+  # Note: These may fail on first boot until cert-manager CRDs are installed
+  environment.etc."rancher/k3s/server/manifests/02-letsencrypt-issuers.yaml".text = ''
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
     metadata:
-      name: cert-manager-setup
-      namespace: kube-system
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: ClusterRole
-    metadata:
-      name: cert-manager-setup
-    rules:
-    - apiGroups: ["cert-manager.io"]
-      resources: ["clusterissuers"]
-      verbs: ["create", "get", "list"]
-    - apiGroups: [""]
-      resources: ["pods"]
-      verbs: ["list"]
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: ClusterRoleBinding
-    metadata:
-      name: cert-manager-setup
-    roleRef:
-      apiGroup: rbac.authorization.k8s.io
-      kind: ClusterRole
-      name: cert-manager-setup
-    subjects:
-    - kind: ServiceAccount
-      name: cert-manager-setup
-      namespace: kube-system
-    ---
-    apiVersion: batch/v1
-    kind: Job
-    metadata:
-      name: cert-manager-setup
-      namespace: kube-system
+      name: letsencrypt-staging
     spec:
-      ttlSecondsAfterFinished: 60
-      template:
-        spec:
-          serviceAccountName: cert-manager-setup
-          restartPolicy: OnFailure
-          containers:
-          - name: setup
-
+      acme:
+        server: https://acme-staging-v02.api.letsencrypt.org/directory
+        email: ${acmeEmail}
+        privateKeySecretRef:
+          name: letsencrypt-staging-key
+        solvers:
+        - http01:
+            ingress:
+              class: traefik
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: letsencrypt-prod
+    spec:
+      acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: ${acmeEmail}
+        privateKeySecretRef:
+          name: letsencrypt-prod-key
+        solvers:
+        - http01:
+            ingress:
+              class: traefik
+  '';
+}

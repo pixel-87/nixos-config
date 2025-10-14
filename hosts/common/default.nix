@@ -18,10 +18,10 @@
   #nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    gh
     wget
     curl
   ];
+
 
   system.stateVersion = lib.mkDefault "25.05";
 }
