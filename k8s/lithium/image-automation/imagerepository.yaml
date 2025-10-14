@@ -5,4 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/pixel-87/ed-thomas.dev
-  interval: 5m0s
+  interval: 6h0m0s 
