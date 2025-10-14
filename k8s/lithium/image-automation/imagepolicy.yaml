@@ -6,6 +6,8 @@ metadata:
 spec:
   imageRepositoryRef:
     name: ed-thomas-dev
+  filterTags:
+    pattern: '^[0-9]{14}-'
   policy:
     # Use alphabetical sorting on the timestamp prefix
     alphabetical:
