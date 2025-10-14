@@ -1,0 +1,19 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: ed-thomas-dev-update
+  namespace: flux-system
+spec:
+  interval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: 'Automated image update for ed-thomas.dev'
+  update:
+    path: ./k8s/lithium/apps/ed-thomas-dev
+    strategy: Setters
