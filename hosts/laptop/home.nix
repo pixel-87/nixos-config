@@ -23,6 +23,7 @@
       openssh
       onedrive
       qmk
+      obsidian
     ];
   };
   programs = {
