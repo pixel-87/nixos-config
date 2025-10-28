@@ -7,4 +7,5 @@
     ./vim.nix
     ./hyprland/hyprland.nix
   ];
+
 }

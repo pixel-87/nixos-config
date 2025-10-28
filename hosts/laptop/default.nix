@@ -22,6 +22,7 @@
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.lanzaboote.configurationLimit = 3;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true; 

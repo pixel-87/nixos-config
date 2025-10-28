@@ -33,7 +33,7 @@ in
 	preserve_split = true;
       };
       
-      gestures.workspace_swipe = true;
+      #gestures.workspace_swipe = true;
 
       "$mainMod" = "SUPER";
    

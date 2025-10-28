@@ -2,7 +2,8 @@
 
 {
   imports = [
-    (import ../../modules/home)
+    ../../modules/home
+    ../../modules/home/profiles/dev.nix
   ];
 
 
@@ -24,6 +25,7 @@
       onedrive
       qmk
       obsidian
+      zotero
     ];
   };
   programs = {
