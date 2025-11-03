@@ -20,6 +20,8 @@
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nixpkgs.config.allowUnfree = true;
+
   networking.hostName = "lithium"; # Define your hostname.
   networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 22 ];
