@@ -18,16 +18,28 @@ in
         kb_layout = "gb";
 
 	# moving the mouse to another screen highlights that screen
-	follow_mouse = 1;
-};
+	      follow_mouse = 1;
+      };
 
-device = [
-  {
-    name = "diego-palacios-cantor-keyboard";
-    kb_layout = "us";
-  }
-];
-      
+      device = [
+        {
+          name = "diego-palacios-cantor";
+          kb_layout = "us";
+        }
+        {
+          name = "diego-palacios-cantor-keyboard";
+          kb_layout = "us";
+        }
+        {
+          name = "diego-palacios-cantor-system-control";
+          kb_layout = "us";
+        }
+        {
+          name = "diego-palacios-cantor-consumer-control";
+          kb_layout = "us";
+        }
+      ];
+           
       general = {
 	gaps_in = 5;
 	gaps_out = 10;
