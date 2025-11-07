@@ -4,11 +4,10 @@
   home = {
     username = lib.mkDefault "pixel";
     homeDirectory = lib.mkDefault "/home/pixel";
-    stateVersion = lib.mkDefault "24.05";
+    stateVersion = lib.mkDefault "25.05";
 
     packages = with pkgs; [
-      gammastep
-      geoclue2
+      gimp3
     ];
   };
 

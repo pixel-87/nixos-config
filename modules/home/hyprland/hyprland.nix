@@ -15,10 +15,18 @@ in
       monitor = [",preferred,auto,1" ];
 
       input = {
-	kb_layout = "gb";
+        kb_layout = "gb";
+
 	# moving the mouse to another screen highlights that screen
 	follow_mouse = 1;
-      };
+};
+
+device = [
+  {
+    name = "diego-palacios-cantor-keyboard";
+    kb_layout = "us";
+  }
+];
       
       general = {
 	gaps_in = 5;
@@ -41,6 +49,7 @@ in
         # Frost-pheonix on github has good binds
         "$mainMod, F1, exec, show-keybinds"
         "$mainMod, space, exec, toggle-float"
+
         
 
 	"$mainMod, Q, exec, ${terminal}"
