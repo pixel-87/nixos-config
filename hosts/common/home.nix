@@ -1,6 +1,10 @@
 { inputs, config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ../../modules/home/profiles/dev.nix
+  ];
+
   home = {
     username = lib.mkDefault "pixel";
     homeDirectory = lib.mkDefault "/home/pixel";
@@ -12,14 +16,6 @@
   };
 
   programs.home-manager.enable = true;
-
-  programs.gh = {
-    enable = true;
-    settings = {
-      git_protocol = "ssh";
-      editor = "git";
-    };
-  };
 
   home.sessionVariables = {
     KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";

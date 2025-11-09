@@ -2,8 +2,10 @@
 
 {
   imports = [
-    ../../modules/home
     ../../modules/home/profiles/dev.nix
+    ../../modules/home/hyprland/hyprland.nix
+    ../../modules/home/font.nix
+    ../../modules/home/firefox.nix
   ];
 
 
@@ -53,7 +55,6 @@
       };  
     };
     wofi.enable = true;
-    gh.enable = true;
     btop.enable = true;
     #Thunar.enable = true;
   };
