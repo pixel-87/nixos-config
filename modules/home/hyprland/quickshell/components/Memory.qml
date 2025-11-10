@@ -5,16 +5,19 @@ import Quickshell.Io
 import QtQuick.Layouts
 import "root:/data"
 
-RowLayout {
-  id: memory
+Item {
+  id: memRoot
   Layout.alignment: Qt.AlignCenter
-  property string used: "0G"
+  Layout.preferredWidth: memText.implicitWidth
+  Layout.preferredHeight: memText.implicitHeight
+  
+  property string used: "0.0G"
 
   Process {
     id: memoryProcess
     command: ["sh", "-c", "free -m | awk 'NR==2{printf \"%.1fG\", $3/1024}'"]
     stdout: StdioCollector {
-      onStreamFinished: memory.used = text
+      onStreamFinished: memRoot.used = text
     }
   }
 
@@ -25,6 +28,11 @@ RowLayout {
     onTriggered: memoryProcess.running = true
   }
 
-  IconImage { source: Quickshell.iconPath("memory-symbolic"); width: 20; height: 20 }
-  Text { text: memory.used; color: Settings.colors.foreground; font.pointSize: 12 } 
+  Text { 
+    id: memText
+    text: memRoot.used
+    color: Settings.colors.foreground
+    font.pointSize: 10
+    font.family: "monospace"
+  }
 }

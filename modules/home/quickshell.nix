@@ -8,17 +8,22 @@
     package = pkgs.symlinkJoin {
       name = "quickshell-wrapped";
       paths = with pkgs; [
+        (pkgs.writeShellScriptBin "quickshell" ''
+          export QML2_IMPORT_PATH="${pkgs.qt6.qt5compat}/${pkgs.qt6.qtbase.qtQmlPrefix}:$QML2_IMPORT_PATH"
+          exec ${pkgs.quickshell}/bin/quickshell "$@"
+        '')
         quickshell
         kdePackages.qtimageformats
         kdePackages.ksystemstats
-        qt6.qtsvg     # Add this for SVG icon support
+        qt6.qtsvg
+        qt6.qt5compat
         kdePackages.breeze-icons
         cosmic-icons
         networkmanagerapplet
         upower
         procps
       ];
-      meta.mainProgram = pkgs.quickshell.meta.mainProgram;
+      meta.mainProgram = "quickshell";
     };
   };
 

@@ -5,16 +5,19 @@ import Quickshell.Io
 import QtQuick.Layouts
 import "root:/data"
 
-RowLayout {
-  id: cpu
+Item {
+  id: cpuRoot
   Layout.alignment: Qt.AlignCenter
-  property string percent: "0"
+  Layout.preferredWidth: cpuText.implicitWidth
+  Layout.preferredHeight: cpuText.implicitHeight
+  
+  property string percent: "0%"
 
   Process {
     id: cpuProcess
     command: ["sh", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print $2 + $4}'"]
     stdout: StdioCollector {
-      onStreamFinished: cpu.percent = parseFloat(text).toFixed(0) + "%"
+      onStreamFinished: cpuRoot.percent = parseFloat(text).toFixed(0) + "%"
     }
   }
   
@@ -25,6 +28,11 @@ RowLayout {
     onTriggered: cpuProcess.running = true
   }
 
-  IconImage { source: Quickshell.iconPath("cpu-symbolic"); width: 20; height: 20 }
-  Text { text: cpu.percent; color: Settings.colors.foreground; font.pointSize: 12 } 
+  Text { 
+    id: cpuText
+    text: cpuRoot.percent
+    color: Settings.colors.foreground
+    font.pointSize: 10
+    font.family: "monospace"
+  }
 }

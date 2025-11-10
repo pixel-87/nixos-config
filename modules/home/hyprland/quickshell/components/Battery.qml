@@ -5,11 +5,14 @@ import Quickshell.Io
 import QtQuick.Layouts
 import "root:/data"
 
-RowLayout {
-  id: battery
+Item {
+  id: batRoot
   Layout.alignment: Qt.AlignCenter
+  Layout.preferredWidth: batText.implicitWidth
+  Layout.preferredHeight: batText.implicitHeight
+  
   property string percent: "100%"
-  property string icon: "battery-level-100-symbolic"
+  property string status: ""
 
   Process {
     id: batteryProcess
@@ -29,18 +32,14 @@ RowLayout {
           }
         });
 
-        battery.percent = percentage + "%";
+        batRoot.percent = percentage + "%";
         
-        if (state === "charging" || state === "fully-charged") {
-          battery.icon = "battery-level-100-charged-symbolic";
-        } else if (percentage > 90) {
-          battery.icon = "battery-level-100-symbolic";
-        } else if (percentage > 60) {
-          battery.icon = "battery-level-60-symbolic";
-        } else if (percentage > 30) {
-          battery.icon = "battery-level-30-symbolic";
+        if (state === "charging") {
+          batRoot.status = "+";
+        } else if (state === "fully-charged") {
+          batRoot.status = "=";
         } else {
-          battery.icon = "battery-level-10-symbolic";
+          batRoot.status = "";
         }
       }
     }
@@ -53,6 +52,11 @@ RowLayout {
     onTriggered: batteryProcess.running = true
   }
 
-  IconImage { source: Quickshell.iconPath(battery.icon); width: 20; height: 20 }
-  Text { text: battery.percent; color: Settings.colors.foreground; font.pointSize: 12 } 
+  Text { 
+    id: batText
+    text: batRoot.status + batRoot.percent
+    color: Settings.colors.foreground
+    font.pointSize: 10
+    font.family: "monospace"
+  }
 }
