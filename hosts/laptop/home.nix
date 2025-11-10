@@ -6,6 +6,7 @@
     ../../modules/home/hyprland/hyprland.nix
     ../../modules/home/font.nix
     ../../modules/home/firefox.nix
+    ../../modules/home/quickshell.nix
   ];
 
 
@@ -41,19 +42,8 @@
         confirm_os_window_close 0
       '';
     };
-    waybar = {
-      enable = true;
-      settings = {
-        mainBar = {
-          font = "Maple Mono NF 11";
-          layer = "top";
-          position = "top";
-          height = 30;
-          modules-left = [ "clock" "cpu" "memory" "temperature"];
-          modules-right = [ "pulseaudio" "battery" "network#speed" ];
-        };
-      };  
-    };
+
+
     wofi.enable = true;
     btop.enable = true;
     #Thunar.enable = true;

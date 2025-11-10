@@ -9,8 +9,7 @@ in
     settings = {
       exec-once = [
         "swww init"
-        #"sww img ~/wallpapers/art.png"
-        "waybar"
+        "nm-applet --indicator"
       ];
       monitor = [",preferred,auto,1" ];
 
