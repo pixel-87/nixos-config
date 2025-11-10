@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/roles/k3s-server.nix
+      ../../modules/nixos/services/k3s/flux.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
