@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     swww
     imagemagick
+    libjxl
   ];
 
   home.file.".local/share/wallpapers/.gitkeep".text = "";
@@ -40,7 +41,7 @@
 
       # Function to list available wallpapers
       list_wallpapers() {
-        find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sort
+        find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.jxl" \) | sort
       }
 
       # Function to cycle to next wallpaper
@@ -100,10 +101,10 @@
         fi
 
         local selected
-        selected=$(printf '%s\n' "''${wallpapers[@]}" | xargs -I {} basename {} | fzf --preview "cat $WALLPAPER_DIR/{} | tail -1" --preview-window=right:30%)
+        selected=$(printf '%s\n' "''${wallpapers[@]}" | xargs -I {} basename {} | fzf --preview "file '$WALLPAPER_DIR/{}' && echo && ls -lh '$WALLPAPER_DIR/{}'" --preview-window=right:30%)
         
         if [[ -n "$selected" ]]; then
-          set_wallpaper "$WALLPAPER_DIR/$selected" "fade" "200"
+          set_wallpaper "$WALLPAPER_DIR/$selected" "none" "1"
         fi
       }
 

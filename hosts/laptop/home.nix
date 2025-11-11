@@ -21,7 +21,7 @@
       home-manager
       wl-clipboard
       playerctl
-      xfce.thunar
+      nautilus
       brightnessctl
       wireplumber
       openssh

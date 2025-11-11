@@ -101,7 +101,7 @@ in
 	"$mainMod, Q, exec, ${terminal}"
 	"$mainMod, C, killactive"
 	"$mainMod, M, exit"
-	"$mainMod, E, exec, thunar"
+	"$mainMod, E, exec, nautilus"
 	"$mainMod, V, togglefloating"
 	"$mainMod, R, exec, wofi --show drun || pkill wofi"
 	"$mainMod, P, pseudo" # dwindle
@@ -177,7 +177,7 @@ in
       )
       ++ [
         # Wallpaper switcher keybinds
-        "$mainMod ALT, W, exec, wallpaper-switcher pick"
+        "$mainMod ALT, W, exec, ${terminal} -- bash -c 'wallpaper-switcher pick'"
         "$mainMod CTRL, right, exec, wallpaper-switcher next"
         "$mainMod CTRL, left, exec, wallpaper-switcher prev"
       ];
