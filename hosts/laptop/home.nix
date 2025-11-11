@@ -51,7 +51,73 @@
     };
 
 
-    wofi.enable = true;
+    wofi = {
+      enable = true;
+      settings = {
+        # Layout and appearance
+        width = 600;
+        height = 400;
+        orientation = "vertical";
+        sort_order = "default";
+        
+        # Search
+        search = "fuzzy";
+        insensitive = true;
+        matching = "fuzzy";
+        
+        # Behavior
+        show = "drun";
+        hide_scroll = true;
+        key_exit = "Escape";
+        
+        # Styling - requires CSS below
+        style = "${pkgs.writeText "wofi-style.css" ''
+          * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-family: "Maple Mono NF", monospace;
+            font-size: 14px;
+          }
+          
+          window {
+            background-color: #1e1e2e;
+            border: 2px solid #cdd6f4;
+            border-radius: 8px;
+          }
+          
+          #input {
+            background-color: #313244;
+            color: #cdd6f4;
+            border-bottom: 2px solid #cdd6f4;
+            padding: 10px;
+            border-radius: 0;
+            margin: 5px;
+          }
+          
+          #scroll {
+            margin: 5px;
+          }
+          
+          #entry {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            background-color: #313244;
+            color: #cdd6f4;
+          }
+          
+          #entry:selected {
+            background-color: #89b4fa;
+            color: #1e1e2e;
+          }
+          
+          #entry:hover {
+            background-color: #45475a;
+          }
+        ''}";
+      };
+    };
     btop.enable = true;
     #Thunar.enable = true;
   };
