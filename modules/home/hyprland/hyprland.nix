@@ -8,7 +8,7 @@ in
     
     settings = {
       exec-once = [
-        "swww init"
+        "wallpaper-init"
         "nm-applet --indicator"
       ];
       monitor = [",preferred,auto,1" ];
@@ -162,8 +162,6 @@ in
 	",XF86AudioPlay, exec, playerctl play-pause"
 	",XF86AudioPrev, exec, playerctl previous"
 
-
-
       ]
       ++ (
         # Workspaces: $mainMod + [1-9] and shift variants
@@ -176,7 +174,13 @@ in
             "$mainMod SHIFT, ${keycode}, movetoworkspacesilent, ${ws}"
           ])
           9)
-      );
+      )
+      ++ [
+        # Wallpaper switcher keybinds
+        "$mainMod ALT, W, exec, wallpaper-switcher pick"
+        "$mainMod CTRL, right, exec, wallpaper-switcher next"
+        "$mainMod CTRL, left, exec, wallpaper-switcher prev"
+      ];
       
       bindm = [
 	"$mainMod, mouse:272, movewindow"

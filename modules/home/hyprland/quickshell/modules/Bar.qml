@@ -50,6 +50,7 @@ Variants {
           spacing: 30
           Layout.alignment: Qt.AlignLeft
           
+          Launcher {}
           Workspaces {}
           MediaPlayer {}
         }

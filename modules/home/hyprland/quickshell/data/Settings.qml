@@ -21,5 +21,6 @@ Singleton {
   }
   
   // IMPORTANT: Set this to your wallpaper path
-  property string wallpaper: "/home/pixel/wallpapers/my-wallpaper.png";
+  property string wallpaper: "/home/pixel/wallpapers/wallpaper.png";
+  property string wallpaperDirectory: "/home/pixel/wallpapers/";
 }

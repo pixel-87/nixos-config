@@ -2,9 +2,10 @@
 
 import Quickshell
 import "root:/modules"
+import "root:/components"
 
 Scope {
   Bar {}
-  Desktop {}
   ApplicationLauncher {}
+  // Desktop component removed - swww handles wallpaper display
 }

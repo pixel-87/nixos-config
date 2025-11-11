@@ -31,6 +31,11 @@
       zotero
     ];
   };
+
+  home.sessionVariables = {
+    SHELL = "${pkgs.zsh}/bin/zsh";
+    PATH = "$HOME/.local/bin:$PATH";
+  };
   programs = {
     fastfetch.enable = true;
     firefox.enable = true;

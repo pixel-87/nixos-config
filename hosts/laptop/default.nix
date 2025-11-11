@@ -88,6 +88,7 @@
     description = "pixel";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
 
   environment.systemPackages = with pkgs; [
