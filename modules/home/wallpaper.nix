@@ -23,7 +23,7 @@
 
       mkdir -p "$CACHE_DIR"
 
-      # Function to set wallpaper with transition
+      # Function to set wallpaper with transition (fast path)
       set_wallpaper() {
         local wallpaper="$1"
         local transition="''${2:-none}"
@@ -34,16 +34,8 @@
           return 1
         fi
 
-        # Create thumbnail for cache
-        mkdir -p "$CACHE_DIR/thumbnails"
-        local thumb_path="$CACHE_DIR/thumbnails/$(basename "$wallpaper").thumb.jpg"
-        if [[ ! -f "$thumb_path" ]]; then
-          convert "$wallpaper" -resize 200x200 "$thumb_path" 2>/dev/null || true
-        fi
-
-        swww img "$wallpaper" --transition-type="$transition" --transition-duration="$duration"
+        swww img "$wallpaper" --transition-type="$transition" --transition-duration="$duration" 2>/dev/null
         echo "$wallpaper" > "$CURRENT_WALLPAPER_FILE"
-        echo "Wallpaper set: $(basename "$wallpaper")"
       }
 
       # Function to list available wallpapers
