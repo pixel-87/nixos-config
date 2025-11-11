@@ -18,7 +18,7 @@
       #!/usr/bin/env bash
       set -euo pipefail
 
-      WALLPAPER_DIR="''${WALLPAPER_DIR:-$HOME/wallpapers}"
+      WALLPAPER_DIR="''${WALLPAPER_DIR:-$HOME/nixos-config/assets/wallpapers}"
       CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-switcher"
       CURRENT_WALLPAPER_FILE="$CACHE_DIR/current"
 
@@ -164,7 +164,7 @@
       #!/usr/bin/env bash
       set -euo pipefail
 
-      WALLPAPER_DIR="''${WALLPAPER_DIR:-$HOME/wallpapers}"
+      WALLPAPER_DIR="''${WALLPAPER_DIR:-$HOME/nixos-config/assets/wallpapers}"
       CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper-switcher"
       CURRENT_WALLPAPER_FILE="$CACHE_DIR/current"
 
