@@ -43,9 +43,44 @@ in
 	gaps_in = 5;
 	gaps_out = 10;
 	border_size = 2;
+	"col.active_border" = "rgba(ffffffee)";
+	"col.inactive_border" = "rgba(595959aa)";
       };
 
-      animations.enabled = true;
+      decoration = {
+        rounding = 10;
+        
+        blur = {
+          enabled = true;
+          size = 8;
+          passes = 3;
+          new_optimizations = true;
+          ignore_opacity = false;
+          xray = false;
+        };
+      };
+
+      animations = {
+        enabled = true;
+        
+        bezier = [
+          "wind, 0.05, 0.9, 0.1, 1.05"
+          "winIn, 0.1, 1.1, 0.1, 1.1"
+          "winOut, 0.3, -0.3, 0, 1"
+          "liner, 1, 1, 1, 1"
+        ];
+        
+        animation = [
+          "windows, 1, 6, wind, slide"
+          "windowsIn, 1, 6, winIn, slide"
+          "windowsOut, 1, 5, winOut, slide"
+          "windowsMove, 1, 5, wind, slide"
+          "border, 1, 1, liner"
+          "borderangle, 1, 30, liner, loop"
+          "fade, 1, 10, default"
+          "workspaces, 1, 5, wind"
+        ];
+      };
 
       dwindle = {
 	pseudotile = true;
@@ -71,6 +106,7 @@ in
 	"$mainMod, R, exec, wofi --show drun || pkill wofi"
 	"$mainMod, P, pseudo" # dwindle
 	"$mainMod, X, togglesplit" # dwindle
+  "$mainMod, F, exec, firefox"
 
 	"$mainMod, left, movefocus, l"
 	"$mainMod, right, movefocus, r"
@@ -152,5 +188,9 @@ in
 	",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ];
     };
+
+    extraConfig = ''
+      windowrulev2 = opacity 0.95 0.75, class:.*
+    '';
   };
 }
