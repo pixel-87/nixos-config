@@ -1,4 +1,4 @@
-{ configs, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -29,6 +29,13 @@
       qmk
       obsidian
       zotero
+      youtube-music
+      inputs.zen-browser.packages.${pkgs.system}.default
+      # Screenshot tools
+      grim
+      slurp
+      swappy
+      jq
     ];
   };
 
@@ -36,6 +43,59 @@
     SHELL = "${pkgs.zsh}/bin/zsh";
     PATH = "$HOME/.local/bin:$PATH";
   };
+
+  # Screenshot script
+  home.file.".local/bin/screenshot" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      # Create screenshots directory if it doesn't exist
+      SCREENSHOT_DIR="$HOME/screenshots"
+      mkdir -p "$SCREENSHOT_DIR"
+
+      # Generate filename with timestamp
+      FILENAME="$SCREENSHOT_DIR/screenshot_$(date +%Y%m%d_%H%M%S).png"
+
+      case "''${1:-area}" in
+        area)
+          # Area selection screenshot
+          grim -g "$(slurp)" "$FILENAME"
+          ;;
+        screen)
+          # Full screen screenshot
+          grim "$FILENAME"
+          ;;
+        window)
+          # Active window screenshot
+          grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" "$FILENAME"
+          ;;
+        edit)
+          # Take area screenshot and open in swappy for editing
+          grim -g "$(slurp)" - | swappy -f -
+          exit 0
+          ;;
+        *)
+          echo "Usage: $0 [area|screen|window|edit]"
+          echo "  area   - Select area to screenshot (default)"
+          echo "  screen - Full screen screenshot"
+          echo "  window - Active window screenshot"
+          echo "  edit   - Select area and edit with swappy"
+          exit 1
+          ;;
+      esac
+
+      # Copy to clipboard
+      wl-copy < "$FILENAME"
+
+      # Send notification
+      notify-send "Screenshot saved" "$FILENAME" -i "$FILENAME"
+
+      echo "Screenshot saved to: $FILENAME"
+    '';
+  };
+
   programs = {
     fastfetch.enable = true;
     firefox.enable = true;
@@ -61,7 +121,6 @@
         sort_order = "default";
         
         # Search
-        search = "fuzzy";
         insensitive = true;
         matching = "fuzzy";
         
@@ -140,12 +199,25 @@
       common = {
         default = [ "hyprland" ];
       };
-      #"org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-      #"org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.Screenshot" = {
+        default = [ "hyprland" ];
+      };
+      #"org.freedesktop.impl.portal.ScreenCast" = {
+      #  default = [ "hyprland" ];
+      #};
     };
   };
 
-  
-
+  # Set Zen Browser as default browser
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/http" = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
+      "x-scheme-handler/about" = "zen.desktop";
+      "x-scheme-handler/unknown" = "zen.desktop";
+    };
+  };
 
 }

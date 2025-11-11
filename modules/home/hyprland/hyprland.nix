@@ -10,6 +10,7 @@ in
       exec-once = [
         "wallpaper-init"
         "nm-applet --indicator"
+        "kitty"
       ];
       monitor = [",preferred,auto,1" ];
 
@@ -106,9 +107,7 @@ in
 	"$mainMod, R, exec, wofi --show drun || pkill wofi"
 	"$mainMod, P, pseudo" # dwindle
 	"$mainMod, X, togglesplit" # dwindle
-  "$mainMod, F, exec, firefox"
-
-	"$mainMod, left, movefocus, l"
+	"$mainMod, F, exec, zen"	"$mainMod, left, movefocus, l"
 	"$mainMod, right, movefocus, r"
 	"$mainMod, up, movefocus, u"
 	"$mainMod, down, movefocus, d"
@@ -176,6 +175,12 @@ in
           9)
       )
       ++ [
+        # Screenshot keybindings
+        "$mainMod, P, exec, screenshot area"
+        "$mainMod SHIFT, P, exec, screenshot screen"
+        "$mainMod CTRL, P, exec, screenshot window"
+        "$mainMod ALT, P, exec, screenshot edit"
+
         # Wallpaper switcher keybinds
         "$mainMod ALT, W, exec, ${terminal} -- bash -c 'wallpaper-switcher pick'"
         "$mainMod CTRL, right, exec, wallpaper-switcher next"
@@ -194,7 +199,23 @@ in
     };
 
     extraConfig = ''
+      # Window rules for dedicated workspaces
       windowrulev2 = opacity 0.95 0.75, class:.*
+
+      # Browser always on workspace 2
+      windowrulev2 = workspace 2, class:(firefox|zen-alpha|chromium|google-chrome|brave)
+
+      # Dev tools on workspace 1
+      windowrulev2 = workspace 1, class:(code|vscode)
+
+      # File manager on workspace 3
+      windowrulev2 = workspace 3, class:(thunar|nautilus|dolphin|pcmanfm)
+
+      # Media apps on workspace 5
+      windowrulev2 = workspace 5, class:(sobsidian)
+
+      # System monitoring on workspace 9
+      windowrulev2 = workspace 9, class:(btop)
     '';
   };
 }
