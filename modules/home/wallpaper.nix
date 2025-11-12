@@ -41,7 +41,7 @@
 
       # Function to list available wallpapers
       list_wallpapers() {
-        find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.jxl" \) | sort
+        find "$WALLPAPER_DIR" -maxdepth 1 -type f -iname "*.png" | sort
       }
 
       # Function to cycle to next wallpaper
@@ -182,7 +182,7 @@
         swww img "$(cat "$CURRENT_WALLPAPER_FILE")" 2>/dev/null || true
       else
         # Use first available wallpaper
-        local first_wallpaper=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | sort | head -1)
+        local first_wallpaper=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -iname "*.png" | sort | head -1)
         if [[ -n "$first_wallpaper" ]]; then
           swww img "$first_wallpaper"
         fi
