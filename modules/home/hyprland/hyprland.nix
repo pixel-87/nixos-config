@@ -201,21 +201,6 @@ in
     extraConfig = ''
       # Window rules for dedicated workspaces
       windowrulev2 = opacity 0.95 0.75, class:.*
-
-      # Browser always on workspace 2
-      windowrulev2 = workspace 2, class:(firefox|zen-alpha|chromium|google-chrome|brave)
-
-      # Dev tools on workspace 1
-      windowrulev2 = workspace 1, class:(code|vscode)
-
-      # File manager on workspace 3
-      windowrulev2 = workspace 3, class:(thunar|nautilus|dolphin|pcmanfm)
-
-      # Media apps on workspace 5
-      windowrulev2 = workspace 5, class:(sobsidian)
-
-      # System monitoring on workspace 9
-      windowrulev2 = workspace 9, class:(btop)
     '';
   };
 }
