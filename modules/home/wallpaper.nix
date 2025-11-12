@@ -101,7 +101,7 @@
         fi
 
         local selected
-        selected=$(printf '%s\n' "''${wallpapers[@]}" | xargs -I {} basename {} | fzf --preview "file '$WALLPAPER_DIR/{}' && echo && ls -lh '$WALLPAPER_DIR/{}'" --preview-window=right:30%)
+  selected=$(printf '%s\n' "''${wallpapers[@]}" | xargs -I {} basename {} | fzf --preview "/run/current-system/sw/bin/file '$WALLPAPER_DIR/{}' && echo && /run/current-system/sw/bin/ls -lh '$WALLPAPER_DIR/{}'" --preview-window=right:30%)
         
         if [[ -n "$selected" ]]; then
           set_wallpaper "$WALLPAPER_DIR/$selected" "none" "1"

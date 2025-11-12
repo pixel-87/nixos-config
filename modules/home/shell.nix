@@ -68,6 +68,13 @@
       bindkey -e  # Emacs mode
       bindkey "^[[1;5C" forward-word  # Ctrl+Right
       bindkey "^[[1;5D" backward-word # Ctrl+Left
+      
+      # Show fastfetch on interactive shells
+      if [[ $- == *i* ]]; then
+        if command -v fastfetch >/dev/null 2>&1; then
+          fastfetch
+        fi
+      fi
     '';
   };
 
