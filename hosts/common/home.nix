@@ -11,7 +11,6 @@
     stateVersion = lib.mkDefault "25.05";
 
     packages = with pkgs; [
-      gimp3
     ];
   };
 

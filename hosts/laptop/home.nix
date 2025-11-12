@@ -36,6 +36,9 @@
       slurp
       swappy
       jq
+      gimp
+      figma-linux
+      libresprite
     ];
   };
 
@@ -95,6 +98,7 @@
       echo "Screenshot saved to: $FILENAME"
     '';
   };
+  
 
   programs = {
     fastfetch.enable = true;
@@ -217,6 +221,8 @@
       "x-scheme-handler/https" = "zen.desktop";
       "x-scheme-handler/about" = "zen.desktop";
       "x-scheme-handler/unknown" = "zen.desktop";
+      # Ensure the figma:// URI opens with the nix-provided figma package
+      "x-scheme-handler/figma" = "figma-linux.desktop";
     };
   };
 

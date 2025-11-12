@@ -69,10 +69,18 @@
       bindkey "^[[1;5C" forward-word  # Ctrl+Right
       bindkey "^[[1;5D" backward-word # Ctrl+Left
       
-      # Show fastfetch on interactive shells
+      # Show fastfetch on interactive shells (only once per login session)
       if [[ $- == *i* ]]; then
-        if command -v fastfetch >/dev/null 2>&1; then
-          fastfetch
+        marker="$XDG_RUNTIME_DIR/fastfetch_shown"
+        if [[ -z "$XDG_RUNTIME_DIR" ]]; then
+          marker="/tmp/fastfetch_shown"
+        fi
+        if [[ ! -f "$marker" ]]; then
+          if command -v fastfetch >/dev/null 2>&1; then
+            fastfetch
+            mkdir -p "$(dirname "$marker")" 2>/dev/null || true
+            : > "$marker"
+          fi
         fi
       fi
     '';
