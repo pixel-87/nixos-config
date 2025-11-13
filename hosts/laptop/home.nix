@@ -39,6 +39,7 @@
       gimp
       figma-linux
       libresprite
+      inkscape
     ];
   };
 
