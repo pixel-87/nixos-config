@@ -176,8 +176,7 @@ in
       )
       ++ [
         # Screenshot keybindings
-        "$mainMod, P, exec, screenshot area"
-        "$mainMod SHIFT, P, exec, screenshot screen"
+        "$mainMod SHIFT, P, exec, screenshot area"
         "$mainMod CTRL, P, exec, screenshot window"
         "$mainMod ALT, P, exec, screenshot edit"
 
