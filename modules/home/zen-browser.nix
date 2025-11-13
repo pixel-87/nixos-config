@@ -1,8 +1,6 @@
 { inputs, config, lib, pkgs, ... }:
 
 {
-  imports = [ inputs.zen-browser.homeModules.default ];
-
   programs.zen-browser = {
     enable = true;
     # Any other options under `programs.firefox` are also supported here
