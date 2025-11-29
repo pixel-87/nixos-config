@@ -59,10 +59,14 @@ in
         zrc = "nvim ~/.zshrc";
         nix-config = "nvim ${cfg.flakePath}";
 
-        # NixOS rebuild helpers
-        rebuild-laptop = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#laptop";
-        rebuild-lithium = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#lithium";
-        rebuild = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#$(hostname)";
+        # NixOS helpers: explicit switch aliases and build-only aliases
+        switch-laptop = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#laptop";
+        switch-lithium = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#lithium";
+        switch = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#$(hostname)";
+
+        build-laptop = "sudo nixos-rebuild build --flake ${cfg.flakePath}#laptop";
+        build-lithium = "sudo nixos-rebuild build --flake ${cfg.flakePath}#lithium";
+        build = "sudo nixos-rebuild build --flake ${cfg.flakePath}#$(hostname)";
       };
       
       initContent = ''
