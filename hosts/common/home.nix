@@ -15,8 +15,4 @@
   };
 
   programs.home-manager.enable = true;
-
-  home.sessionVariables = {
-    KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
-  };
 }
