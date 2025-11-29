@@ -9,6 +9,8 @@
     ../../modules/home/quickshell.nix
   ];
 
+  # Enable Hyprland module
+  myModules.hyprland.enable = true;
 
   home = {
     username = "pixel";

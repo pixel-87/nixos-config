@@ -1,4 +1,4 @@
-{pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,13 @@
     ../vim.nix
     ../wallpaper.nix
   ];
+
+  # Enable modules via their options
+  myModules = {
+    shell.enable = true;
+    git.enable = true;
+    vim.enable = true;
+  };
 
   home.packages = with pkgs; [
     vscode
