@@ -7,15 +7,11 @@
       #inputs.home-manager.nixosModules.default
       inputs.lanzaboote.nixosModules.lanzaboote
     ];
- 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
   hardware.graphics.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   # Bootloader.
   boot.lanzaboote.enable = true;
