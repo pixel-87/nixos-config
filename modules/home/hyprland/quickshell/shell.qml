@@ -6,6 +6,5 @@ import "root:/components"
 
 Scope {
   Bar {}
-  ApplicationLauncher {}
   // Desktop component removed - swww handles wallpaper display
 }
