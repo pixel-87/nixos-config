@@ -43,6 +43,10 @@
       # Quick edits
       zrc = "nvim ~/.zshrc";
       nix-config = "nvim ~/nixos-config";
+      # NixOS rebuild helpers
+      rebuild-laptop = "sudo nixos-rebuild switch --flake ~/nixos-config#laptop";
+      rebuild-lithium = "sudo nixos-rebuild switch --flake ~/nixos-config#lithium";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#$(hostname)";
     };
     
     initContent = ''
