@@ -3,10 +3,9 @@ name: Bump Flake Inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "3 0 * * *" # run daily at 00:03 UTC
+    - cron: "3 0 * * *"
 
-permissions: {}
-
+permissions: {} 
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
@@ -42,6 +41,7 @@ jobs:
     uses: ./.github/workflows/check.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
+    # Note: Ensure check.yml defines its own 'permissions: contents: read'
 
   check-lock:
     name: Check Lock
@@ -52,29 +52,41 @@ jobs:
 
   build-updated:
     name: Build Updated Config
-    needs: [update-lockfile, check, check-lock]  # Run after checks pass
+    needs: [update-lockfile, check, check-lock]
     runs-on: ubuntu-latest
+    # FIXED: Added 'contents: read' so checkout can actually fetch the code
+    permissions:
+      contents: read 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ needs.update-lockfile.outputs.branch }}  # Use the updated branch
+          ref: ${{ needs.update-lockfile.outputs.branch }}
           persist-credentials: false
       - name: Install Determinate Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-args: --determinate
       - name: Build NixOS Config
-        run: nix build .#nixosConfigurations.yourHost.config.system.build.toplevel --option allow-import-from-derivation false
+        # Added -L to see build logs in CI
+        run: nix build .#nixosConfigurations.yourHost.config.system.build.toplevel --option allow-import-from-derivation false -L
+      
+      # FIXED: Dereference the symlink so the artifact is actually usable
+      - name: Prepare Artifact
+        run: |
+          mkdir -p build-output
+          cp -rL result/* build-output/
+          
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: updated-nixos-config-build
-          path: result/
+          path: build-output/
           retention-days: 30
+
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check, check-lock, build-updated]  # Now depends on build too
+    needs: [update-lockfile, check, check-lock, build-updated]
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
