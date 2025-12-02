@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          persist-credentials: false
       - name: Install Determinate Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
@@ -29,6 +27,7 @@ jobs:
         id: pr
         uses: DeterminateSystems/update-flake-lock@main
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
           branch: update-flake-inputs
