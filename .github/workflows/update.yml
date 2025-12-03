@@ -67,15 +67,18 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-args: --determinate
-      - name: Build NixOS Config
+      - name: Build NixOS Configs
         # Added -L to see build logs in CI
-        run: nix build .#nixosConfigurations.yourHost.config.system.build.toplevel --option allow-import-from-derivation false -L
+        run: |
+          nix build .#nixosConfigurations.laptop.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-laptop
+          nix build .#nixosConfigurations.lithium.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-lithium
       
       # FIXED: Dereference the symlink so the artifact is actually usable
-      - name: Prepare Artifact
+      - name: Prepare Artifacts
         run: |
-          mkdir -p build-output
-          cp -rL result/* build-output/
+          mkdir -p build-output/laptop build-output/lithium
+          cp -rL result-laptop/* build-output/laptop/
+          cp -rL result-lithium/* build-output/lithium/
           
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
