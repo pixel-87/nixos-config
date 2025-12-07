@@ -115,10 +115,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5335
-              name: dns
+              name: unbound-udp
               protocol: UDP
             - containerPort: 5335
-              name: dns-tcp
+              name: unbound-tcp
               protocol: TCP
 
           volumeMounts:
