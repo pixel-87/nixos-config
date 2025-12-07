@@ -84,12 +84,12 @@ jobs:
           nix build .#nixosConfigurations.laptop.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-laptop
           nix build .#nixosConfigurations.lithium.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-lithium
       
-      # FIXED: Dereference the symlink so the artifact is actually usable
+      # Package results as tarballs to avoid copying special files (sockets/devices)
       - name: Prepare Artifacts
         run: |
-          mkdir -p build-output/laptop build-output/lithium
-          cp -rL result-laptop/* build-output/laptop/
-          cp -rL result-lithium/* build-output/lithium/
+          mkdir -p build-output
+          tar -C result-laptop -czf build-output/result-laptop.tar.gz .
+          tar -C result-lithium -czf build-output/result-lithium.tar.gz .
           
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
