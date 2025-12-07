@@ -1,0 +1,38 @@
+---
+# MetalLB - LoadBalancer implementation for bare metal Kubernetes
+# Provides external IPs for LoadBalancer-type services
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb-system
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: metallb
+  namespace: kube-system
+spec:
+  repo: https://metallb.github.io/metallb
+  chart: metallb
+  targetNamespace: metallb-system
+  version: 0.14.3
+---
+# IP Address Pool - Range of IPs MetalLB can assign
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.0.50-192.168.0.60  # Adjust to your network's available range
+---
+# L2Advertisement - Advertise IPs via ARP on your LAN
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: default-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - default-pool
