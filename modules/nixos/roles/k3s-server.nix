@@ -3,6 +3,7 @@
 
   imports = [
     ../services/k3s/cert-manager.nix
+    ../services/k3s/longhorn.nix
   ];
 
   services.k3s = {

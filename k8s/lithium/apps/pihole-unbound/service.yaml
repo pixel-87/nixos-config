@@ -1,0 +1,41 @@
+---
+# Service for DNS (LoadBalancer type - K3s will assign external IP via metallb/servicelb)
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-dns
+  namespace: pihole
+  annotations:
+    # K3s built-in ServiceLB will use this
+    metallb.universe.tf/allow-shared-ip: pihole-dns
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.53
+  externalTrafficPolicy: Local # Preserve client IP
+  selector:
+    app: pihole
+  ports:
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
+    - name: dns-udp
+      port: 53
+      targetPort: 53
+      protocol: UDP
+---
+# Service for Pi-hole Web UI
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-web
+  namespace: pihole
+spec:
+  type: ClusterIP
+  selector:
+    app: pihole
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP

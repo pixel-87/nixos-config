@@ -1,0 +1,95 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pihole
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unbound-config
+  namespace: pihole
+data:
+  unbound.conf: |
+    server:
+        # Logging
+        verbosity: 1
+        log-queries: no
+        
+        # Network
+        interface: 127.0.0.1
+        port: 5335
+        do-ip4: yes
+        do-ip6: yes
+        do-udp: yes
+        do-tcp: yes
+        
+        # Performance
+        num-threads: 2
+        msg-cache-slabs: 4
+        rrset-cache-slabs: 4
+        infra-cache-slabs: 4
+        key-cache-slabs: 4
+        rrset-cache-size: 128m
+        msg-cache-size: 64m
+        outgoing-range: 950
+        num-queries-per-thread: 512
+        so-rcvbuf: 4m
+        so-sndbuf: 4m
+        so-reuseport: yes
+        
+        # Privacy
+        hide-identity: yes
+        hide-version: yes
+        qname-minimisation: yes
+        aggressive-nsec: yes
+        use-caps-for-id: yes
+        
+        # Security
+        harden-glue: yes
+        harden-dnssec-stripped: yes
+        harden-below-nxdomain: yes
+        harden-referral-path: yes
+        harden-algo-downgrade: yes
+        unwanted-reply-threshold: 10000000
+        val-clean-additional: yes
+        
+        # Local zones
+        private-address: 10.0.0.0/8
+        private-address: 172.16.0.0/12
+        private-address: 192.168.0.0/16
+        private-address: 169.254.0.0/16
+        private-address: fd00::/8
+        private-address: fe80::/10
+        
+        # Root hints
+        root-hints: /etc/unbound/root.hints
+        
+        # Trust anchor for DNSSEC
+        auto-trust-anchor-file: /var/lib/unbound/root.key
+        
+        # Prefetch
+        prefetch: yes
+        prefetch-key: yes
+        
+        # Access control
+        access-control: 127.0.0.1/32 allow
+        access-control: 10.0.0.0/8 allow
+        access-control: 172.16.0.0/12 allow
+        access-control: 192.168.0.0/16 allow
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pihole-custom-dnsmasq
+  namespace: pihole
+data:
+  02-custom.conf: |
+    # Never forward plain names (without a dot or domain part)
+    domain-needed
+    # Never forward addresses in the non-routed address spaces
+    bogus-priv
+    # Don't read /etc/resolv.conf or any other file
+    no-resolv
+    # Use Unbound for upstream DNS
+    server=127.0.0.1#5335

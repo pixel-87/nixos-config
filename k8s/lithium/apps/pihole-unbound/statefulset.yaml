@@ -1,0 +1,176 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pihole
+  namespace: pihole
+spec:
+  serviceName: pihole
+  replicas: 1 # Increase to 2 when you add a second node
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      # Anti-affinity to spread across nodes (uncomment when multi-node)
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - pihole
+      #       topologyKey: kubernetes.io/hostname
+
+      containers:
+        # Pi-hole container
+        - name: pihole
+          image: pihole/pihole:2024.07.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: "America/New_York" # Change to your timezone
+            - name: WEBPASSWORD
+              value: "changeme123" # CHANGE THIS! Or use a Secret
+            - name: DNS1
+              value: "127.0.0.1#5335" # Unbound
+            - name: DNS2
+              value: "127.0.0.1#5335" # Unbound fallback
+            - name: DNSSEC
+              value: "true"
+            - name: DNSMASQ_LISTENING
+              value: "all"
+            - name: PIHOLE_DNS_
+              value: "127.0.0.1#5335"
+            - name: REV_SERVER
+              value: "false"
+            - name: TEMPERATUREUNIT
+              value: "c"
+            - name: WEBUIBOXEDLAYOUT
+              value: "boxed"
+            - name: QUERY_LOGGING
+              value: "true"
+            - name: WEBTHEME
+              value: "default-dark"
+
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+            - containerPort: 53
+              name: dns-tcp
+              protocol: TCP
+            - containerPort: 53
+              name: dns-udp
+              protocol: UDP
+
+          volumeMounts:
+            - name: pihole-data
+              mountPath: /etc/pihole
+              subPath: pihole
+            - name: pihole-data
+              mountPath: /etc/dnsmasq.d
+              subPath: dnsmasq
+            - name: custom-dnsmasq
+              mountPath: /etc/dnsmasq.d/02-custom.conf
+              subPath: 02-custom.conf
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+          livenessProbe:
+            httpGet:
+              path: /admin/
+              port: 80
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /admin/
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+        # Unbound container (sidecar)
+        - name: unbound
+          image: mvance/unbound:1.19.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5335
+              name: dns
+              protocol: UDP
+            - containerPort: 5335
+              name: dns-tcp
+              protocol: TCP
+
+          volumeMounts:
+            - name: unbound-config
+              mountPath: /opt/unbound/etc/unbound/unbound.conf
+              subPath: unbound.conf
+            - name: unbound-data
+              mountPath: /var/lib/unbound
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "unbound-control status"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - "unbound-control status"
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+      volumes:
+        - name: unbound-config
+          configMap:
+            name: unbound-config
+        - name: custom-dnsmasq
+          configMap:
+            name: pihole-custom-dnsmasq
+        - name: unbound-data
+          emptyDir: {} # Unbound doesn't need persistence
+
+  volumeClaimTemplates:
+    - metadata:
+        name: pihole-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn # Uses Longhorn for distributed storage
+        resources:
+          requests:
+            storage: 2Gi

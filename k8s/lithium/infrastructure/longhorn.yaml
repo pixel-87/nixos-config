@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: longhorn
+  namespace: kube-system
+spec:
+  repo: https://charts.longhorn.io
+  chart: longhorn
+  targetNamespace: longhorn-system
+  version: 1.7.1
+  valuesContent: |-
+    defaultSettings:
+      defaultReplicaCount: 1  # Change to 2+ when you add more nodes
+      defaultDataPath: /var/lib/longhorn
+      storageMinimalAvailablePercentage: 10
+      createDefaultDiskLabeledNodes: true
+      backupTarget: ""  # Configure S3/NFS backup target later
+      backupTargetCredentialSecret: ""
+    persistence:
+      defaultClass: true
+      defaultClassReplicaCount: 1  # Change to 2+ when you add more nodes
+      reclaimPolicy: Retain
+    ingress:
+      enabled: false  # Enable if you want Longhorn UI
+    service:
+      ui:
+        type: ClusterIP
