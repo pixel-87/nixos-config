@@ -25,7 +25,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 192.168.0.50-192.168.0.60  # Adjust to your network's available range
+    - 192.168.0.50-192.168.0.60 # Adjust to your network's available range
 ---
 # L2Advertisement - Advertise IPs via ARP on your LAN
 apiVersion: metallb.io/v1beta1
@@ -35,4 +35,4 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - default-pool
+    - default-pool

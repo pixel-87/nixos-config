@@ -36,7 +36,10 @@ spec:
             - name: TZ
               value: "America/New_York" # Change to your timezone
             - name: WEBPASSWORD
-              value: "changeme123" # CHANGE THIS! Or use a Secret
+              valueFrom:
+                secretKeyRef:
+                  name: pihole-password
+                  key: password
             - name: DNS1
               value: "127.0.0.1#5335" # Unbound
             - name: DNS2
