@@ -141,7 +141,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - "unbound-control status"
+                - "unbound-control -c /opt/unbound/etc/unbound/unbound.conf status"
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5

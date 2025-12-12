@@ -28,9 +28,10 @@
       10250
     ];
   };
-
   # Ensure /var/lib/longhorn exists with proper permissions
+  # Ensure /var/lib/longhorn exists and link iscsiadm to a standard path
   systemd.tmpfiles.rules = [
     "d /var/lib/longhorn 0750 root root -"
+    "L+ /usr/local/bin/iscsiadm - - - - ${pkgs.openiscsi}/bin/iscsiadm"
   ];
 }
