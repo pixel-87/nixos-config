@@ -30,7 +30,8 @@ in
         set number
         set relativenumber
         set cursorline
-        set nowrap
+        set wrap
+        set linebreak
     
         " Clipboard & mouse
         set clipboard=unnamedplus
