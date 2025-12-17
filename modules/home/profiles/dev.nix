@@ -5,6 +5,7 @@
     ../shell.nix
     ../git.nix
     ../vim.nix
+    ../neovim.nix
     ../wallpaper.nix
   ];
 
@@ -13,6 +14,7 @@
     shell.enable = true;
     git.enable = true;
     vim.enable = true;
+    neovim.enable = true;
   };
 
   home.packages = with pkgs; [
