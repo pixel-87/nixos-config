@@ -66,12 +66,12 @@ in
       withNodeJs = true;
 
       plugins = with pkgs.vimPlugins; [
-        -- UI / theme
+        # UI / theme
         tokyonight-nvim
         lualine-nvim
         nvim-web-devicons
 
-        -- Core + navigation
+        # Core + navigation
         plenary-nvim
         telescope-nvim
         telescope-fzf-native-nvim
@@ -79,16 +79,16 @@ in
         which-key-nvim
         oil-nvim
 
-        -- Editing ergonomics
+        # Editing ergonomics
         comment-nvim
         nvim-autopairs
         mini-nvim
         leap-nvim
 
-        -- Git
+        # Git
         gitsigns-nvim
 
-        -- Syntax / visuals
+        # Syntax / visuals
         indent-blankline-nvim
         todo-comments-nvim
         trouble-nvim
@@ -96,7 +96,7 @@ in
         nvim-notify
         nui-nvim
 
-        -- Completion & LSP glue
+        # Completion & LSP glue
         nvim-cmp
         cmp-nvim-lsp
         cmp-buffer
@@ -107,7 +107,7 @@ in
         friendly-snippets
         nvim-lspconfig
 
-        -- Treesitter with chosen parsers
+        # Treesitter with chosen parsers
         (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
 
