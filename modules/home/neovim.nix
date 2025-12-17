@@ -7,6 +7,7 @@ let
     "lua"
     "vim"
     "vimdoc"
+    "regex"
     "nix"
     "bash"
     "json"
@@ -42,7 +43,7 @@ let
 in
 {
   options.myModules.neovim = {
-    enable = lib.mkEnableOption "Neovim with curated plugins";
+    enable = lib.mkEnableOption "Neovim with curated plugins (via nixvim)";
 
     treesitterParsers = lib.mkOption {
       type = with lib.types; listOf str;
@@ -53,19 +54,68 @@ in
     lspPackages = lib.mkOption {
       type = with lib.types; listOf package;
       default = defaultLspPackages;
-      description = "Language servers to install via Nix (best practice: avoid Mason when packaging with Nix).";
+      description = "Language servers to install via Nix; passed to nixvim.extraPackages.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim = {
+    programs.nixvim = {
       enable = true;
-      viAlias = true;
-      vimAlias = true;
-      defaultEditor = true;
-      withNodeJs = true;
 
-      plugins = with pkgs.vimPlugins; [
+      extraPackages = cfg.lspPackages;
+
+      opts = {
+        number = true;
+        relativenumber = true;
+        cursorline = true;
+        signcolumn = "yes";
+        wrap = true;
+        linebreak = true;
+        termguicolors = true;
+        expandtab = true;
+        shiftwidth = 2;
+        softtabstop = 2;
+        tabstop = 2;
+        smartindent = true;
+        ignorecase = true;
+        smartcase = true;
+        incsearch = true;
+        scrolloff = 6;
+        sidescrolloff = 4;
+        clipboard = "unnamedplus";
+      };
+
+      globals.mapleader = " ";
+
+      plugins.lsp = {
+        enable = true;
+        servers = {
+          nixd.enable = true;
+          lua_ls = {
+            enable = true;
+            settings = {
+              Lua = {
+                diagnostics = { globals = [ "vim" ]; };
+                workspace = { checkThirdParty = false; };
+              };
+            };
+          };
+          ts_ls.enable = true;
+          bashls.enable = true;
+          jsonls.enable = true;
+          yamlls.enable = true;
+          marksman.enable = true;
+          pyright.enable = true;
+          gopls.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
+        };
+      };
+
+      extraPlugins = with pkgs.vimPlugins; [
         # UI / theme
         tokyonight-nvim
         lualine-nvim
@@ -103,7 +153,7 @@ in
         cmp-path
         cmp-cmdline
         cmp_luasnip
-        LuaSnip
+        luasnip
         friendly-snippets
         nvim-lspconfig
 
@@ -111,28 +161,7 @@ in
         (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
 
-      extraLuaConfig = ''
-        -- Basic options
-        vim.g.mapleader = " "
-        vim.opt.number = true
-        vim.opt.relativenumber = true
-        vim.opt.cursorline = true
-        vim.opt.signcolumn = "yes"
-        vim.opt.wrap = true
-        vim.opt.linebreak = true
-        vim.opt.termguicolors = true
-        vim.opt.expandtab = true
-        vim.opt.shiftwidth = 2
-        vim.opt.softtabstop = 2
-        vim.opt.tabstop = 2
-        vim.opt.smartindent = true
-        vim.opt.ignorecase = true
-        vim.opt.smartcase = true
-        vim.opt.incsearch = true
-        vim.opt.scrolloff = 6
-        vim.opt.sidescrolloff = 4
-        vim.opt.clipboard = "unnamedplus"
-
+      extraConfigLua = ''
         -- Theme
         require("tokyonight").setup({})
         vim.cmd.colorscheme("tokyonight")
@@ -204,6 +233,13 @@ in
             command_palette = true,
             lsp_doc_border = true,
           },
+          lsp = {
+            override = {
+              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+              ["vim.lsp.util.stylize_markdown"] = true,
+              ["cmp.entry.get_documentation"] = true,
+            },
+          },
         })
 
         -- Lualine
@@ -271,58 +307,27 @@ in
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-        -- LSP
-        local lspconfig = require("lspconfig")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        local on_attach = function(_, bufnr)
-          local map = function(mode, lhs, rhs, desc)
-            vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
-          end
-          map("n", "gd", vim.lsp.buf.definition, "LSP definition")
-          map("n", "gr", vim.lsp.buf.references, "LSP references")
-          map("n", "gi", vim.lsp.buf.implementation, "LSP implementation")
-          map("n", "K", vim.lsp.buf.hover, "LSP hover")
-          map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
-          map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
-          map("n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
-          map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-          map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-          map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
-        end
-
-        local servers = {
-          nixd = {},
-          lua_ls = {
-            settings = {
-              Lua = {
-                diagnostics = { globals = { "vim" } },
-                workspace = { checkThirdParty = false },
-              },
-            },
-          },
-          tsserver = {},
-          bashls = {},
-          jsonls = {},
-          yamlls = {},
-          marksman = {},
-          pyright = {},
-          gopls = {},
-          rust_analyzer = {},
-        }
-
-        for server, server_opts in pairs(servers) do
-          local opts = {
-            capabilities = capabilities,
-            on_attach = on_attach,
-          }
-          for k, v in pairs(server_opts) do
-            opts[k] = v
-          end
-          lspconfig[server].setup(opts)
-        end
+        -- LSP keymaps on attach (works with nixvim's lsp module)
+        local lsp_group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
+        vim.api.nvim_create_autocmd("LspAttach", {
+          group = lsp_group,
+          callback = function(ev)
+            local map = function(mode, lhs, rhs, desc)
+              vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
+            end
+            map("n", "gd", vim.lsp.buf.definition, "LSP definition")
+            map("n", "gr", vim.lsp.buf.references, "LSP references")
+            map("n", "gi", vim.lsp.buf.implementation, "LSP implementation")
+            map("n", "K", vim.lsp.buf.hover, "LSP hover")
+            map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
+            map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
+            map("n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
+            map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
+            map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+            map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
+          end,
+        })
       '';
     };
-
-    home.packages = cfg.lspPackages;
   };
 }

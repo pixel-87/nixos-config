@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
      url = "github:nix-community/home-manager";
      inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +35,7 @@
 
   
 
-  outputs = { nixpkgs, home-manager, firefox-addons, lanzaboote, hyprland, zen-browser, ... } @ inputs: 
+  outputs = { nixpkgs, nixvim, home-manager, firefox-addons, lanzaboote, hyprland, zen-browser, ... } @ inputs: 
 
     let
       mkNixosSystem =  hostPath: nixpkgs.lib.nixosSystem {

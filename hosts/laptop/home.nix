@@ -7,6 +7,7 @@
     ../../modules/home/font.nix
     ../../modules/home/firefox.nix
     ../../modules/home/quickshell.nix
+    inputs.nixvim.homeModules.nixvim
   ];
 
   # Enable Hyprland module
@@ -21,6 +22,11 @@
       sbctl
       git
       home-manager
+      cargo
+      rustc
+      nodejs
+      gcc
+      tree-sitter
       wl-clipboard
       playerctl
       nautilus
