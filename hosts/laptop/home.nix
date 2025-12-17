@@ -30,7 +30,7 @@
       tree-sitter
       wl-clipboard
       playerctl
-      proton-vpn-gui
+      protonvpn-gui
       nautilus
       brightnessctl
       wireplumber
