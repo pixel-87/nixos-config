@@ -6,7 +6,6 @@
     ../git.nix
     ../vim.nix
     ../neovim.nix
-    ../wallpaper.nix
   ];
 
   # Enable modules via their options
@@ -16,11 +15,6 @@
     vim.enable = true;
     neovim.enable = true;
   };
-
-  home.packages = with pkgs; [
-    vscode
-    libreoffice-qt6-fresh
-  ];
 
   programs.gh.enable = true;
 }

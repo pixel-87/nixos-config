@@ -2,11 +2,12 @@
 
 {
   imports = [
-    ../../modules/home/profiles/dev.nix
+    ../../modules/home/profiles/dev-gui.nix
     ../../modules/home/hyprland/hyprland.nix
     ../../modules/home/font.nix
     ../../modules/home/firefox.nix
     ../../modules/home/quickshell.nix
+    ../../modules/home/wallpaper.nix
     inputs.nixvim.homeModules.nixvim
   ];
 
