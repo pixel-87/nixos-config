@@ -115,6 +115,13 @@ in
         };
       };
 
+      plugins.markdown-preview = {
+        enable = true;
+        settings.auto_start = false;
+      };
+
+      plugins.render-markdown.enable = true;
+
       extraPlugins = with pkgs.vimPlugins; [
         # UI / theme
         tokyonight-nvim
@@ -203,6 +210,7 @@ in
         vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
         vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
         vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close buffer" })
+        vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
 
         -- Comment, surround, ai, motions
         require("Comment").setup()
