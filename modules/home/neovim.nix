@@ -117,7 +117,7 @@ in
 
       plugins.markdown-preview = {
         enable = true;
-        settings.auto_start = false;
+        settings.auto_start = 0;
       };
 
       plugins.render-markdown.enable = true;
@@ -152,6 +152,7 @@ in
         noice-nvim
         nvim-notify
         nui-nvim
+        precognition-nvim
 
         # Completion & LSP glue
         nvim-cmp
@@ -211,6 +212,7 @@ in
         vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
         vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close buffer" })
         vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
+        vim.keymap.set("n", "<leader>tp", function() require("precognition").toggle() end, { desc = "Toggle Precognition" })
 
         -- Comment, surround, ai, motions
         require("Comment").setup()
@@ -230,6 +232,11 @@ in
 
         -- Todo comments
         require("todo-comments").setup()
+
+        -- Precognition
+        require("precognition").setup({
+          startVisible = false,
+        })
 
         -- Trouble
         require("trouble").setup({})
