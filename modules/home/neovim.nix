@@ -15,6 +15,7 @@ let
     "toml"
     "markdown"
     "markdown_inline"
+    "mdx"
     "typescript"
     "javascript"
     "tsx"
@@ -170,6 +171,13 @@ in
       ];
 
       extraConfigLua = ''
+        -- Filetypes
+        vim.filetype.add({
+          extension = {
+            mdx = "mdx",
+          },
+        })
+
         -- Theme
         require("tokyonight").setup({})
         vim.cmd.colorscheme("tokyonight")
