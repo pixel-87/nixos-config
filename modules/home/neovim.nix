@@ -165,6 +165,9 @@ in
         friendly-snippets
         nvim-lspconfig
 
+        # Terminals
+        toggleterm-nvim
+
         # Treesitter with chosen parsers
         (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
@@ -274,6 +277,15 @@ in
           highlight = { enable = true },
           indent = { enable = true },
         })
+          -- ToggleTerm (terminal runner)
+          require("toggleterm").setup({
+            size = 20,
+            open_mapping = [[<c-\\>]],
+            shade_terminals = true,
+            shading_factor = 2,
+            direction = "horizontal",
+          })
+          vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 
         -- Completion (cmp)
         local cmp = require("cmp")
