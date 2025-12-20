@@ -15,7 +15,6 @@ let
     "toml"
     "markdown"
     "markdown_inline"
-    "mdx"
     "typescript"
     "javascript"
     "tsx"
@@ -171,10 +170,10 @@ in
       ];
 
       extraConfigLua = ''
-        -- Filetypes
+        -- Treat .mdx files as markdown (MDX is Markdown + JSX)
         vim.filetype.add({
           extension = {
-            mdx = "mdx",
+            mdx = "markdown",
           },
         })
 
