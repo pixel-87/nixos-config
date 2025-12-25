@@ -12,6 +12,12 @@ in
       default = "~/nixos-config";
       description = "Path to your NixOS flake for rebuild aliases";
     };
+
+    enableNh = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Install the NH helper CLI and expose NH_FLAKE defaults";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -162,6 +168,11 @@ in
       enableZshIntegration = true;
     };
 
+    home.sessionVariables = lib.mkIf cfg.enableNh {
+      NH_FLAKE = cfg.flakePath;
+      NH_OS_FLAKE = cfg.flakePath;
+    };
+
     home.packages = with pkgs; [
       eza           # Better ls
       bat           # Better cat
@@ -169,6 +180,6 @@ in
       ripgrep       # Better grep
       starship      # Shell prompt
       fzf           # Fuzzy finder
-    ];
+    ] ++ lib.optionals cfg.enableNh [ nh ];
   };
 }
