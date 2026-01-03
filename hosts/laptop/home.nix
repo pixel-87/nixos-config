@@ -38,7 +38,6 @@
       onedrive
       obsidian
       zotero
-      youtube-music
       inputs.zen-browser.packages.${pkgs.system}.default
       # Screenshot tools
       grim
