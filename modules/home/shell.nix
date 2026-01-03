@@ -180,6 +180,7 @@ in
       ripgrep       # Better grep
       starship      # Shell prompt
       fzf           # Fuzzy finder
+      opencode      # AI coding agent for the terminal
     ] ++ lib.optionals cfg.enableNh [ nh ];
   };
 }
