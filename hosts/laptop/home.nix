@@ -36,7 +36,6 @@
       wireplumber
       openssh
       onedrive
-      qmk
       obsidian
       zotero
       youtube-music
@@ -47,7 +46,7 @@
       swappy
       jq
       gimp
-      figma-linux
+      figma-linux      
       libresprite
       inkscape
     ];
