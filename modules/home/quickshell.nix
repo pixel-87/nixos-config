@@ -27,7 +27,9 @@
   xdg.configFile."quickshell" = {
     source = ./hyprland/quickshell;
     recursive = true;
-    onChange = "systemctl --user restart quickshell || true";
+    onChange = ''
+      ${pkgs.systemd}/bin/systemctl --user restart quickshell.service
+    '';
   };
 
   home.sessionVariables = {

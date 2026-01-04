@@ -43,7 +43,7 @@ Variants {
         anchors.left: parent.left
         anchors.leftMargin: 15
         anchors.verticalCenter: parent.verticalCenter
-        spacing: 20
+        spacing: 40
         
         // NixOS Icon
         Text {
@@ -96,6 +96,7 @@ Variants {
         // Stats widgets
         Cpu {}
         Memory {}
+        Storage {}
         Battery {}
         Network {}
         
