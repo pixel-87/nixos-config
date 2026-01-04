@@ -15,7 +15,7 @@ Item {
 
   Process {
     id: memoryProcess
-    command: ["sh", "-c", "free -m | awk 'NR==2{printf \"%.1f/%.1fG\", $3/1024, $2/1024}'"]
+    command: ["sh", "-c", "free -m | awk 'NR==2{printf \"%.1f/%.1fGiB\", $3/1024, $2/1024}'"]
     stdout: StdioCollector {
       onStreamFinished: memRoot.used = text
     }
