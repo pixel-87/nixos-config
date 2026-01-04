@@ -26,52 +26,80 @@ Variants {
       top: 8
     }
 
+    // --- LEFT BAR ---
     Rectangle {
-      anchors.fill: parent
+      anchors.left: parent.left
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      width: leftRow.implicitWidth + 45
       color: Settings.colors.background
       opacity: 0.9
       radius: 10
       border.width: 1
       border.color: Qt.rgba(1, 1, 1, 0.1)
 
-      // Centered clock (absolute positioning)
+      RowLayout {
+        id: leftRow
+        anchors.centerIn: parent
+        spacing: 20
+        
+        // NixOS Icon
+        Text {
+          text: ""
+          color: Settings.colors.foreground
+          font.pointSize: 14
+          Layout.alignment: Qt.AlignCenter
+          Layout.rightMargin: 5
+        }
+
+        Workspaces {}
+        MediaPlayer {}
+      }
+    }
+
+    // --- CENTER BAR ---
+    Rectangle {
+      anchors.centerIn: parent
+      height: parent.height
+      width: clockComp.implicitWidth + 40
+      color: Settings.colors.background
+      opacity: 0.9
+      radius: 10
+      border.width: 1
+      border.color: Qt.rgba(1, 1, 1, 0.1)
+
       Clock {
+        id: clockComp
         anchors.centerIn: parent
       }
+    }
+
+    // --- RIGHT BAR ---
+    Rectangle {
+      anchors.right: parent.right
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      width: rightRow.implicitWidth + 30
+      color: Settings.colors.background
+      opacity: 0.9
+      radius: 10
+      border.width: 1
+      border.color: Qt.rgba(1, 1, 1, 0.1)
 
       RowLayout {
-        anchors.fill: parent
-        anchors.leftMargin: 15
-        anchors.rightMargin: 15
-        spacing: 20
-
-        // --- LEFT SIDE ---
-        RowLayout {
-          spacing: 30
-          Layout.alignment: Qt.AlignLeft
-          
-          Workspaces {}
-          MediaPlayer {}
-        }
-
-        // Spacer to push right side
-        Item { Layout.fillWidth: true }
-
-        // --- RIGHT SIDE ---
-        RowLayout {
-          spacing: 15
-          Layout.alignment: Qt.AlignRight
-          
-          // Stats widgets
-          Cpu {}
-          Memory {}
-          Battery {}
-          Network {}
-          
-          // System Icons
-          Volume {}
-          Noti {}
-        }
+        id: rightRow
+        anchors.centerIn: parent
+        spacing: 15
+        
+        // Stats widgets
+        Cpu {}
+        Memory {}
+        Battery {}
+        Network {}
+        
+        // System Icons
+        Volume {}
+        Noti {}
       }
     }
   }
