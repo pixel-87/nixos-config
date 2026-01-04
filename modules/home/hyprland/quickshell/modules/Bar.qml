@@ -45,16 +45,22 @@ Variants {
         anchors.verticalCenter: parent.verticalCenter
         spacing: 40
         
-        // NixOS Icon
-        Text {
-          text: ""
-          color: Settings.colors.foreground
-          font.pointSize: 14
+        // Icon + Workspaces grouped together
+        RowLayout {
+          spacing: 8
           Layout.alignment: Qt.AlignCenter
-          Layout.rightMargin: 5
+          
+          // NixOS Icon
+          Text {
+            text: "󱄅"
+            color: Settings.colors.foreground
+            font.pointSize: 14
+            Layout.alignment: Qt.AlignCenter
+          }
+
+          Workspaces {}
         }
 
-        Workspaces {}
         MediaPlayer {}
       }
     }

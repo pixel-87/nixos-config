@@ -104,9 +104,6 @@ Item {
         }
         
         var displayText = title
-        if (artist && artist !== "") {
-          displayText = title + " - " + artist
-        }
         
         var maxLength = 40
         return displayText.length > maxLength ? displayText.substring(0, maxLength) + "..." : displayText
