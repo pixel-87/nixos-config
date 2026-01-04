@@ -7,5 +7,5 @@ Text {
     font.pointSize: 13
     color: Settings.colors.foreground
     Layout.alignment: Qt.AlignCenter
-    text: Time.time
+    text: Time.date + "  " + Time.time
 }
