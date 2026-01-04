@@ -14,20 +14,21 @@ Item {
   Layout.preferredHeight: netText.implicitHeight
   
   property string strengthSymbol: {
-    if (!Networking.active) return "✕";
+    if (!Networking.active) return "󰤮";
     var strength = Networking.active.strength;
-    if (strength >= 75) return "▂▄▆█";
-    if (strength >= 50) return "▂▄▆";
-    if (strength >= 25) return "▂▄";
-    return "▂";
+    if (strength >= 80) return "󰤨";
+    if (strength >= 60) return "󰤥";
+    if (strength >= 40) return "󰤢";
+    if (strength >= 20) return "󰤟";
+    return "󰤯";
   }
 
   Text {
     id: netText
     text: networkRoot.strengthSymbol
     color: Settings.colors.foreground
-    font.pointSize: 10
-    font.family: "monospace"
+    font.pointSize: 14
+    Layout.alignment: Qt.AlignCenter
   }
 
   Process {
