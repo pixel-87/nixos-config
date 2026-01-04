@@ -40,7 +40,9 @@ Variants {
 
       RowLayout {
         id: leftRow
-        anchors.centerIn: parent
+        anchors.left: parent.left
+        anchors.leftMargin: 15
+        anchors.verticalCenter: parent.verticalCenter
         spacing: 20
         
         // NixOS Icon
