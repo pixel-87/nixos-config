@@ -60,6 +60,8 @@ Item {
       color: Settings.colors.foreground
       font.pointSize: 10
       font.family: "monospace"
+      Layout.preferredWidth: 20
+      horizontalAlignment: Text.AlignRight
     }
 
     // CPU Graph
