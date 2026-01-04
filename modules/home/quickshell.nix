@@ -27,6 +27,7 @@
   xdg.configFile."quickshell" = {
     source = ./hyprland/quickshell;
     recursive = true;
+    onChange = "systemctl --user restart quickshell || true";
   };
 
   home.sessionVariables = {
@@ -40,8 +41,8 @@
   # 2. This tells the quickshell service to wait
   #    for the graphical session to be ready.
   systemd.user.services.quickshell = {
-    Install.WantedBy = [ "graphical-session.target" ];
-    Unit.After = [ "graphical-session.target" ];
-    Unit.Requires = [ "graphical-session.target" ];
+    Install.WantedBy = [ "hyprland-session.target" "graphical-session.target" ];
+    Unit.After = [ "hyprland-session.target" "graphical-session.target" ];
+    Unit.PartOf = [ "hyprland-session.target" "graphical-session.target" ];
   };
 }
