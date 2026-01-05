@@ -15,7 +15,7 @@ in
 
     userEmail = lib.mkOption {
       type = lib.types.str;
-      default = "edwardoliverthomas@gmail.com";
+      default = "";
       description = "Git user email for commits";
     };
 
@@ -41,8 +41,10 @@ in
         color.ui = true;
         status.branch = true;
         push.default = "current";
-        diff.compactionHeuristic = true;
-        diff.colorMoved = "zebra";
+        diff = {
+          compactionHeuristic = true;
+          colorMoved = "zebra";
+        };
       };
     };
   };
