@@ -115,12 +115,23 @@ in
         };
       };
 
+      plugins.treesitter = {
+        enable = true;
+        settings.highlight.enable = true;
+        settings.indent.enable = true;
+      };
+
       plugins.markdown-preview = {
         enable = true;
         settings.auto_start = 0;
       };
 
-      plugins.render-markdown.enable = true;
+      plugins.render-markdown = {
+        enable = true;
+        settings = {
+          latex.enabled = false;
+        };
+      };
 
       extraPlugins = with pkgs.vimPlugins; [
         # UI / theme
@@ -163,13 +174,9 @@ in
         cmp_luasnip
         luasnip
         friendly-snippets
-        nvim-lspconfig
 
         # Terminals
         toggleterm-nvim
-
-        # Treesitter with chosen parsers
-        (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
 
       extraConfigLua = ''
@@ -228,7 +235,7 @@ in
         require("Comment").setup()
         require("mini.surround").setup()
         require("mini.ai").setup()
-        require("leap").create_default_mappings()
+        require("leap").setup({})
 
         -- Autopairs
         local autopairs = require("nvim-autopairs")
@@ -272,12 +279,12 @@ in
           options = { theme = "tokyonight" },
         })
 
-        -- Treesitter
-        require("nvim-treesitter.configs").setup({
-          highlight = { enable = true },
-          indent = { enable = true },
+        -- Render Markdown
+        require("render-markdown").setup({
+          latex = { enabled = false },
         })
-          -- ToggleTerm (terminal runner)
+
+        -- ToggleTerm (terminal runner)
           require("toggleterm").setup({
             size = 20,
             open_mapping = [[<c-\\>]],
