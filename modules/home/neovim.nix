@@ -115,12 +115,6 @@ in
         };
       };
 
-      plugins.treesitter = {
-        enable = true;
-        settings.highlight.enable = true;
-        settings.indent.enable = true;
-      };
-
       plugins.markdown-preview = {
         enable = true;
         settings.auto_start = 0;
@@ -174,9 +168,13 @@ in
         cmp_luasnip
         luasnip
         friendly-snippets
+        nvim-lspconfig
 
         # Terminals
         toggleterm-nvim
+
+        # Treesitter with chosen parsers
+        (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
 
       extraConfigLua = ''
@@ -277,6 +275,13 @@ in
         -- Lualine
         require("lualine").setup({
           options = { theme = "tokyonight" },
+        })
+
+        -- Manually start treesitter for all buffers (workaround for recent nvim-treesitter issues)
+        vim.api.nvim_create_autocmd({"FileType", "BufRead"}, {
+          callback = function()
+            pcall(vim.treesitter.start)
+          end,
         })
 
         -- Render Markdown
