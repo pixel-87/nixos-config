@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../modules/home
     ../../modules/home/profiles/dev-gui.nix
     ../../modules/home/hyprland/hyprland.nix
     ../../modules/home/font.nix
@@ -14,6 +15,9 @@
   # Enable Hyprland module
   myModules.hyprland.enable = true;
 
+  # Configure git
+  myModules.git.userEmail = "edwardoliverthomas@gmail.com";
+
   home = {
     username = "pixel";
     homeDirectory = "/home/pixel";
@@ -23,11 +27,6 @@
       sbctl
       git
       home-manager
-      cargo
-      rustc
-      nodejs
-      gcc
-      tree-sitter
       wl-clipboard
       playerctl
       protonvpn-gui
