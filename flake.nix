@@ -35,7 +35,7 @@
 
   
 
-  outputs = { nixpkgs, nixvim, home-manager, firefox-addons, lanzaboote, hyprland, zen-browser, ... } @ inputs: 
+  outputs = { nixpkgs, ... } @ inputs: 
 
     let
       mkNixosSystem =  hostPath: nixpkgs.lib.nixosSystem {
