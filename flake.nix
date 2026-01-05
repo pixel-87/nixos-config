@@ -2,11 +2,16 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
 
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     home-manager = {
@@ -33,38 +38,65 @@
     };
   };
 
-  
+  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
+  flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ "x86_64-linux" ];
 
-  outputs = { nixpkgs, ... } @ inputs: 
-
-    let
-      mkNixosSystem =  hostPath: nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          hostPath
-          ./hosts/common
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
-	      backupFileExtension = "backup";
-              users.pixel = {
-                imports = [ 
-                  ./hosts/common/home.nix
-                  (hostPath + /home.nix)
-                ]; 
-              };
-            };
-          }
-        ];
-      };
-    in
-    {
+    # 'flake' contains your system configurations (nixosConfigurations)
+    flake = {
       nixosConfigurations = {
-        laptop = mkNixosSystem ./hosts/laptop;
-        lithium = mkNixosSystem ./hosts/lithium;
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; }; 
+          modules = [
+            ./hosts/laptop
+            ./hosts/common
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+                backupFileExtension = "backup";
+                users.pixel.imports = [ 
+                  ./hosts/common/home.nix
+                  ./hosts/laptop/home.nix
+                ];
+              };
+            }
+          ];
+        };
+
+        lithium = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; }; 
+          modules = [
+            ./hosts/lithium
+            ./hosts/common
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+                backupFileExtension = "backup";
+                users.pixel.imports = [ 
+                  ./hosts/common/home.nix
+                  ./hosts/lithium/home.nix
+                ];
+              };
+            }
+          ];
+        };
       };
     };
+
+    # 'perSystem' handles things that vary by architecture (devshells, formatters)
+    perSystem = { config, pkgs, system, ... }: {
+      # This effectively replaces shell.nix
+      devShells.default = pkgs.mkShell {
+        packages = [ pkgs.git pkgs.neovim ];
+      };
+    };
+  };
 }
