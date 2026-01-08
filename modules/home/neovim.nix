@@ -185,6 +185,15 @@ in
           },
         })
 
+        -- Autosave on buffer change and focus loss
+        vim.api.nvim_create_autocmd({"BufLeave", "FocusLost"}, {
+          callback = function()
+            if vim.bo.modified then
+              vim.cmd.write()
+            end
+          end,
+        })
+
         -- Theme
         require("tokyonight").setup({})
         vim.cmd.colorscheme("tokyonight")
