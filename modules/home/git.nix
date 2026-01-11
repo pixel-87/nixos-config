@@ -24,6 +24,12 @@ in
       default = "main";
       description = "Default branch name for new repositories";
     };
+
+    coreEditor = lib.mkOption {
+      type = lib.types.str;
+      default = "nvim --wait";
+      description = "Editor command for Git commit messages (core.editor)";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -37,6 +43,9 @@ in
         };
 
         init.defaultBranch = cfg.defaultBranch;
+        core = {
+          editor = cfg.coreEditor;
+        };
         pull.rebase = true;
         color.ui = true;
         status.branch = true;
