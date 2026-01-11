@@ -1,11 +1,23 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
 
     gc = {
@@ -29,7 +41,6 @@
     wget
     curl
   ];
-
 
   system.stateVersion = lib.mkDefault "25.05";
 }

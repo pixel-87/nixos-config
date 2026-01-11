@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -44,7 +50,7 @@
       swappy
       jq
       gimp
-      figma-linux      
+      figma-linux
       libresprite
       inkscape
     ];
@@ -106,13 +112,12 @@
       echo "Screenshot saved to: $FILENAME"
     '';
   };
-  
 
   programs = {
     fastfetch.enable = true;
     firefox.enable = true;
-    kitty= {
-      enable = true; 
+    kitty = {
+      enable = true;
       enableGitIntegration = true;
       font.name = "Maple Mono NF";
       extraConfig = ''
@@ -122,7 +127,6 @@
       '';
     };
 
-
     wofi = {
       enable = true;
       settings = {
@@ -131,16 +135,16 @@
         height = 400;
         orientation = "vertical";
         sort_order = "default";
-        
+
         # Search
         insensitive = true;
         matching = "fuzzy";
-        
+
         # Behavior
         show = "drun";
         hide_scroll = true;
         key_exit = "Escape";
-        
+
         # Styling
         style = builtins.readFile ../../modules/home/styles/wofi.css;
       };
@@ -156,10 +160,9 @@
     playerctld.enable = true;
   };
 
-
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ 
+    extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
     ];

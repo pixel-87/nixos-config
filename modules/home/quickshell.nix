@@ -11,7 +11,7 @@
         quickshell
         kdePackages.qtimageformats
         kdePackages.ksystemstats
-        qt6.qtsvg     # Add this for SVG icon support
+        qt6.qtsvg # Add this for SVG icon support
         qt6.qt5compat # Add Qt5Compat for QtGraphicalEffects
         kdePackages.breeze-icons
         cosmic-icons
@@ -43,8 +43,17 @@
   # 2. This tells the quickshell service to wait
   #    for the graphical session to be ready.
   systemd.user.services.quickshell = {
-    Install.WantedBy = [ "hyprland-session.target" "graphical-session.target" ];
-    Unit.After = [ "hyprland-session.target" "graphical-session.target" ];
-    Unit.PartOf = [ "hyprland-session.target" "graphical-session.target" ];
+    Install.WantedBy = [
+      "hyprland-session.target"
+      "graphical-session.target"
+    ];
+    Unit.After = [
+      "hyprland-session.target"
+      "graphical-session.target"
+    ];
+    Unit.PartOf = [
+      "hyprland-session.target"
+      "graphical-session.target"
+    ];
   };
 }

@@ -16,8 +16,8 @@
     };
 
     home-manager = {
-     url = "github:nix-community/home-manager";
-     inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -39,67 +39,83 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
-  flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "x86_64-linux" ];
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-    # 'flake' contains your system configurations (nixosConfigurations)
-    flake = {
-      nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; }; 
-          modules = [
-            ./hosts/laptop
-            ./hosts/common
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                backupFileExtension = "backup";
-                users.pixel.imports = [ 
-                  ./hosts/common/home.nix
-                  ./hosts/laptop/home.nix
-                ];
-              };
-            }
-          ];
-        };
+      # 'flake' contains your system configurations (nixosConfigurations)
+      flake = {
+        nixosConfigurations = {
+          laptop = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+              ./hosts/laptop
+              ./hosts/common
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = { inherit inputs; };
+                  backupFileExtension = "backup";
+                  users.pixel.imports = [
+                    ./hosts/common/home.nix
+                    ./hosts/laptop/home.nix
+                  ];
+                };
+              }
+            ];
+          };
 
-        lithium = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; }; 
-          modules = [
-            ./hosts/lithium
-            ./hosts/common
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                backupFileExtension = "backup";
-                users.pixel.imports = [ 
-                  ./hosts/common/home.nix
-                  ./hosts/lithium/home.nix
-                ];
-              };
-            }
-          ];
+          lithium = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+              ./hosts/lithium
+              ./hosts/common
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = { inherit inputs; };
+                  backupFileExtension = "backup";
+                  users.pixel.imports = [
+                    ./hosts/common/home.nix
+                    ./hosts/lithium/home.nix
+                  ];
+                };
+              }
+            ];
+          };
         };
       };
-    };
 
-    # 'perSystem' handles things that vary by architecture (devshells, formatters)
-    perSystem = { config, pkgs, system, ... }: {
-      # This effectively replaces shell.nix
-      devShells.default = pkgs.mkShell {
-        packages = [ pkgs.git pkgs.neovim ];
-      };
+      # 'perSystem' handles things that vary by architecture (devshells, formatters)
+      perSystem =
+        {
+          config,
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          # This effectively replaces shell.nix
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.git
+              pkgs.neovim
+            ];
+          };
 
-      formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt-tree;
+        };
     };
-  };
 }

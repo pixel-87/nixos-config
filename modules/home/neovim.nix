@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myModules.neovim;
@@ -95,8 +100,12 @@ in
             enable = true;
             settings = {
               Lua = {
-                diagnostics = { globals = [ "vim" ]; };
-                workspace = { checkThirdParty = false; };
+                diagnostics = {
+                  globals = [ "vim" ];
+                };
+                workspace = {
+                  checkThirdParty = false;
+                };
               };
             };
           };

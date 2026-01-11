@@ -1,12 +1,18 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      #inputs.home-manager.nixosModules.default
-      inputs.lanzaboote.nixosModules.lanzaboote
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #inputs.home-manager.nixosModules.default
+    inputs.lanzaboote.nixosModules.lanzaboote
+  ];
 
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
@@ -21,8 +27,8 @@
   boot.lanzaboote.configurationLimit = 3;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true; 
-  
+  # networking.wireless.enable = true;
+
   swapDevices = [
     {
       device = "/swapfile";
@@ -51,7 +57,7 @@
   };
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/London";
@@ -82,15 +88,18 @@
   users.users.pixel = {
     isNormalUser = true;
     description = "pixel";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
 
   environment.systemPackages = with pkgs; [
     openssh
   ];
-  
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -98,7 +107,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

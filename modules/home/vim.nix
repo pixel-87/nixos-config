@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myModules.vim;
@@ -17,7 +22,7 @@ in
         set nocompatible
         filetype plugin indent on
         syntax on
-      
+
         " identation
         set expandtab
         set shiftwidth=2
@@ -32,15 +37,15 @@ in
         set cursorline
         set wrap
         set linebreak
-    
+
         " Clipboard & mouse
         set clipboard=unnamedplus
         set mouse=a
-    
+
         " splitting
         set splitbelow
         set splitright
-    
+
         " performance / searching
         set lazyredraw
         set incsearch

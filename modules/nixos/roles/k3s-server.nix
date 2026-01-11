@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, ... }:
 {
 
   imports = [
@@ -16,7 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    kubernetes-helm 
+    kubernetes-helm
     fluxcd
   ];
 

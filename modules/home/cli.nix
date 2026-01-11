@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myModules.cli;
@@ -59,12 +64,12 @@ in
     # --- Packages ---
 
     home.packages = with pkgs; [
-      comma       # Run any binary: , cowsay hello
-      nix-tree    # Browse dependencies of Nix derivations
-      nvd         # Diff two Nix generations
-      dust        # Graphical disk usage (du alternative)
-      procs       # Modern process viewer (ps alternative)
-      tldr        # Simplified man pages
+      comma # Run any binary: , cowsay hello
+      nix-tree # Browse dependencies of Nix derivations
+      nvd # Diff two Nix generations
+      dust # Graphical disk usage (du alternative)
+      procs # Modern process viewer (ps alternative)
+      tldr # Simplified man pages
     ];
 
     # --- Aliases ---

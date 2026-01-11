@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myModules.hyprland;
@@ -41,14 +46,14 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
-      
+
       settings = {
         exec-once = [
           "wallpaper-init"
           "nm-applet --indicator"
           cfg.terminal
         ];
-        monitor = [",preferred,auto,1" ];
+        monitor = [ ",preferred,auto,1" ];
 
         input = {
           kb_layout = cfg.keyboardLayout;
@@ -73,7 +78,7 @@ in
             kb_layout = "us";
           }
         ];
-             
+
         general = {
           gaps_in = cfg.gapsIn;
           gaps_out = cfg.gapsOut;
@@ -84,7 +89,7 @@ in
 
         decoration = {
           rounding = 10;
-          
+
           blur = {
             enabled = true;
             size = 8;
@@ -97,14 +102,14 @@ in
 
         animations = {
           enabled = true;
-          
+
           bezier = [
             "wind, 0.05, 0.9, 0.1, 1.05"
             "winIn, 0.1, 1.1, 0.1, 1.1"
             "winOut, 0.3, -0.3, 0, 1"
             "liner, 1, 1, 1, 1"
           ];
-          
+
           animation = [
             "windows, 1, 6, wind, slide"
             "windowsIn, 1, 6, winIn, slide"
@@ -123,7 +128,7 @@ in
         };
 
         "$mainMod" = "SUPER";
-     
+
         bind = [
           "$mainMod, F1, exec, show-keybinds"
           "$mainMod, space, exec, toggle-float"
@@ -155,7 +160,7 @@ in
           "$mainMod, j, alterzorder, top"
           "$mainMod, k, alterzorder, top"
           "$mainMod, l, alterzorder, top"
-    
+
           "CTRL ALT, up, exec, hyprct dispatch focuswindow floating"
           "CTRL ALT, down, exec, hyprct dispatch focuswindow tiled"
 
@@ -186,17 +191,19 @@ in
           ",XF86AudioPlay, exec, playerctl play-pause"
           ",XF86AudioPrev, exec, playerctl previous"
         ]
-        ++ (
-          builtins.concatLists (builtins.genList (i:
+        ++ (builtins.concatLists (
+          builtins.genList (
+            i:
             let
               ws = toString (i + 1);
               keycode = "code:1${toString i}";
-            in [
+            in
+            [
               "$mainMod, ${keycode}, workspace, ${ws}"
               "$mainMod SHIFT, ${keycode}, movetoworkspacesilent, ${ws}"
-            ])
-            9)
-        )
+            ]
+          ) 9
+        ))
         ++ [
           "$mainMod SHIFT, P, exec, screenshot area"
           "$mainMod CTRL, P, exec, screenshot window"
@@ -206,7 +213,7 @@ in
           "$mainMod CTRL, right, exec, wallpaper-switcher next"
           "$mainMod CTRL, left, exec, wallpaper-switcher prev"
         ];
-        
+
         bindm = [
           "$mainMod, mouse:272, movewindow"
           "$mainMod, mouse:273, resizewindow"
