@@ -98,6 +98,8 @@
       devShells.default = pkgs.mkShell {
         packages = [ pkgs.git pkgs.neovim ];
       };
+
+      formatter = pkgs.nixfmt-rfc-style;
     };
   };
 }
