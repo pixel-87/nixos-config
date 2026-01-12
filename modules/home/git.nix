@@ -32,7 +32,7 @@ in
 
     coreEditor = lib.mkOption {
       type = lib.types.str;
-      default = "nvim --wait";
+      default = "nvim";
       description = "Editor command for Git commit messages (core.editor)";
     };
   };
