@@ -144,10 +144,10 @@
         show = "drun";
         hide_scroll = true;
         key_exit = "Escape";
-
-        # Styling
-        style = builtins.readFile ../../modules/home/styles/wofi.css;
       };
+
+      # Styling
+      style = builtins.readFile ../../modules/home/styles/wofi.css;
     };
     btop.enable = true;
     #Thunar.enable = true;
