@@ -31,7 +31,7 @@ Variants {
       anchors.left: parent.left
       anchors.top: parent.top
       anchors.bottom: parent.bottom
-      width: leftRow.implicitWidth + 45
+      width: leftRow.implicitWidth + 55
       color: Settings.colors.background
       opacity: 0.9
       radius: 10
