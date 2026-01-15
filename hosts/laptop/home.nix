@@ -57,7 +57,7 @@
   };
 
   home.sessionVariables = {
-    SHELL = "${pkgs.zsh}/bin/zsh";
+    SHELL = "${pkgs.fish}/bin/fish";
     PATH = "$HOME/.local/bin:$PATH";
   };
 

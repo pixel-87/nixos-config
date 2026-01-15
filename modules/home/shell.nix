@@ -7,6 +7,50 @@
 
 let
   cfg = config.myModules.shell;
+
+  commonAliases = {
+    # Safety
+    rm = "rm -i";
+    mv = "mv -i";
+    cp = "cp -i";
+
+    # Navigation
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    "...." = "cd ../../..";
+
+    # Listing
+    l = "eza -lh";
+    la = "eza -lah";
+    ll = "eza -lh";
+    lla = "eza -lah";
+    ls = "eza";
+
+    # Utilities
+    cat = "bat";
+    find = "fd";
+    grep = "rg";
+
+    # Git
+    gs = "git status";
+    ga = "git add";
+    gc = "git commit";
+    gp = "git push";
+    gl = "git log --oneline -10";
+
+    # System
+    cpu = "top -o %CPU";
+    mem = "top -o %MEM";
+
+    # Quick edits
+    nix-config = "nvim ${cfg.flakePath}";
+
+    # NixOS helpers
+    switch-laptop = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#laptop";
+    switch-lithium = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#lithium";
+    build-laptop = "sudo nixos-rebuild build --flake ${cfg.flakePath}#laptop";
+    build-lithium = "sudo nixos-rebuild build --flake ${cfg.flakePath}#lithium";
+  };
 in
 {
   options.myModules.shell = {
@@ -32,51 +76,12 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      shellAliases = {
-        # Safety
-        rm = "rm -i";
-        mv = "mv -i";
-        cp = "cp -i";
-
-        # Navigation
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-
-        # Listing
-        l = "eza -lh";
-        la = "eza -lah";
-        ll = "eza -lh";
-        lla = "eza -lah";
-        ls = "eza";
-
-        # Utilities
-        cat = "bat";
-        find = "fd";
-        grep = "rg";
-
-        # Git
-        gs = "git status";
-        ga = "git add";
-        gc = "git commit";
-        gp = "git push";
-        gl = "git log --oneline -10";
-
-        # System
-        cpu = "top -o %CPU";
-        mem = "top -o %MEM";
-
+      shellAliases = commonAliases // {
         # Quick edits
         zrc = "nvim ~/.zshrc";
-        nix-config = "nvim ${cfg.flakePath}";
 
-        # NixOS helpers: explicit switch aliases and build-only aliases
-        switch-laptop = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#laptop";
-        switch-lithium = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#lithium";
+        # NixOS helpers
         switch = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#$(hostname)";
-
-        build-laptop = "sudo nixos-rebuild build --flake ${cfg.flakePath}#laptop";
-        build-lithium = "sudo nixos-rebuild build --flake ${cfg.flakePath}#lithium";
         build = "sudo nixos-rebuild build --flake ${cfg.flakePath}#$(hostname)";
       };
 
@@ -118,6 +123,33 @@ in
             fi
           fi
         fi
+      '';
+    };
+
+    programs.fish = {
+      enable = true;
+      shellAliases = commonAliases // {
+        switch-os = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#(hostname)";
+        build = "sudo nixos-rebuild build --flake ${cfg.flakePath}#(hostname)";
+      };
+
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+
+        # Fastfetch
+        if status is-interactive
+          set marker "$XDG_RUNTIME_DIR/fastfetch_shown"
+          if test -z "$XDG_RUNTIME_DIR"
+            set marker "/tmp/fastfetch_shown"
+          end
+          if not test -f "$marker"
+            if type -q fastfetch
+              fastfetch
+              mkdir -p (dirname "$marker")
+              touch "$marker"
+            end
+          end
+        end
       '';
     };
 
