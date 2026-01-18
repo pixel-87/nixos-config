@@ -4,6 +4,9 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
+-- Persistent undo (save undo history across sessions)
+vim.opt.undofile = true
+
 -- Treat .mdx files as markdown (MDX is Markdown + JSX)
 vim.filetype.add({
   extension = {
@@ -75,7 +78,38 @@ local autopairs = require("nvim-autopairs")
 autopairs.setup({})
 
 -- Git signs
-require("gitsigns").setup()
+require("gitsigns").setup({
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation between hunks
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, { expr = true, desc = "Next git hunk" })
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, { expr = true, desc = "Prev git hunk" })
+
+    -- Actions
+    map('n', '<leader>gp', gs.preview_hunk, { desc = "Preview git hunk" })
+    map('n', '<leader>gr', gs.reset_hunk, { desc = "Reset git hunk" })
+    map('v', '<leader>gr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { desc = "Reset git hunk (visual)" })
+    map('n', '<leader>gR', gs.reset_buffer, { desc = "Reset git buffer" })
+    map('n', '<leader>gb', function() gs.blame_line({ full = true }) end, { desc = "Git blame line" })
+    map('n', '<leader>gd', gs.diffthis, { desc = "Git diff this" })
+    map('n', '<leader>gD', function() gs.diffthis('~') end, { desc = "Git diff this ~" })
+  end
+})
 
 -- Indent guides
 require("ibl").setup()
