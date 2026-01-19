@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     #inputs.home-manager.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
+    ../../modules/nixos/bluetooth.nix
   ];
 
   programs.hyprland.enable = true;

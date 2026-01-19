@@ -51,6 +51,7 @@ in
         exec-once = [
           "wallpaper-init"
           "nm-applet --indicator"
+          "blueman-applet"
           cfg.terminal
         ];
         monitor = [ ",preferred,auto,1" ];
