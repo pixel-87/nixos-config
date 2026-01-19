@@ -4,12 +4,12 @@
   lib,
   ...
 }:
-
 {
   home.packages = with pkgs; [
     swww
     imagemagick
     libjxl
+    rofi
   ];
 
   home.file.".local/share/wallpapers/.gitkeep".text = "";
@@ -97,21 +97,43 @@
             set_wallpaper "''${wallpapers[$prev_index]}" "none" "1"
           }
 
-          # Function to pick wallpaper with fzf
-          pick_wallpaper() {
-            local wallpapers=($(list_wallpapers))
-            if [[ ''${#wallpapers[@]} -eq 0 ]]; then
-              echo "Error: No wallpapers found in $WALLPAPER_DIR"
-              return 1
-            fi
+            # Function to pick wallpaper with rofi grid
+            pick_wallpaper() {
+              local wallpapers=($(list_wallpapers))
+              if [[ ''${#wallpapers[@]} -eq 0 ]]; then
+                notify-send "Wallpaper" "No wallpapers found in $WALLPAPER_DIR"
+                return 1
+              fi
 
-            local selected
-      selected=$(printf '%s\n' "''${wallpapers[@]}" | xargs -I {} basename {} | fzf --preview "/run/current-system/sw/bin/file '$WALLPAPER_DIR/{}' && echo && /run/current-system/sw/bin/ls -lh '$WALLPAPER_DIR/{}'" --preview-window=right:30%)
-            
-            if [[ -n "$selected" ]]; then
-              set_wallpaper "$WALLPAPER_DIR/$selected" "none" "1"
-            fi
-          }
+              # Generate input for rofi: filename\0icon\x1f/full/path
+              local rofi_input=""
+              for wp in "''${wallpapers[@]}"; do
+                local filename=$(basename "$wp")
+                rofi_input+="$filename\0icon\x1f$wp\n"
+              done
+
+              # Rofi grid configuration (Tokyo Night)
+              local selected
+              selected=$(echo -en "$rofi_input" | rofi -dmenu \
+                -markup-rows \
+                -i \
+                -p "Select Wallpaper" \
+                -show-icons \
+                -theme-str 'window {width: 60%; background-color: #1a1b26; border: 2px; border-color: #7aa2f7; border-radius: 8px;}' \
+                -theme-str 'listview {columns: 4; lines: 2; flow: horizontal; background-color: transparent;}' \
+                -theme-str 'element {orientation: vertical; padding: 20px; background-color: #24283b; border-radius: 4px; margin: 10px; text-color: #c0caf5; border: 0px;}' \
+                -theme-str 'element selected {background-color: #7aa2f7; text-color: #1a1b26;}' \
+                -theme-str 'element-icon {size: 200px; horizontal-align: 0.5; background-color: transparent; border: 0px;}' \
+                -theme-str 'element-text {horizontal-align: 0.5; background-color: transparent; text-color: inherit; font: "Maple Mono NF 14";}' \
+                -theme-str 'entry {background-color: #24283b; padding: 10px; margin: 5px; border-radius: 0; text-color: #c0caf5;}' \
+                -theme-str 'inputbar {background-color: transparent; children: [entry];}' \
+                -theme-str '* {background-color: #1a1b26; text-color: #c0caf5; font: "Maple Mono NF 14"; border: 0px;}'
+              )
+              
+              if [[ -n "$selected" ]]; then
+                set_wallpaper "$WALLPAPER_DIR/$selected" "simple" "1"
+              fi
+            }
 
           # Parse arguments
           case "''${1:-help}" in

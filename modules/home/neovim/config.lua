@@ -23,6 +23,16 @@ vim.api.nvim_create_autocmd({"BufLeave", "FocusLost"}, {
   end,
 })
 
+-- Python: Force 2-space indentation (override default 4-space)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
 -- Theme
 require("tokyonight").setup({})
 vim.cmd.colorscheme("tokyonight")
@@ -69,7 +79,7 @@ vim.keymap.set("n", "<leader>tp", function() require("precognition").toggle() en
 
 vim.keymap.set(
   "n",
-  "<leader>ee",
+  "<leader>ie",
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 

@@ -209,7 +209,7 @@ in
           "$mainMod CTRL, P, exec, screenshot window"
           "$mainMod ALT, P, exec, screenshot edit"
 
-          "$mainMod ALT, W, exec, ${cfg.terminal} -- bash -c 'wallpaper-switcher pick'"
+          "$mainMod ALT, W, exec, wallpaper-switcher pick"
           "$mainMod CTRL, right, exec, wallpaper-switcher next"
           "$mainMod CTRL, left, exec, wallpaper-switcher prev"
         ];
