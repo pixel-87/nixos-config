@@ -46,10 +46,10 @@ let
     nix-config = "nvim ${cfg.flakePath}";
 
     # NixOS helpers
-    switch-laptop = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#laptop";
-    switch-lithium = "sudo nixos-rebuild switch --flake ${cfg.flakePath}#lithium";
-    build-laptop = "sudo nixos-rebuild build --flake ${cfg.flakePath}#laptop";
-    build-lithium = "sudo nixos-rebuild build --flake ${cfg.flakePath}#lithium";
+    switch-laptop = "nixos-rebuild switch --flake ${cfg.flakePath}#laptop --sudo";
+    switch-lithium = "nixos-rebuild switch --flake ${cfg.flakePath}#lithium --sudo";
+    build-laptop = "nixos-rebuild build --flake ${cfg.flakePath}#laptop --sudo";
+    build-lithium = "nixos-rebuild build --flake ${cfg.flakePath}#lithium --sudo";
   };
 in
 {
