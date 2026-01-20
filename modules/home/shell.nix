@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
 }:
 
@@ -50,6 +51,16 @@ let
     switch-lithium = "nixos-rebuild switch --flake ${cfg.flakePath}#lithium --sudo";
     build-laptop = "nixos-rebuild build --flake ${cfg.flakePath}#laptop --sudo";
     build-lithium = "nixos-rebuild build --flake ${cfg.flakePath}#lithium --sudo";
+
+    switch-system = "nixos-rebuild switch --flake ${cfg.flakePath}#${osConfig.networking.hostName} --sudo";
+    build-system = "nixos-rebuild build --flake ${cfg.flakePath}#${osConfig.networking.hostName} --sudo";
+
+    # Deep REPL access
+    # This automatically opens the REPL for the current machine
+    nrepl = "nix repl --file '<nixpkgs/nixos>' --arg configuration '{ imports = [ ./hosts/${osConfig.networking.hostName}/default.nix ]; }'";
+    
+    # Simpler REPL for Flakes
+    frepl = "nix repl --expr 'let f = builtins.getFlake \"${cfg.flakePath}\"; in f.nixosConfigurations.${osConfig.networking.hostName}'";
   };
 in
 {
@@ -58,7 +69,7 @@ in
 
     flakePath = lib.mkOption {
       type = lib.types.str;
-      default = "~/nixos-config";
+      default = "${config.home.homeDirectory}/nixos-config";
       description = "Path to your NixOS flake for rebuild aliases";
     };
 
