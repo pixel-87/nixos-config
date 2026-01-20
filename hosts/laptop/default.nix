@@ -53,6 +53,11 @@
 
   services.tuned = {
     enable = true;
+    ppdSupport = true;
+    ppdSettings.battery = {
+      # Force `powersave` on battery
+      balanced = "powersave";
+    };
 
     ppdSettings.main.battery_detection = true;
   };
