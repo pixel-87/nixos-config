@@ -24,6 +24,9 @@
   # Configure git
   myModules.git.userEmail = "edwardoliverthomas@gmail.com";
 
+  # Enable pentesting tools
+  myModules.pentesting.enable = true;
+
   home = {
     username = "pixel";
     homeDirectory = "/home/pixel";

@@ -5,5 +5,6 @@
     ./shell.nix
     ./git.nix
     ./vim.nix
+    ./pentesting.nix
   ];
 }
