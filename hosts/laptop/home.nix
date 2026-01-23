@@ -26,6 +26,7 @@
 
   # Enable pentesting tools
   myModules.pentesting.enable = true;
+  myModules.fastfetch.enable = true;
 
   home = {
     username = "pixel";
@@ -117,7 +118,7 @@
   };
 
   programs = {
-    fastfetch.enable = true;
+    # fastfetch.enable = true;
     firefox.enable = true;
     kitty = {
       enable = true;
