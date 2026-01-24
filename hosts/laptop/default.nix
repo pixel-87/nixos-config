@@ -16,7 +16,7 @@
   ];
 
   programs.hyprland.enable = true;
-  programs.hyprland.package = pkgs.hyprland; # inputs.hyprland.packages."${pkgs.system}".hyprland;
+  programs.hyprland.package = pkgs.hyprland;
 
   hardware.graphics.enable = true;
 
