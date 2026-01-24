@@ -17,7 +17,23 @@ vim.filetype.add({
 -- Autosave on buffer change and focus loss
 vim.api.nvim_create_autocmd({"BufLeave", "FocusLost"}, {
   callback = function()
-    if vim.bo.modified then
+    local bufnr = vim.api.nvim_get_current_buf()
+    local bt = vim.bo[bufnr].buftype
+    local ft = vim.bo[bufnr].filetype
+    if bt ~= "" then
+      return
+    end
+    if ft == "oil" then
+      return
+    end
+    if not vim.bo[bufnr].modifiable then
+      return
+    end
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if name == "" then
+      return
+    end
+    if vim.bo[bufnr].modified then
       vim.cmd.write()
     end
   end,
