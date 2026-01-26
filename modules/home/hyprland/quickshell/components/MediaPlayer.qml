@@ -29,7 +29,7 @@ Item {
       MouseArea {
         anchors.fill: parent
         cursorShape: Media.selectedPlayer?.canGoPrevious ? Qt.PointingHandCursor : Qt.ArrowCursor
-        enabled: Media.selectedPlayer?.canGoPrevious
+        enabled: Media.selectedPlayer?.canGoPrevious ?? false
         onClicked: {
           if (Media.selectedPlayer) {
             Media.selectedPlayer.previous()
@@ -49,7 +49,7 @@ Item {
       MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        enabled: Media.selectedPlayer?.canPause || Media.selectedPlayer?.canPlay
+        enabled: (Media.selectedPlayer?.canPause || Media.selectedPlayer?.canPlay) ?? false
         onClicked: {
           if (Media.selectedPlayer) {
             Media.selectedPlayer.togglePlaying()
@@ -69,7 +69,7 @@ Item {
       MouseArea {
         anchors.fill: parent
         cursorShape: Media.selectedPlayer?.canGoNext ? Qt.PointingHandCursor : Qt.ArrowCursor
-        enabled: Media.selectedPlayer?.canGoNext
+        enabled: Media.selectedPlayer?.canGoNext ?? false
         onClicked: {
           if (Media.selectedPlayer) {
             Media.selectedPlayer.next()
