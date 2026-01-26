@@ -71,7 +71,11 @@ telescope.setup({
 pcall(telescope.load_extension, "fzf")
 
 -- Oil (file explorer)
-require("oil").setup({})
+require("oil").setup({
+  view_options = {
+    show_hidden = true,
+  },
+})
 
 -- Harpoon
 local harpoon_mark = require("harpoon.mark")
