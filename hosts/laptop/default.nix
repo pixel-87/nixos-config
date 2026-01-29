@@ -95,7 +95,7 @@
       "wheel"
     ];
     packages = with pkgs; [ ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   environment.systemPackages = with pkgs; [

@@ -29,7 +29,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   # Extend sudo timeout for better UX
   security.sudo.extraConfig = ''

@@ -160,10 +160,13 @@ in
       enableFishIntegration = true;
     };
 
-    home.sessionVariables = lib.mkIf cfg.enableNh {
-      NH_FLAKE = cfg.flakePath;
-      NH_OS_FLAKE = cfg.flakePath;
-    };
+    home.sessionVariables = 
+      (lib.mkIf cfg.enableNh {
+        NH_FLAKE = cfg.flakePath;
+        NH_OS_FLAKE = cfg.flakePath;
+      }) // {
+        SHELL = "${pkgs.fish}/bin/fish";
+      };
 
     home.packages =
       with pkgs;
