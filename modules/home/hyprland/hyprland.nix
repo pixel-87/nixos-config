@@ -228,7 +228,7 @@ in
 
       extraConfig = ''
         # Window rules for dedicated workspaces
-        windowrulev2 = opacity 0.95 0.75, class:.*
+        windowrule = opacity 0.95 0.75, match:class .*
       '';
     };
   };
