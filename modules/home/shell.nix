@@ -108,53 +108,6 @@ in
       '';
     };
 
-    programs.starship = {
-      enable = true;
-      settings = {
-        add_newline = true;
-        format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
-
-        character = {
-          success_symbol = "[➜](bold green)";
-          error_symbol = "[➜](bold red)";
-        };
-
-        directory = {
-          truncation_length = 3;
-          truncate_to_repo = true;
-          format = "[$path]($style) ";
-          style = "bold cyan";
-        };
-
-        git_branch = {
-          format = "on [$symbol$branch]($style) ";
-          symbol = " ";
-          style = "bold purple";
-        };
-
-        git_status = {
-          format = "[\\($all_status$ahead_behind\\)]($style) ";
-          style = "bold red";
-          conflicted = "🏳";
-          ahead = "⇡$count";
-          behind = "⇣$count";
-          diverged = "⇕⇡$ahead_count⇣$behind_count";
-          untracked = "🤷";
-          stashed = "📦";
-          modified = "!";
-          staged = "+";
-          renamed = "»";
-          deleted = "✘";
-        };
-
-        cmd_duration = {
-          min_time = 500;
-          format = "took [$duration]($style) ";
-          style = "bold yellow";
-        };
-      };
-    };
-
     programs.fzf = {
       enable = true;
       enableFishIntegration = true;
@@ -175,7 +128,6 @@ in
         bat # Better cat
         fd # Better find
         ripgrep # Better grep
-        starship # Shell prompt
         fzf # Fuzzy finder
         opencode # AI coding agent for the terminal
       ]

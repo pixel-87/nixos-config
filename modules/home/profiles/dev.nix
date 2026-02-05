@@ -8,6 +8,7 @@
     git.enable = true;
     vim.enable = true;
     neovim.enable = true;
+    starship.enable = true;
   };
 
   programs.gh.enable = true;

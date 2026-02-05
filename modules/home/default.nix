@@ -7,5 +7,6 @@
     ./vim.nix
     ./pentesting.nix
     ./fastfetch.nix
+    ./starship.nix
   ];
 }
