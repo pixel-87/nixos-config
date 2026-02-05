@@ -1,21 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
+{ lib, config, ... }:
 let
-  cfg = config.myModules.starship;
+  inherit (lib) concatStrings;
 
-  ss = symbol: style: {
-    inherit symbol;
-    format = "[$symbol ](${style})";
-  };
-  ssv = symbol: style: {
-    inherit symbol;
-    format = "via [$symbol](${style})";
-  };
+  cfg = config.myModules.starship;
 in
 {
   options.myModules.starship = {
@@ -25,11 +12,27 @@ in
   config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
+
       settings = {
         add_newline = true;
-        format = lib.concatStrings [
+        format = concatStrings [
           "[╭╴](238)$os"
-          "$all[╰─](237)$character"
+          "$username"
+          "$directory"
+          "$git_branch"
+          "$git_status"
+          "$package"
+          "$python"
+          "$nodejs"
+          "$lua"
+          "$rust"
+          "$java"
+          "$c"
+          "$golang"
+          "$nix_shell"
+          "$docker_context"
+          "$container"
+          "\n[╰─](237)$character"
         ];
 
         character = {
@@ -45,32 +48,22 @@ in
         };
 
         directory = {
+          style = "bold blue";
           truncation_length = 3;
           truncation_symbol = "…/";
-          home_symbol = " ";
+          home_symbol = "~";
           read_only_style = "197";
-          read_only = "  ";
-          format = "at [$path]($style)[$read_only]($read_only_style) ";
+          read_only = " 🔒";
+          format = "[$path]($style)[$read_only]($read_only_style) ";
 
           substitutions = {
-            " /Documents" = " ";
-            " /documents" = " ";
-
-            " /Downloads" = " ";
-            " /downloads" = " ";
-
-            " /media/music" = " ";
-            " /media/pictures" = " ";
-            " /media/videos" = " ";
-            " /Music" = " ";
-            " /Pictures" = " ";
-            " /Videos" = " ";
-
-            " /dev" = " ";
-            " /Dev" = " ";
-
-            " /skl" = " ";
-            " /.config" = " ";
+            "Documents" = "📄 Documents";
+            "Downloads" = "📥 Downloads";
+            "Music" = "🎵 Music";
+            "Pictures" = "🖼️ Pictures";
+            "Videos" = "🎬 Videos";
+            "code" = "💻 code";
+            ".config" = "⚙️ .config";
           };
         };
 
@@ -82,7 +75,6 @@ in
             Arch = "";
             Artix = "";
             Debian = "";
-            # Kali = "";
             EndeavourOS = "";
             Fedora = "";
             NixOS = "";
@@ -90,36 +82,87 @@ in
             SUSE = "";
             Ubuntu = "";
             Raspbian = "";
-            #elementary = "";
-            #Coreos = "";
             Gentoo = "";
-            #mageia = ""
             CentOS = "";
-            #sabayon = "";
-            #slackware = "";
             Mint = "";
             Alpine = "";
-            #aosc = "";
-            #devuan = "";
             Manjaro = "";
-            #rhel = "";
             Macos = "";
             Linux = "";
             Windows = "";
           };
         };
 
-        container = ss " " "yellow dimmed";
-        python = ss "" "yellow";
-        nodejs = ss " " "yellow";
-        lua = ss " " "blue";
-        rust = ss "" "red";
-        java = ss " " "red";
-        c = ss " " "blue";
-        golang = ss "" "blue";
-        docker_context = ss " " "blue";
+        # Package version
+        package = {
+          format = "is [$symbol$version]($style) ";
+          symbol = "📦 ";
+          style = "208 bold";
+          display_private = false;
+        };
 
-        nix_shell = ssv " " "blue";
+        # Language modules with versions
+        container = {
+          symbol = "⬢ ";
+          format = "via [$symbol]($style)";
+          style = "yellow dimmed";
+        };
+
+        python = {
+          symbol = "🐍 ";
+          format = "via [$symbol$version]($style) ";
+          style = "yellow";
+        };
+
+        nodejs = {
+          symbol = "⬢ ";
+          format = "via [$symbol$version]($style) ";
+          style = "green";
+        };
+
+        lua = {
+          symbol = "🌙 ";
+          format = "via [$symbol$version]($style) ";
+          style = "blue";
+        };
+
+        rust = {
+          symbol = "🦀 ";
+          format = "via [$symbol$version]($style) ";
+          style = "red";
+        };
+
+        java = {
+          symbol = "☕ ";
+          format = "via [$symbol$version]($style) ";
+          style = "red";
+        };
+
+        c = {
+          symbol = "C ";
+          format = "via [$symbol$version]($style) ";
+          style = "blue";
+        };
+
+        golang = {
+          symbol = "🐹 ";
+          format = "via [$symbol$version]($style) ";
+          style = "cyan";
+        };
+
+        docker_context = {
+          symbol = "🐳 ";
+          format = "via [$symbol]($style)";
+          style = "blue";
+        };
+
+        nix_shell = {
+          symbol = "❄️ ";
+          format = "via [$symbol$state]($style) ";
+          style = "blue";
+          impure_msg = "impure";
+          pure_msg = "pure";
+        };
 
         git_branch = {
           symbol = " ";
@@ -146,6 +189,7 @@ in
         };
 
         battery.disabled = true;
+        gcloud.disabled = true;
       };
     };
   };
