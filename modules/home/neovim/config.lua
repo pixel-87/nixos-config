@@ -44,11 +44,9 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
   callback = function()
     vim.opt_local.shiftwidth = 2
-    vim.opt_local.tabstop = 2
     vim.opt_local.softtabstop = 2
   end,
 })
-
 -- Theme
 require("tokyonight").setup({})
 vim.cmd.colorscheme("tokyonight")
@@ -76,7 +74,6 @@ require("oil").setup({
     show_hidden = true,
   },
 })
-
 -- Harpoon
 local harpoon_mark = require("harpoon.mark")
 local harpoon_ui = require("harpoon.ui")
@@ -91,7 +88,6 @@ vim.keymap.set("n", "<leader>h4", function() harpoon_ui.nav_file(4) end, { desc 
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
 vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
@@ -117,17 +113,16 @@ autopairs.setup({})
 require("gitsigns").setup({
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
+
     local function map(mode, l, r, opts)
       opts = opts or {}
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
 
-    -- Navigation between hunks
     map('n', ']c', function()
       if vim.wo.diff then return ']c' end
       vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
     end, { expr = true, desc = "Next git hunk" })
 
     map('n', '[c', function()
@@ -161,18 +156,14 @@ require("precognition").setup({
 -- Trouble
 require("trouble").setup({})
 
--- Notifications / Noice
 vim.notify = require("notify")
 require("noice").setup({
-  presets = {
     command_palette = true,
     lsp_doc_border = true,
-  },
   lsp = {
     override = {
       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
       ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
     },
   },
 })
@@ -189,21 +180,18 @@ vim.api.nvim_create_autocmd({"FileType", "BufRead"}, {
   end,
 })
 
--- Render Markdown
-require("render-markdown").setup({
-  latex = { enabled = false },
-})
+-- Render Markdown setup is handled by nixvim module
+
+
 
 -- ToggleTerm (terminal runner)
   require("toggleterm").setup({
-    size = 20,
     open_mapping = [[<c-\>]],
     shade_terminals = true,
     shading_factor = 2,
     direction = "horizontal",
   })
   vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
-
 -- Completion (cmp)
 local cmp = require("cmp")
 local luasnip = require("luasnip")
@@ -272,7 +260,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "K", vim.lsp.buf.hover, "LSP hover")
     map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
     map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
-    map("n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
