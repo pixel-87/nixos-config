@@ -285,6 +285,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "K", vim.lsp.buf.hover, "LSP hover")
     map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
     map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
+    map("n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
