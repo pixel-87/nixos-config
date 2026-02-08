@@ -26,6 +26,9 @@
   networking.hostName = "lithium"; # Define your hostname.
   networking.firewall = {
     enable = true;
+    # Trust internal cluster interfaces to allow pod-to-pod communication
+    trustedInterfaces = [ "cni0" "flannel.1" ];
+    checkReversePath = "loose";
     allowedTCPPorts = [
       22
       80
@@ -33,7 +36,7 @@
       53
     ];
     allowedUDPPorts = [ 53 ];
-    };
+  };
   #networking.firewall.allowedUDPPorts = [ ... ];
 
   time.timeZone = "Europe/London";
