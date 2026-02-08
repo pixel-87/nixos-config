@@ -45,6 +45,15 @@ let
     rust-analyzer
     marksman
   ];
+
+  plugin-99 = pkgs.vimUtils.buildVimPlugin {
+    pname = "99";
+    version = "master";
+    src = pkgs.fetchurl {
+      url = "https://github.com/ThePrimeagen/99/archive/refs/heads/master.tar.gz";
+      sha256 = "sha256-D00tyao0+JLobl1ChrnQ2ha39+9ayJDxTd4PBHjSpKA=";
+    };
+  };
 in
 {
   options.myModules.neovim = {
@@ -141,6 +150,9 @@ in
         tokyonight-nvim
         lualine-nvim
         nvim-web-devicons
+
+        # AI
+        plugin-99
 
         # Core + navigation
         plenary-nvim
