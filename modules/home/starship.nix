@@ -18,6 +18,7 @@ in
         format = concatStrings [
           "[╭╴](238)$os"
           "$username"
+          "$hostname"
           "$directory"
           "$git_branch"
           "$git_status"
@@ -43,8 +44,14 @@ in
         username = {
           style_user = "white";
           style_root = "black";
-          format = "[$user]($style) ";
+          format = "[$user]($style)";
           show_always = true;
+        };
+
+        hostname = {
+          ssh_only = false;
+          format = "@[$hostname]($style) ";
+          style = "bold white";
         };
 
         directory = {
