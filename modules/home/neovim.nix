@@ -49,9 +49,11 @@ let
   plugin-99 = pkgs.vimUtils.buildVimPlugin {
     pname = "99";
     version = "master";
-    src = pkgs.fetchurl {
-      url = "https://github.com/ThePrimeagen/99/archive/refs/heads/master.tar.gz";
-      sha256 = "sha256-D00tyao0+JLobl1ChrnQ2ha39+9ayJDxTd4PBHjSpKA=";
+    src = pkgs.fetchFromGitHub {
+      owner = "ThePrimeagen";
+      repo = "99";
+      rev = "master";
+      hash = "sha256-Z/PWqEHp7H4euXb7GHBKqCq85oWBVlxE99/Y02eUFG4=";
     };
   };
 in
