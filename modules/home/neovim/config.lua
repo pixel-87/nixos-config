@@ -190,7 +190,7 @@ local basename = vim.fs.basename(cwd)
 _99.setup({
   logger = {
     level = _99.DEBUG,
-    path = "/tmp/99_debug.log",
+    path = "/tmp/" .. basename .. ".99.debug",
     print_on_error = true,
   },
   completion = {
@@ -206,8 +206,6 @@ vim.keymap.set("n", "<leader>9f", function() _99.fill_in_function() end, { desc 
 vim.keymap.set("v", "<leader>9v", function() _99.visual() end, { desc = "99: Visual" })
 vim.keymap.set("v", "<leader>9s", function() _99.stop_all_requests() end, { desc = "99: Stop all" })
 vim.keymap.set("n", "<leader>9fd", function() _99.fill_in_function() end, { desc = "99: Fill debug" })
-
-
 
 -- ToggleTerm (terminal runner)
   require("toggleterm").setup({
@@ -285,7 +283,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "K", vim.lsp.buf.hover, "LSP hover")
     map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
     map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
-    map("n", "<leader>ld", vim.diagnostic.open_float, "Line diagnostics")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
