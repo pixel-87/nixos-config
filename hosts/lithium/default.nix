@@ -24,7 +24,16 @@
   #home-manager.users.lithium = import ./home.nix;
 
   networking.hostName = "lithium"; # Define your hostname.
-  networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+      80
+      443
+      53
+    ];
+    allowedUDPPorts = [ 53 ];
+    };
   #networking.firewall.allowedUDPPorts = [ ... ];
 
   time.timeZone = "Europe/London";
@@ -40,6 +49,12 @@
     ];
   };
 
+  networking.interfaces.enp3s0.ipv4.addresses = [{
+      address = "192.168.0.40"; # A dedicated IP for the host
+      prefixLength = 24;
+    }];
+    networking.defaultGateway = "192.168.0.1";
+    networking.nameservers = [ "1.1.1.1" ];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
