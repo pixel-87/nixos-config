@@ -202,10 +202,24 @@ _99.setup({
   },
 })
 
-vim.keymap.set("n", "<leader>9f", function() _99.fill_in_function() end, { desc = "99: Fill function" })
+vim.keymap.set("n", "<leader>9f", function()
+  if type(_99.visual) == "function" then
+    _99.visual()
+  end
+end, { desc = "99: Visual" })
+-- Open 99 visual helper from visual OR normal mode
 vim.keymap.set("v", "<leader>9v", function() _99.visual() end, { desc = "99: Visual" })
+vim.keymap.set("n", "<leader>9v", function()
+  if type(_99.visual) == "function" then
+    _99.visual()
+  end
+end, { desc = "99: Visual" })
 vim.keymap.set("v", "<leader>9s", function() _99.stop_all_requests() end, { desc = "99: Stop all" })
-vim.keymap.set("n", "<leader>9fd", function() _99.fill_in_function() end, { desc = "99: Fill debug" })
+vim.keymap.set("n", "<leader>9fd", function()
+  if type(_99.visual) == "function" then
+    _99.visual()
+  end
+end, { desc = "99: Visual" })
 
 -- ToggleTerm (terminal runner)
   require("toggleterm").setup({
@@ -285,6 +299,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+    map("n", "<leader>ld", vim.diagnostic.open_float, "Show diagnostics")
     map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
   end,
 })
