@@ -103,7 +103,7 @@ in
         # Package version
         package = {
           format = "is [$symbol$version]($style) ";
-          symbol = "📦 ";
+          symbol = " ";
           style = "208 bold";
           display_private = false;
         };
@@ -116,59 +116,57 @@ in
         };
 
         python = {
-          symbol = "🐍 ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "yellow";
         };
 
         nodejs = {
-          symbol = "⬢ ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "green";
         };
 
         lua = {
-          symbol = "🌙 ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "blue";
         };
 
         rust = {
-          symbol = "🦀 ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "red";
         };
 
         java = {
-          symbol = "☕ ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "red";
         };
 
         c = {
-          symbol = "C ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "blue";
         };
 
         golang = {
-          symbol = "🐹 ";
+          symbol = " ";
           format = "via [$symbol$version]($style) ";
           style = "cyan";
         };
 
         docker_context = {
-          symbol = "🐳 ";
+          symbol = " ";
           format = "via [$symbol]($style)";
           style = "blue";
         };
 
         nix_shell = {
-          symbol = "❄️ ";
-          format = "via [$symbol$state]($style) ";
+          symbol = " ";
+          format = "via [$symbol]($style) ";
           style = "blue";
-          impure_msg = "impure";
-          pure_msg = "pure";
         };
 
         git_branch = {
