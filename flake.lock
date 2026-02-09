@@ -532,6 +532,22 @@
         "type": "github"
       }
     },
+    "plugin-99": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770610032,
+        "narHash": "sha256-X/uoDq16vIgQkBToVOMdsnPX9bmj8mdLqbn08ABXT0Q=",
+        "owner": "ThePrimeagen",
+        "repo": "99",
+        "rev": "33bad88948f9a27ad10c7860e87f9b3bb199154b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ThePrimeagen",
+        "repo": "99",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -564,6 +580,7 @@
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "plugin-99": "plugin-99",
         "zen-browser": "zen-browser"
       }
     },

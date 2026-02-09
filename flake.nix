@@ -37,6 +37,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    plugin-99 = {
+      url = "github:ThePrimeagen/99";
+      flake = false;
+    };
   };
 
   outputs =

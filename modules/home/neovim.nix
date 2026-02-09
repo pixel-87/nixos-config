@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -49,12 +50,8 @@ let
   plugin-99 = pkgs.vimUtils.buildVimPlugin {
     pname = "99";
     version = "master";
-    src = pkgs.fetchFromGitHub {
-      owner = "ThePrimeagen";
-      repo = "99";
-      rev = "master";
-      hash = "sha256-Z/PWqEHp7H4euXb7GHBKqCq85oWBVlxE99/Y02eUFG4=";
-    };
+    src = inputs.plugin-99;
+    doCheck = false;
   };
 in
 {
