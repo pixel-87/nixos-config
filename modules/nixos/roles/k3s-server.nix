@@ -12,6 +12,7 @@
     extraFlags = toString [
       "--write-kubeconfig-mode=0644"
       "--disable=servicelb"
+      "--node-ip=192.168.0.40"
     ];
   };
 
