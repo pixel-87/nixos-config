@@ -28,9 +28,13 @@ let
     ls = "eza";
 
     # Utilities
-    cat = "bat";
-    find = "fd";
-    grep = "rg";
+    # just use the actual names its not that hard
+    # cat = "bat";
+    # find = "fd";
+    # grep = "rg";
+
+    # Fuzzy
+    nf = "nvim $(fzf)";
 
     # Git
     gs = "git status";
