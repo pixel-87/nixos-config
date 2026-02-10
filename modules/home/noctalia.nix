@@ -65,6 +65,9 @@ let
             showApplications = false;
             showLabelsOnlyWhenOccupied = true;
           }
+          {
+            id = "AudioVisualizer";
+          }
         ];
         right = [
           {
@@ -75,7 +78,7 @@ let
             showGpuTemp = false;
             showMemoryUsage = true;
             showMemoryAsPercent = true;
-            showNetworkStats = true;
+            showNetworkStats = false;
             showDiskUsage = true;
             showLoadAverage = false;
             useMonospaceFont = true;
@@ -107,7 +110,7 @@ let
             id = "Microphone";
           }
           {
-            displayMode = "forceOpen";
+            displayMode = "alwaysHide";
             id = "KeyboardLayout";
           }
           {
