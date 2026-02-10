@@ -131,7 +131,6 @@ in
         fd # Better find
         ripgrep # Better grep
         fzf # Fuzzy finder
-        opencode # AI coding agent for the terminal
       ]
       ++ lib.optionals cfg.enableNh [ nh ];
   };
