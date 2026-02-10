@@ -20,13 +20,20 @@
   # Enable Hyprland module
   myModules.hyprland.enable = true;
 
+
   # Configure git
   myModules.git.userEmail = "edwardoliverthomas@gmail.com";
 
   # Enable pentesting tools
   myModules.pentesting.enable = true;
+
   myModules.fastfetch.enable = true;
   myModules.starship.enable = true;
+
+  myModules.opencode = {
+    enable = true;
+    plugins = [ "opencode-gemini-auth@latest" ];
+  };
 
   home = {
     username = "pixel";
