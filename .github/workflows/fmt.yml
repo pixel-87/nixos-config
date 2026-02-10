@@ -37,4 +37,4 @@ jobs:
           extra-args: --determinate
 
       - name: Check Formatting
-        run: nix fmt -- --check .
+        run: nix fmt -- --fail-on-change .
