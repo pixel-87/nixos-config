@@ -14,7 +14,7 @@ in
 
     plugins = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
       description = "List of opencode plugins to install";
       example = [ "opencode-gemini-auth@latest" ];
     };

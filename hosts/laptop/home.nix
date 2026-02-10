@@ -20,7 +20,6 @@
   # Enable Hyprland module
   myModules.hyprland.enable = true;
 
-
   # Configure git
   myModules.git.userEmail = "edwardoliverthomas@gmail.com";
 
