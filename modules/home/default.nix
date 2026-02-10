@@ -8,5 +8,6 @@
     ./pentesting.nix
     ./fastfetch.nix
     ./starship.nix
+    ./opencode.nix
   ];
 }
