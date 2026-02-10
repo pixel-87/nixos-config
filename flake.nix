@@ -42,6 +42,15 @@
       url = "github:ThePrimeagen/99";
       flake = false;
     };
+
+    noctalia-shell = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wrapper-manager = {
+      url = "github:viperML/wrapper-manager";
+    };
   };
 
   outputs =

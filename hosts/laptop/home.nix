@@ -13,8 +13,7 @@
     ../../modules/home/hyprland/hyprland.nix
     ../../modules/home/font.nix
     ../../modules/home/firefox.nix
-    ../../modules/home/quickshell.nix
-    ../../modules/home/wallpaper.nix
+    ../../modules/home/noctalia.nix
     inputs.nixvim.homeModules.nixvim
   ];
 
@@ -167,8 +166,7 @@
   };
 
   services = {
-    mako.enable = true;
-    swww.enable = true;
+    # Using Noctalia's built-in notifications and wallpaper
     cliphist.enable = true;
     playerctld.enable = true;
   };

@@ -49,7 +49,6 @@ in
 
       settings = {
         exec-once = [
-          "wallpaper-init"
           "nm-applet --indicator"
           "blueman-applet"
           cfg.terminal
@@ -210,9 +209,10 @@ in
           "$mainMod CTRL, P, exec, screenshot window"
           "$mainMod ALT, P, exec, screenshot edit"
 
-          "$mainMod ALT, W, exec, wallpaper-switcher pick"
-          "$mainMod CTRL, right, exec, wallpaper-switcher next"
-          "$mainMod CTRL, left, exec, wallpaper-switcher prev"
+          # Noctalia wallpaper controls
+          "$mainMod ALT, W, exec, noctalia-shell ipc call wallpaper toggle"
+          "$mainMod CTRL, right, exec, noctalia-shell ipc call wallpaper random"
+          "$mainMod CTRL, left, exec, noctalia-shell ipc call wallpaper random"
         ];
 
         bindm = [
