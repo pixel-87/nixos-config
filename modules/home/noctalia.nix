@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   settings = {
     appLauncher = {
       customLaunchPrefix = "";
@@ -12,7 +13,7 @@
       enableClipPreview = true;
       enableClipboardHistory = false;
       iconMode = "tabler";
-      pinnedExecs = [];
+      pinnedExecs = [ ];
       position = "center";
       showCategories = true;
       sortByMostUsed = true;
@@ -23,7 +24,7 @@
     audio = {
       cavaFrameRate = 30;
       externalMixer = "pwvucontrol || pavucontrol";
-      mprisBlacklist = [];
+      mprisBlacklist = [ ];
       preferredPlayer = "";
       visualizerType = "linear";
       volumeOverdrive = false;
@@ -36,14 +37,14 @@
       floating = false;
       marginHorizontal = 0.25;
       marginVertical = 0.25;
-      monitors = [];
+      monitors = [ ];
       outerCorners = true;
       position = "top";
       showCapsule = false;
       showOutline = false;
       transparent = false;
       widgets = {
-        center = [];
+        center = [ ];
         left = [
           {
             colorizeDistroLogo = true;
@@ -118,12 +119,12 @@
             usePrimaryColor = true;
           }
           {
-            blacklist = [];
+            blacklist = [ ];
             colorizeIcons = false;
             drawerEnabled = true;
             hidePassive = false;
             id = "Tray";
-            pinned = [];
+            pinned = [ ];
           }
         ];
       };
@@ -193,20 +194,20 @@
       position = "close_to_bar_button";
       shortcuts = {
         left = [
-          {id = "WiFi";}
-          {id = "Bluetooth";}
-          {id = "ScreenRecorder";}
+          { id = "WiFi"; }
+          { id = "Bluetooth"; }
+          { id = "ScreenRecorder"; }
         ];
         right = [
-          {id = "Notifications";}
-          {id = "PowerProfile";}
+          { id = "Notifications"; }
+          { id = "PowerProfile"; }
         ];
       };
     };
     desktopWidgets = {
       enabled = false;
       gridSnap = false;
-      monitorWidgets = [];
+      monitorWidgets = [ ];
     };
     dock = {
       animationSpeed = 2;
@@ -217,9 +218,9 @@
       enabled = false;
       floatingRatio = 1;
       inactiveIndicators = false;
-      monitors = [];
+      monitors = [ ];
       onlySameOutput = true;
-      pinnedApps = [];
+      pinnedApps = [ ];
       pinnedStatic = false;
       size = 1;
     };
@@ -266,7 +267,9 @@
       weatherEnabled = true;
       weatherShowEffects = true;
     };
-    network = {wifiEnabled = true;};
+    network = {
+      wifiEnabled = true;
+    };
     nightLight = {
       autoSchedule = true;
       dayTemp = "6500";
@@ -283,7 +286,7 @@
       enabled = true;
       location = "top_right";
       lowUrgencyDuration = 8;
-      monitors = [];
+      monitors = [ ];
       normalUrgencyDuration = 8;
       overlayLayer = true;
       respectExpireTimeout = false;
@@ -308,7 +311,7 @@
         4
       ];
       location = "bottom";
-      monitors = [];
+      monitors = [ ];
       overlayLayer = true;
     };
     screenRecorder = {
@@ -437,7 +440,7 @@
       fillColor = "#000000";
       fillMode = "crop";
       hideWallpaperFilenames = false;
-      monitorDirectories = [];
+      monitorDirectories = [ ];
       overviewEnabled = true;
       panelPosition = "follow_bar";
       randomEnabled = false;
@@ -462,17 +465,20 @@
 
   noctalia-wrapped = inputs.wrapper-manager.lib {
     inherit pkgs;
-    modules = [{
-      wrappers.noctalia-shell = {
-        basePackage = pkgs.noctalia-shell;
-        env = {
-          NOCTALIA_SETTINGS_FILE.value = pkgs.writeText "config.json" (builtins.toJSON settings);
+    modules = [
+      {
+        wrappers.noctalia-shell = {
+          basePackage = pkgs.noctalia-shell;
+          env = {
+            NOCTALIA_SETTINGS_FILE.value = pkgs.writeText "config.json" (builtins.toJSON settings);
+          };
         };
-      };
-    }];
+      }
+    ];
   };
-in {
-  home.packages = [noctalia-wrapped.config.build.toplevel];
+in
+{
+  home.packages = [ noctalia-wrapped.config.build.toplevel ];
 
   home.sessionVariables = {
     QT_QPA_PLATFORM = "wayland;xcb";

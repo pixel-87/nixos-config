@@ -59,7 +59,7 @@ let
     # Deep REPL access
     # This automatically opens the REPL for the current machine
     nrepl = "nix repl --file '<nixpkgs/nixos>' --arg configuration '{ imports = [ ./hosts/${osConfig.networking.hostName}/default.nix ]; }'";
-    
+
     # Simpler REPL for Flakes
     frepl = "nix repl --expr 'let f = builtins.getFlake \"${cfg.flakePath}\"; in f.nixosConfigurations.${osConfig.networking.hostName}'";
   };
@@ -114,11 +114,12 @@ in
       enableFishIntegration = true;
     };
 
-    home.sessionVariables = 
+    home.sessionVariables =
       (lib.mkIf cfg.enableNh {
         NH_FLAKE = cfg.flakePath;
         NH_OS_FLAKE = cfg.flakePath;
-      }) // {
+      })
+      // {
         SHELL = "${pkgs.fish}/bin/fish";
       };
 

@@ -25,13 +25,13 @@ in
             top = 1;
           };
         };
-           # general settings removed: "multithreading" is not a valid option
+        # general settings removed: "multithreading" is not a valid option
         display = {
-            size = {
-                binaryPrefix = "si";
-            };
-            color = "blue";
-            separator = "  ";
+          size = {
+            binaryPrefix = "si";
+          };
+          color = "blue";
+          separator = "  ";
         };
         modules = [
           "title"
