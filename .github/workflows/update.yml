@@ -50,6 +50,13 @@ jobs:
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
+  check-fmt:
+    name: Check Formatting
+    needs: update-lockfile
+    uses: ./.github/workflows/fmt.yml
+    with:
+      ref: ${{ needs.update-lockfile.outputs.branch }}
+
   build-updated:
     name: Build Updated Config
     needs: [update-lockfile, check, check-lock]
@@ -100,7 +107,7 @@ jobs:
 
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check, check-lock, build-updated]
+    needs: [update-lockfile, check, check-lock, check-fmt, build-updated]
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

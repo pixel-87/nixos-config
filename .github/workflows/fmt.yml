@@ -1,0 +1,40 @@
+name: Check Formatting
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
+  pull_request:
+    paths:
+      - "**.nix"
+      - ".github/workflows/fmt.yml"
+  push:
+    paths:
+      - "**.nix"
+      - ".github/workflows/fmt.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check-format:
+    name: Check Nix Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
+          persist-credentials: false
+
+      - name: Install Determinate Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-args: --determinate
+
+      - name: Check Formatting
+        run: nix fmt -- --check .
