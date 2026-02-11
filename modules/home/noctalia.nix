@@ -59,7 +59,7 @@ let
             colorizeIcons = false;
             enableScrollWheel = true;
             followFocusedScreen = false;
-            hideUnoccupied = true;
+            hideUnoccupied = false;
             id = "Workspace";
             labelMode = "none";
             showApplications = false;
