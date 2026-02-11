@@ -10,6 +10,7 @@
   imports = [
     ../../modules/home
     ../../modules/home/profiles/dev.nix
+    inputs.nix-index-database.hmModules.nix-index
   ];
 
   home = {

@@ -51,6 +51,11 @@
     wrapper-manager = {
       url = "github:viperML/wrapper-manager";
     };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
