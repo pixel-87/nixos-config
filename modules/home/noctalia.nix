@@ -110,10 +110,6 @@ let
             id = "Microphone";
           }
           {
-            displayMode = "alwaysHide";
-            id = "KeyboardLayout";
-          }
-          {
             customFont = "";
             formatHorizontal = "HH:mm ddd, MMM dd";
             formatVertical = "HH mm - dd MM";
