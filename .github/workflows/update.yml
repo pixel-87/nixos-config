@@ -54,6 +54,8 @@ jobs:
     name: Check Formatting
     needs: update-lockfile
     uses: ./.github/workflows/fmt.yml
+    permissions:
+      contents: read
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
