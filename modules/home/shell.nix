@@ -20,6 +20,9 @@ let
     "..." = "cd ../..";
     "...." = "cd ../../..";
 
+    # pretty lock screen
+    lock = "nohup qs -c noctalia-shell ipc call lockScreen lock > /dev/null 2>&1 &";
+
     # Listing
     l = "eza -lh";
     la = "eza -lah";
