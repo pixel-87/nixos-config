@@ -21,7 +21,7 @@ let
     "...." = "cd ../../..";
 
     # pretty lock screen
-    lock = "nohup qs -c noctalia-shell ipc call lockScreen lock > /dev/null 2>&1 &";
+    lock = "sh -c 'nohup noctalia-shell ipc call lockScreen lock > /dev/null 2>&1 &'";
 
     # Listing
     l = "eza -lh";
