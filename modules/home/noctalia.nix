@@ -11,7 +11,7 @@ let
       customLaunchPrefix = "";
       customLaunchPrefixEnabled = false;
       enableClipPreview = true;
-      enableClipboardHistory = false;
+      enableClipboardHistory = true;
       iconMode = "tabler";
       pinnedExecs = [ ];
       position = "center";
@@ -91,6 +91,9 @@ let
           }
           {
             id = "PowerProfile";
+          }
+          {
+            id = "Network";
           }
           {
             displayMode = "alwaysHide";
@@ -214,7 +217,7 @@ let
       colorizeIcons = false;
       deadOpacity = 0.6;
       displayMode = "auto_hide";
-      enabled = false;
+      enabled = true;
       floatingRatio = 1;
       inactiveIndicators = false;
       monitors = [ ];
@@ -272,7 +275,7 @@ let
     nightLight = {
       autoSchedule = true;
       dayTemp = "6500";
-      enabled = false;
+      enabled = true;
       forced = false;
       manualSunrise = "06:30";
       manualSunset = "18:30";

@@ -138,7 +138,7 @@ in
           "$mainMod, M, exit"
           "$mainMod, E, exec, nautilus"
           "$mainMod, V, togglefloating"
-          "$mainMod, R, exec, wofi --show drun || pkill wofi"
+          "$mainMod, R, exec, noctalia-shell ipc call launcher toggle"
           "$mainMod, P, pseudo"
           "$mainMod, X, togglesplit"
           "$mainMod, F, exec, zen"
