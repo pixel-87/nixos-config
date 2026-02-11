@@ -64,6 +64,10 @@
 
   time.timeZone = "Europe/London";
 
+  # Exeter, UK location
+  location.latitude = 50.7256;
+  location.longitude = -3.5275;
+
   i18n.defaultLocale = "en_GB.UTF-8";
 
   i18n.extraLocaleSettings = {
