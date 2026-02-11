@@ -269,6 +269,9 @@ let
       weatherEnabled = true;
       weatherShowEffects = true;
     };
+    services = {
+      weatherLocation = "50.7256,-3.5275";
+    };
     network = {
       wifiEnabled = true;
     };
@@ -427,7 +430,7 @@ let
       bluetoothHideUnnamedDevices = false;
       fontDefault = "Sans Serif";
       fontDefaultScale = 1;
-      fontFixed = "monospace";
+      fontFixed = "Maple Mono NF";
       fontFixedScale = 1;
       panelBackgroundOpacity = 1;
       panelsAttachedToBar = true;
