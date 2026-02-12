@@ -14,7 +14,7 @@
 
     # Any other options under `programs.firefox` are also supported here
     profiles.pixel = {
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         ublock-origin
         consent-o-matic
         privacy-badger

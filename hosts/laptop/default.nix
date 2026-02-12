@@ -45,8 +45,13 @@
     HibernateDelaySec=30min
   '';
 
-  services.logind.lidSwitch = "lock";
-  services.logind.lidSwitchDocked = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "lock";
+    KillUserProcesses = false;
+  };
+  services.logind.settings.Login = {
+    HandleLidSwitchDocked = "ignore";
+  };
 
   services.tuned = {
     enable = true;
