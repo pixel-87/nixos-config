@@ -261,6 +261,7 @@ let
     location = {
       analogClockInCalendar = false;
       firstDayOfWeek = -1;
+      name = "Exeter";
       showCalendarEvents = true;
       showCalendarWeather = true;
       showWeekNumberInCalendar = false;
@@ -268,9 +269,6 @@ let
       useFahrenheit = false;
       weatherEnabled = true;
       weatherShowEffects = true;
-    };
-    services = {
-      weatherLocation = "50.7256,-3.5275";
     };
     network = {
       wifiEnabled = true;
