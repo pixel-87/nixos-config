@@ -161,8 +161,8 @@ in
           "$mainMod, k, alterzorder, top"
           "$mainMod, l, alterzorder, top"
 
-          "CTRL ALT, up, exec, hyprct dispatch focuswindow floating"
-          "CTRL ALT, down, exec, hyprct dispatch focuswindow tiled"
+          "CTRL ALT, up, exec, hyprctl dispatch focuswindow floating"
+          "CTRL ALT, down, exec, hyprctl dispatch focuswindow tiled"
 
           "$mainMod CTRL, c, movetoworkspace, empty"
 
