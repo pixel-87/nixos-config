@@ -83,7 +83,7 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   extraSpecialArgs = { inherit inputs; };
-                  backupFileExtension = "backup";
+                  backupFileExtension = "hm-backup";
                   users.pixel.imports = [
                     ./hosts/common/home.nix
                     ./hosts/laptop/home.nix
@@ -105,7 +105,7 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   extraSpecialArgs = { inherit inputs; };
-                  backupFileExtension = "backup";
+                  backupFileExtension = "hm-backup";
                   users.pixel.imports = [
                     ./hosts/common/home.nix
                     ./hosts/lithium/home.nix
