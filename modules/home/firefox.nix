@@ -6,11 +6,14 @@
   ...
 }:
 
+let
+  firefoxAddons = (import inputs.firefox-addons { inherit pkgs; }).firefox-addons;
+in
 {
   programs.firefox = {
     enable = true;
     profiles.pixel = {
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+      extensions.packages = with firefoxAddons; [
         ublock-origin
         consent-o-matic
         privacy-badger

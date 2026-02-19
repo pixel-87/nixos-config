@@ -24,8 +24,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:rycee/nur-expressions";
+      flake = false;
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
