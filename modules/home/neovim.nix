@@ -146,7 +146,7 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         # UI / theme
-        tokyonight-nvim
+        catppuccin-nvim
         lualine-nvim
         nvim-web-devicons
 

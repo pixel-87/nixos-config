@@ -162,7 +162,7 @@ let
       manualSunrise = "06:30";
       manualSunset = "18:30";
       matugenSchemeType = "scheme-fruit-salad";
-      predefinedScheme = "Tokyo Night";
+      predefinedScheme = "Catppuccin Mocha";
       schedulingMode = "off";
       useWallpaperColors = false;
     };

@@ -112,7 +112,7 @@
                 rofi_input+="$filename\0icon\x1f$wp\n"
               done
 
-              # Rofi grid configuration (Tokyo Night)
+              # Rofi grid configuration (Catppuccin Mocha)
               local selected
               selected=$(echo -en "$rofi_input" | rofi -dmenu \
                 -markup-rows \

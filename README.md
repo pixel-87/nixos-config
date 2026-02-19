@@ -35,7 +35,7 @@ A collection of modern Linux tools to enhance the shell experience.
 ### Neovim (`modules/home/neovim.nix`)
 A fully configured Neovim setup using `nixvim`.
 - **Plugins**: Telescope, Harpoon, Oil, Treesitter, LSP (nixd, lua_ls, etc.), and more.
-- **Theme**: Tokyo Night.
+- **Theme**: Catppuccin Mocha.
 
 ### Shell (`modules/home/shell.nix`)
 Enhanced Zsh configuration with:

@@ -48,8 +48,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 -- Theme
-require("tokyonight").setup({})
-vim.cmd.colorscheme("tokyonight")
+require("catppuccin").setup({})
+vim.cmd.colorscheme("catppuccin-mocha")
 
 -- Which-key
 require("which-key").setup({})
@@ -170,7 +170,7 @@ require("noice").setup({
 
 -- Lualine
 require("lualine").setup({
-  options = { theme = "tokyonight" },
+  options = { theme = "catppuccin" },
 })
 
 -- Manually start treesitter for all buffers (workaround for recent nvim-treesitter issues)

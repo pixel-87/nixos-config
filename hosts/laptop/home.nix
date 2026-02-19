@@ -131,7 +131,7 @@
       enableGitIntegration = true;
       font.name = "Maple Mono NF";
       font.size = 12;
-      themeFile = "tokyo_night_night";
+      themeFile = "Catppuccin-Mocha";
       extraConfig = ''
         confirm_os_window_close 0
         background_opacity 0.85
