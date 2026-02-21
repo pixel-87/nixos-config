@@ -26,7 +26,7 @@ jobs:
         id: pr
         uses: DeterminateSystems/update-flake-lock@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_ACTION_TOKEN }}
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
           branch: update-flake-inputs
@@ -118,5 +118,5 @@ jobs:
       - name: Merge Pull Request
         run: gh pr merge --rebase --auto --delete-branch "$PR"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_ACTION_TOKEN }}
           PR: ${{ needs.update-lockfile.outputs.pr }}
