@@ -51,11 +51,11 @@
     "firefox-addons": {
       "flake": false,
       "locked": {
-        "lastModified": 1771616655,
-        "narHash": "sha256-APFEjtfQf18WsP7wJRuda2dmz9W7Ur/xGyTBlWuvlgk=",
+        "lastModified": 1771669320,
+        "narHash": "sha256-LqmgIBpjpMQKkHKCSGJkluMVFFoBdkUhJnu+Cq+jgGc=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "55dba96bd37209fc595049a435284acbb79a5df2",
+        "rev": "496abb3aef244b896bf7cdd65e071cf624f16338",
         "type": "gitlab"
       },
       "original": {
@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771625283,
-        "narHash": "sha256-1T88/PSNKpRNtaiXATTae0hpRnBpjmIL0b1QfGO6HBA=",
+        "lastModified": 1771683283,
+        "narHash": "sha256-WxAEkAbo8dP7qiyPM6VN4ZGAxfuBVlNBNPkrqkrXVEc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a913ae61bf3b9f4312f6097b68cdf0a0fa699279",
+        "rev": "c6ed3eab64d23520bcbb858aa53fe2b533725d4a",
         "type": "github"
       },
       "original": {
@@ -219,11 +219,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1771626719,
-        "narHash": "sha256-QJy42uuACa8LJqX426L8PfGuIoEtnwo18C2VIl6cNO4=",
+        "lastModified": 1771709711,
+        "narHash": "sha256-cYjF7C20GrO7hbFNuOPVsxps9jUsGkkkxoWsd7Gwc/I=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "d91952c555085758117f1eb360d4ace120ee5d65",
+        "rev": "0eb4755a3ed1980c15453fbe73d4ad36dea5da4b",
         "type": "github"
       },
       "original": {
@@ -553,11 +553,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771640976,
-        "narHash": "sha256-quTSp+f5kT0TGjbP6h88G4f7/eBaNrdMcOAScKySh94=",
+        "lastModified": 1771723372,
+        "narHash": "sha256-HMWAc0cx9/I3Bq1s0vBZ2Vo9gW3ZIMyhNtW19Ixk04w=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "f240a7ca2c9133ac338ac23c9b57c16489ad0fc2",
+        "rev": "d709779c51bf624e69ba60a9a13f000e2db5e4b5",
         "type": "github"
       },
       "original": {
@@ -569,11 +569,11 @@
     "plugin-99": {
       "flake": false,
       "locked": {
-        "lastModified": 1771593813,
-        "narHash": "sha256-S4+dx7PfsAXz48kyFUWyTQ5iW0E3oIkarBiwyZ+V66Y=",
+        "lastModified": 1771705593,
+        "narHash": "sha256-8iYL7W0YwFTA3UXoAjbItkMm7piZzSOlrAIZIv02+bA=",
         "owner": "ThePrimeagen",
         "repo": "99",
-        "rev": "f03187fb3c28a33ae85f587c56d73fd4d56f2a6a",
+        "rev": "d97ef48f244d68e1a5060f1bbd6dee706f23ba55",
         "type": "github"
       },
       "original": {
@@ -738,11 +738,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771562861,
-        "narHash": "sha256-6oT3rF68W8HERLXvFfEkpz8xpAVLKZsY1ZuR/BbDTO8=",
+        "lastModified": 1771719171,
+        "narHash": "sha256-ZDE3//9Hg+9X5xXcDJ4k/d6qcOVQ4MrTmvf1zv/omZY=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "7783a3adf3d5a9599a82c75a44c7482e70398ac2",
+        "rev": "2a71f2e720db962f2522b38704e23e11163e91ae",
         "type": "github"
       },
       "original": {
