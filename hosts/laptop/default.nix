@@ -54,6 +54,8 @@
     "resume_offset=18919424"
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30min
   '';
