@@ -51,11 +51,11 @@
     "firefox-addons": {
       "flake": false,
       "locked": {
-        "lastModified": 1771992172,
-        "narHash": "sha256-XdaMLD1Gjev6i3tBeVFLORc1uLGNg9XbUf+LmxpGIYo=",
+        "lastModified": 1772078860,
+        "narHash": "sha256-Pojf7QHic9RmZFIoWYx5LoHy1UytoOHuGnLH3U5Nipo=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "0002367df8f1b5d8089eaf0314ddc4afe73b271a",
+        "rev": "ae41eb07a37d1d5cd7b5714df0fbcb315c492e4d",
         "type": "gitlab"
       },
       "original": {
@@ -219,11 +219,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1772063653,
-        "narHash": "sha256-QeOMTu5PoHzbqAONu4t3MYAFQUQZREG2SEAyRGndIjo=",
+        "lastModified": 1772129629,
+        "narHash": "sha256-vUCMHuxPNd7PKy1mQsjRUDIHvI4eMbbJxl/iNwzWmGM=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "1e06ab464ff1aa1e8d3f79b4aa702cab101edfb0",
+        "rev": "70cdd819e4bee3c4dcea6961d32e61e6afe4eeb0",
         "type": "github"
       },
       "original": {
@@ -476,11 +476,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1772039686,
-        "narHash": "sha256-pXZ2hQ/m256aC/+ufwXclGSN6CGMm7Lgf0aCNStulno=",
+        "lastModified": 1772131609,
+        "narHash": "sha256-bfwwREFAyB3cTHVcPI5nEkLyG4CSlvGVNEXtXMFx3WI=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "5999351aa57d6b0a2d38078dd4ec075e73c48115",
+        "rev": "7a805d88289accfc8c7973e9638ec0bc624c4d7d",
         "type": "github"
       },
       "original": {
@@ -511,11 +511,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771923393,
-        "narHash": "sha256-lJiQtL47xYV37Vod9KgPS7dmi1x51A5+chJE48qKimw=",
-        "rev": "ea7f1f06811ce7fcc81d6c6fd4213150c23edcf2",
+        "lastModified": 1772082373,
+        "narHash": "sha256-OgUF+EoJ36hz3jo8qBuizb8suT0mu1n7mzmcGdeOjWE=",
+        "rev": "26eaeac4e409d7b5a6bf6f90a2a2dc223c78d915",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre953762.ea7f1f06811c/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre954674.26eaeac4e409/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
@@ -575,11 +575,11 @@
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
-        "lastModified": 1772037803,
-        "narHash": "sha256-307PELik0fSETKF0xwM2uAeIsFZTkOApEMnZ2wcTpA4=",
+        "lastModified": 1772131976,
+        "narHash": "sha256-sfki5hpMegyjjK4ccDiLvy4DWQe1Nz2doI3ByqOHkyg=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "2e43e5348e290220d65b024aa543fc672b05a3cc",
+        "rev": "28dc8229b77a8c3e5b23f20306d821de3e13a84c",
         "type": "github"
       },
       "original": {
@@ -591,11 +591,11 @@
     "plugin-99": {
       "flake": false,
       "locked": {
-        "lastModified": 1771861522,
-        "narHash": "sha256-OOj2bnhxn3Ou7VQOmi3RVPcVs+CqolnJzEgfkXk2p5Q=",
+        "lastModified": 1772120448,
+        "narHash": "sha256-zgkicopAnEYnkAOJ8e77CCiRE2amSAEYRkhOrcSf7rg=",
         "owner": "ThePrimeagen",
         "repo": "99",
-        "rev": "6a64e0b2f4c7f1e3911db1f8318e5d7c68cb8dff",
+        "rev": "34a81b09656d2daa87f1d689550742928a4eb709",
         "type": "github"
       },
       "original": {
@@ -760,11 +760,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772070741,
-        "narHash": "sha256-5Egc9T2lC85Xp/JjoSqCgHDAQsVoaR424yKFdcEXoAo=",
+        "lastModified": 1772158021,
+        "narHash": "sha256-UX/mZlmDYccOVGDIEFVvXkHRSjjSkOnYO/F4O6XDrKg=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "b1432f1ffc71de24512585cee495eea302834290",
+        "rev": "0af6863a54e1468ce1ef34bf0bbd073aed5a8b2e",
         "type": "github"
       },
       "original": {
