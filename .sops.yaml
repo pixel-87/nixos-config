@@ -1,0 +1,10 @@
+keys:
+  - &pixel_laptop ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGtPWhYMEiYAtyH+1SMA3UmHIQ75Ps0Ip0EarCbvOBZq
+  - &flux_cluster age1kj3zgfq2wxds0qf30wv4qdcs0u4a8xtf92d9f28gl8kqha4mcgmqgd8e3y
+creation_rules:
+  - path_regex: k8s/.*\.secret\.yaml$
+    key_groups:
+      - age:
+        - *pixel_laptop
+        - *flux_cluster
+
