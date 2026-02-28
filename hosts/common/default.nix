@@ -40,6 +40,8 @@
   environment.systemPackages = with pkgs; [
     wget
     curl
+    sops
+    age
   ];
 
   system.stateVersion = lib.mkDefault "25.05";
