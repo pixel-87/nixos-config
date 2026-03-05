@@ -231,5 +231,7 @@ in
         windowrule = opacity 0.95 0.75, match:class .*
       '';
     };
+
+    xdg.configFile."hypr/hyprland.conf".force = true;
   };
 }
