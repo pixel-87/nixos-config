@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -164,7 +162,7 @@ let
       matugenSchemeType = "scheme-fruit-salad";
       predefinedScheme = "Catppuccin Mocha";
       schedulingMode = "off";
-      useWallpaperColors = false;
+      useWallpaperColors = true;
     };
     controlCenter = {
       cards = [
