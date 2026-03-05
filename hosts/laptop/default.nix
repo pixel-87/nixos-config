@@ -134,6 +134,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable OneDrive background sync service
+  services.onedrive.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
