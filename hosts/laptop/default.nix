@@ -56,9 +56,9 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  systemd.sleep.settings.Sleep = ''
-    HibernateDelaySec=30min
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30min";
+  };
 
   services.logind.settings.Login = {
     HandleLidSwitch = "lock";
