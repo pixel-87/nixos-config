@@ -7,4 +7,3 @@ creation_rules:
       - age:
         - *pixel_laptop
         - *flux_cluster
-
