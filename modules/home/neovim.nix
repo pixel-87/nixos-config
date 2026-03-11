@@ -31,6 +31,7 @@ let
     "rust"
     "dockerfile"
     "sql"
+    "templ"
   ];
 
   defaultLspPackages = with pkgs; [
@@ -45,6 +46,7 @@ let
     gopls
     rust-analyzer
     marksman
+    templ
   ];
 
   plugin-99 = pkgs.vimUtils.buildVimPlugin {
@@ -124,6 +126,7 @@ in
           marksman.enable = true;
           pyright.enable = true;
           gopls.enable = true;
+          templ.enable = true;
           rust_analyzer = {
             enable = true;
             installCargo = false;
