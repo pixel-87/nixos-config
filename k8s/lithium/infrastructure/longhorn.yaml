@@ -16,7 +16,7 @@ spec:
   version: 1.7.1
   valuesContent: |-
     defaultSettings:
-      defaultReplicaCount: 1  # Change to 2+ when you add more nodes
+      defaultReplicaCount: 1  # Change to 2+ when using more nodes
       defaultDataPath: /var/lib/longhorn
       storageMinimalAvailablePercentage: 10
       createDefaultDiskLabeledNodes: true
@@ -24,7 +24,7 @@ spec:
       backupTargetCredentialSecret: ""
     persistence:
       defaultClass: true
-      defaultClassReplicaCount: 1  # Change to 2+ when you add more nodes
+      defaultClassReplicaCount: 1  # Change to 2+ when using more nodes
       reclaimPolicy: Retain
     ingress:
       enabled: false  # Enable if you want Longhorn UI

@@ -2,7 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ed-thomas-dev
-  namespace: default
   annotations:
     traefik.Ingress.kubernetes.io/router.entrypoints: web, websecure
     cert-manager.io/cluster-issuer: letsencrypt-prod
