@@ -32,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Determinate Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/nix-installer-action@v3
         with:
           extra-args: --determinate
 

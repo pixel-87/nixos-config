@@ -19,12 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Install Determinate Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/nix-installer-action@v3
         with:
           extra-args: --determinate
       - name: Update Lockfile
         id: pr
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
           token: ${{ secrets.GH_ACTION_TOKEN }}
           commit-msg: "flake.lock: update all inputs"
@@ -84,7 +84,7 @@ jobs:
           ref: ${{ needs.update-lockfile.outputs.branch }}
           persist-credentials: false
       - name: Install Determinate Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/nix-installer-action@v3
         with:
           extra-args: --determinate
       - name: Build NixOS Configs
