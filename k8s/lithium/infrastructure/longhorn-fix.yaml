@@ -1,6 +1,6 @@
-apiVerison: longhorn.io/v1beta2
+apiVersion: longhorn.io/v1beta2
 kind: Setting
 metadata:
-  name: longhorn-fix
+  name: deleting-confirmation-flag
   namespace: longhorn-system
 value: "true"
