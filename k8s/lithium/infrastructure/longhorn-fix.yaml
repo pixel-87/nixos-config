@@ -1,0 +1,6 @@
+apiVerison: longhorn.io/v1beta2
+kind: Setting
+metadata:
+  name: longhorn-fix
+  namespace: longhorn-system
+value: "true"
