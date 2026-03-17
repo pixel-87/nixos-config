@@ -4,3 +4,4 @@ resources:
   - namespace-and-configs.yaml
   - service.yaml
   - statefulset.yaml
+  - pihole.secret.yaml
