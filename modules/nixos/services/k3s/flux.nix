@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  fluxSystemPath = ../../../../k8s/lithium/flux-system;
+  fluxSystemPath = ../../../../k8s/flux-system;
 in
 {
   # 1. Apply the Flux CRDs and controllers

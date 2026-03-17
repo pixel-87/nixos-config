@@ -15,5 +15,5 @@ spec:
         name: fluxcdbot
       messageTemplate: 'Automated image update for ed-thomas.dev'
   update:
-    path: ./k8s/lithium/apps/ed-thomas-dev
+    path: ./k8s/apps/ed-thomas-dev
     strategy: Setters
