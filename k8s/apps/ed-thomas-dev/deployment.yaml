@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ed-thomas-dev
-          image: ghcr.io/pixel-87/ed-thomas.dev:20260320160002-85265703 # {"$imagepolicy": "flux-system:ed-thomas-dev"}
+          image: ghcr.io/pixel-87/ed-thomas.dev:20260324122924-7b88c0d3 # {"$imagepolicy": "flux-system:ed-thomas-dev"}
           imagePullPolicy: Always
           ports:
             - containerPort: 80
