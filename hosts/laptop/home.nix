@@ -45,7 +45,7 @@
       home-manager
       wl-clipboard
       playerctl
-      protonvpn-gui
+      proton-vpn
       nautilus
       brightnessctl
       wireplumber
