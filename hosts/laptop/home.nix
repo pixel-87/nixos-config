@@ -50,7 +50,6 @@
       brightnessctl
       wireplumber
       openssh
-      onedrive
       obsidian
       zotero
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -175,6 +174,16 @@
     # Using Noctalia's built-in notifications and wallpaper
     cliphist.enable = true;
     playerctld.enable = true;
+  };
+
+  programs.onedrive = {
+    enable = true;
+    settings = {
+      # Delay inotify processing to fix infinite sync loops with Obsidian
+      delay_inotify_processing = "true";
+      inotify_delay = "15";
+      force_session_upload = "true";
+    };
   };
 
   xdg.portal = {
