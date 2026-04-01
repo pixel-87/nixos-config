@@ -170,7 +170,7 @@ require("noice").setup({
 
 -- Lualine
 require("lualine").setup({
-  options = { theme = "catppuccin" },
+  options = { theme = "auto" },
 })
 
 -- Manually start treesitter for all buffers (workaround for recent nvim-treesitter issues)

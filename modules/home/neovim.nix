@@ -37,11 +37,11 @@ let
   defaultLspPackages = with pkgs; [
     nixd
     lua-language-server
-    nodePackages.typescript-language-server
-    nodePackages.typescript
-    nodePackages.vscode-langservers-extracted
-    nodePackages.yaml-language-server
-    nodePackages.bash-language-server
+    typescript-language-server
+    typescript
+    vscode-langservers-extracted
+    yaml-language-server
+    bash-language-server
     pyright
     gopls
     rust-analyzer
