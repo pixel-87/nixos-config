@@ -2,7 +2,7 @@
   "settings": {
     "settingsVersion": 59,
     "bar": {
-      "barType": "floating",
+      "barType": "simple",
       "position": "top",
       "monitors": [],
       "density": "default",
@@ -44,7 +44,7 @@
             "enableScrollWheel": true,
             "focusedColor": "primary",
             "followFocusedScreen": true,
-            "fontWeight": "bold",
+            "fontWeight": "semibold",
             "groupedBorderOpacity": 1,
             "hideUnoccupied": false,
             "iconScale": 0.8,
@@ -59,13 +59,44 @@
             "unfocusedIconsOpacity": 1
           },
           {
-            "colorName": "primary",
+            "compactMode": true,
+            "hideMode": "hidden",
             "hideWhenIdle": false,
-            "id": "AudioVisualizer",
-            "width": 200
+            "id": "MediaMini",
+            "maxWidth": 300,
+            "panelShowAlbumArt": true,
+            "scrollingMode": "hover",
+            "showAlbumArt": true,
+            "showArtistFirst": true,
+            "showProgressRing": false,
+            "showVisualizer": true,
+            "textColor": "none",
+            "useFixedWidth": false,
+            "visualizerType": "linear"
           }
         ],
-        "center": [],
+        "center": [
+          {
+            "clockColor": "none",
+            "customFont": "",
+            "formatHorizontal": "HH:mm ddd, MMM dd",
+            "formatVertical": "HH mm - dd MM",
+            "id": "Clock",
+            "tooltipFormat": "HH:mm ddd, MMM dd",
+            "useCustomFont": false
+          },
+          {
+            "defaultSettings": {
+              "autoStartBreaks": false,
+              "autoStartWork": false,
+              "longBreakDuration": 15,
+              "sessionsBeforeLongBreak": 4,
+              "shortBreakDuration": 5,
+              "workDuration": 25
+            },
+            "id": "plugin:pomodoro"
+          }
+        ],
         "right": [
           {
             "compactMode": false,
@@ -108,6 +139,13 @@
             "textColor": "none"
           },
           {
+            "displayMode": "alwaysHide",
+            "iconColor": "none",
+            "id": "Microphone",
+            "middleClickCommand": "pwvucontrol || pavucontrol",
+            "textColor": "none"
+          },
+          {
             "displayMode": "alwaysShow",
             "iconColor": "none",
             "id": "Volume",
@@ -124,22 +162,6 @@
             "showPowerProfiles": false
           },
           {
-            "displayMode": "alwaysHide",
-            "iconColor": "none",
-            "id": "Microphone",
-            "middleClickCommand": "pwvucontrol || pavucontrol",
-            "textColor": "none"
-          },
-          {
-            "clockColor": "none",
-            "customFont": "",
-            "formatHorizontal": "HH:mm ddd, MMM dd",
-            "formatVertical": "HH mm - dd MM",
-            "id": "Clock",
-            "tooltipFormat": "HH:mm ddd, MMM dd",
-            "useCustomFont": false
-          },
-          {
             "blacklist": [],
             "chevronColor": "none",
             "colorizeIcons": false,
@@ -147,9 +169,6 @@
             "hidePassive": false,
             "id": "Tray",
             "pinned": []
-          },
-          {
-            "id": "plugin:pomodoro"
           }
         ]
       },
@@ -225,7 +244,8 @@
           "Del"
         ]
       },
-      "reverseScroll": false
+      "reverseScroll": false,
+      "smoothScrollEnabled": true
     },
     "ui": {
       "fontDefault": "Sans Serif",
@@ -245,6 +265,7 @@
       "name": "Exeter",
       "weatherEnabled": true,
       "weatherShowEffects": true,
+      "weatherTaliaMascotAlways": false,
       "useFahrenheit": false,
       "use12hourFormat": false,
       "showWeekNumberInCalendar": false,
@@ -253,7 +274,8 @@
       "analogClockInCalendar": false,
       "firstDayOfWeek": -1,
       "hideWeatherTimezone": false,
-      "hideWeatherCityName": true
+      "hideWeatherCityName": true,
+      "autoLocate": false
     },
     "calendar": {
       "cards": [
@@ -286,6 +308,7 @@
       "showHiddenFiles": false,
       "viewMode": "recursive",
       "setWallpaperOnAllMonitors": true,
+      "linkLightAndDarkWallpapers": true,
       "fillMode": "crop",
       "fillColor": "#000000",
       "useSolidColor": false,
@@ -293,7 +316,7 @@
       "automationEnabled": false,
       "wallpaperChangeMode": "random",
       "randomIntervalSec": 300,
-      "transitionDuration": 1500,
+      "transitionDuration": 1000,
       "transitionType": [
         "fade",
         "disc",
@@ -340,7 +363,7 @@
       "customLaunchPrefix": "",
       "viewMode": "list",
       "showCategories": true,
-      "iconMode": "tabler",
+      "iconMode": "native",
       "showIconBackground": false,
       "enableSettingsSearch": true,
       "enableWindowsSearch": true,
@@ -457,7 +480,6 @@
       "indicatorOpacity": 0.6
     },
     "network": {
-      "airplaneModeEnabled": false,
       "bluetoothRssiPollingEnabled": false,
       "bluetoothRssiPollIntervalMs": 60000,
       "networkPanelView": "wifi",
@@ -604,7 +626,8 @@
       "manualSunrise": "06:30",
       "manualSunset": "18:30",
       "generationMethod": "tonal-spot",
-      "monitorForColors": ""
+      "monitorForColors": "",
+      "syncGsettings": true
     },
     "templates": {
       "activeTemplates": [
@@ -681,8 +704,7 @@
     "openedPanel": "",
     "lockScreenActive": false,
     "wallpapers": {
-      "HDMI-A-1": "/home/pixel/nixos-config/assets/wallpapers/wallpaper.png",
-      "eDP-1": "/home/pixel/nixos-config/assets/wallpapers/wallpaper.png"
+      "eDP-1": "/home/pixel/nixos-config/assets/wallpapers/light-nix.png"
     },
     "desktopWidgetsEditMode": false,
     "display": {
@@ -703,7 +725,7 @@
       "lastSeenTs": 1774626689000
     },
     "changelogState": {
-      "lastSeenVersion": "v4.7.1"
+      "lastSeenVersion": "v4.7.5"
     },
     "colorSchemesList": {
       "schemes": [],
