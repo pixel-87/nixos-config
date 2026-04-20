@@ -38,7 +38,7 @@
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.lanzaboote.configurationLimit = 3;
+  boot.lanzaboote.configurationLimit = 15;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;
@@ -50,7 +50,7 @@
     }
   ];
   boot.kernelParams = [
-    "resume=/swapfile"
+    "resume=UUID=896ab1c6-052c-49d5-8f91-e6a83065cfd6"
     "resume_offset=18919424"
   ];
 
