@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ./ed-thomas-dev
   - ./pihole-unbound
+  - ./breakout-pod.yaml
