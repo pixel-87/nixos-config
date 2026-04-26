@@ -69,43 +69,43 @@
   home.file.".local/bin/screenshot" = {
     executable = true;
     text = ''
-#!/usr/bin/env bash
-set -euo pipefail
+      #!/usr/bin/env bash
+      set -euo pipefail
 
-SCREENSHOT_DIR="$HOME/screenshots"
-mkdir -p "$SCREENSHOT_DIR"
+      SCREENSHOT_DIR="$HOME/screenshots"
+      mkdir -p "$SCREENSHOT_DIR"
 
-FILENAME="$SCREENSHOT_DIR/screenshot_$(date +%Y%m%d_%H%M%S).png"
+      FILENAME="$SCREENSHOT_DIR/screenshot_$(date +%Y%m%d_%H%M%S).png"
 
-case "''${1:-area}" in
-  area)
-    grim -g "$(slurp)" "$FILENAME"
-    ;;
-  screen)
-    grim "$FILENAME"
-    ;;
-  window)
-    grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x(.size[1])"')" "$FILENAME"
-    ;;
-  edit)
-    grim -g "$(slurp)" - | swappy -f -
-    exit 0
-    ;;
-  *)
-    echo "Usage: $0 [area|screen|window|edit]"
-    echo "  area   - Select area to screenshot (default)"
-    echo "  screen - Full screen screenshot"
-    echo "  window - Active window screenshot"
-    echo "  edit   - Select area and edit with swappy"
-    exit 1
-    ;;
-esac
+      case "''${1:-area}" in
+        area)
+          grim -g "$(slurp)" "$FILENAME"
+          ;;
+        screen)
+          grim "$FILENAME"
+          ;;
+        window)
+          grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x(.size[1])"')" "$FILENAME"
+          ;;
+        edit)
+          grim -g "$(slurp)" - | swappy -f -
+          exit 0
+          ;;
+        *)
+          echo "Usage: $0 [area|screen|window|edit]"
+          echo "  area   - Select area to screenshot (default)"
+          echo "  screen - Full screen screenshot"
+          echo "  window - Active window screenshot"
+          echo "  edit   - Select area and edit with swappy"
+          exit 1
+          ;;
+      esac
 
-wl-copy < "$FILENAME"
+      wl-copy < "$FILENAME"
 
-notify-send "Screenshot saved" "$FILENAME" -i "$FILENAME"
+      notify-send "Screenshot saved" "$FILENAME" -i "$FILENAME"
 
-echo "Screenshot saved to: $FILENAME"
+      echo "Screenshot saved to: $FILENAME"
     '';
   };
 
