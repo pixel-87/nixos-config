@@ -47,7 +47,7 @@
 
   services.onedrive.enable = true;
 
-  time.timeTime = "Europe/London";
+  time.timeZone = "Europe/London";
 
   location.latitude = 50.7256;
   location.longitude = -3.5275;
