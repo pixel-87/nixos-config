@@ -22,7 +22,6 @@
 
   imports = [
     ./hardware-configuration.nix
-    inputs.lanzaboote.nixosModules.lanzaboote
     ../../modules/nixos/bluetooth.nix
   ];
 
@@ -31,11 +30,8 @@
 
   hardware.graphics.enable = true;
 
-  boot.lanzaboote.enable = true;
-  boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
-  boot.loader.systemd-boot.enable = false;
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.lanzaboote.configurationLimit = 15;
 
   networking.hostName = "tungsten";
 
