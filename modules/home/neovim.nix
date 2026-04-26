@@ -32,6 +32,7 @@ let
     "dockerfile"
     "sql"
     "templ"
+    "typst"
   ];
 
   defaultLspPackages = with pkgs; [
@@ -47,6 +48,7 @@ let
     rust-analyzer
     marksman
     templ
+    tinymist
   ];
 
   plugin-99 = pkgs.vimUtils.buildVimPlugin {

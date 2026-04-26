@@ -306,3 +306,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
   end,
 })
+
+-- Tinymist (Typst LSP) configuration for project resolution and bibliography
+require('lspconfig').tinymist.setup({
+  settings = {
+    -- Key setting for multi-file projects/bibliographies
+    typstExtraArgs = { "--root", vim.fn.getcwd() },
+    
+    -- Tell Tinymist how to resolve the main file
+    -- "lockDatabase" is the modern way to handle this
+    projectSpecification = "lockDatabase", 
+    
+    -- Optional: export PDF on save
+    exportPdf = "onSave",
+  },
+  -- Ensure the LSP knows where your project starts
+  root_dir = require('lspconfig.util').root_pattern("main.typ", ".git", "typst.toml"),
+})
