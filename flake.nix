@@ -120,6 +120,28 @@
               }
             ];
           };
+
+          tungsten = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+              ./hosts/tungsten
+              ./hosts/common
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  extraSpecialArgs = { inherit inputs; };
+                  backupFileExtension = "hm-backup";
+                  users.pixel.imports = [
+                    ./hosts/common/home.nix
+                    ./hosts/tungsten/home.nix
+                  ];
+                };
+              }
+            ];
+          };
         };
       };
 
