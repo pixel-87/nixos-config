@@ -20,5 +20,6 @@
     nodejs
     gcc
     tree-sitter
+    gemini-cli
   ];
 }
