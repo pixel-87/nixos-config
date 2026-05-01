@@ -34,8 +34,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "tungsten";
+  networking.networkmanager.enable = true;
 
   swapDevices = [ ];
+
+  boot.kernelParams = [ "acpi=force" ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
