@@ -12,6 +12,7 @@ in
 {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles.pixel = {
       extensions.packages = with firefoxAddons; [
         ublock-origin

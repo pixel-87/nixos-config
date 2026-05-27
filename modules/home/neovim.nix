@@ -129,6 +129,13 @@ in
           pyright.enable = true;
           gopls.enable = true;
           templ.enable = true;
+          tinymist = {
+            enable = true;
+            settings = {
+              exportPdf = "onSave";
+              projectSpecification = "lockDatabase";
+            };
+          };
           rust_analyzer = {
             enable = true;
             installCargo = false;

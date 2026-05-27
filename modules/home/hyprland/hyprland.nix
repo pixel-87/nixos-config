@@ -123,7 +123,6 @@ in
         };
 
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
 
@@ -140,7 +139,6 @@ in
           "$mainMod, V, togglefloating"
           "$mainMod, R, exec, noctalia-shell ipc --any-display call launcher toggle"
           "$mainMod, P, pseudo"
-          "$mainMod, X, togglesplit"
           "$mainMod, F, exec, zen"
 
           "$mainMod, left, movefocus, l"
