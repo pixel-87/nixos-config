@@ -40,6 +40,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote.configurationLimit = 15;
 
+  boot.kernelModules = [ "sdhci" "sdhci-pci" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;
 
