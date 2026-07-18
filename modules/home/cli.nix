@@ -39,7 +39,7 @@ in
       enableZshIntegration = true;
       # Use fd for fzf to respect .gitignore and be faster
       defaultCommand = "fd --type f";
-      fileWidgetCommand = "fd --type f";
+      fileWidget.command = "fd --type f";
     };
 
     # Git TUI
