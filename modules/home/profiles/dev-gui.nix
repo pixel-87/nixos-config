@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     vscode
     libreoffice-qt6-fresh
-    antigravity-fhs
+    antigravity-ide-fhs
     android-studio
   ];
 }
