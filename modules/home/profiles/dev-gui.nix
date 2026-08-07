@@ -9,5 +9,6 @@
     vscode
     libreoffice-qt6-fresh
     antigravity-fhs
+    android-studio
   ];
 }

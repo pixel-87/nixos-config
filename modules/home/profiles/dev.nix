@@ -20,6 +20,6 @@
     nodejs
     gcc
     tree-sitter
-    gemini-cli
+    antigravity-cli
   ];
 }
