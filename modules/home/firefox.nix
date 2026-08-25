@@ -10,6 +10,8 @@ let
   firefoxAddons = (import inputs.firefox-addons { inherit pkgs; }).firefox-addons;
 in
 {
+  stylix.targets.firefox.profileNames = [ "pixel" ];
+
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";

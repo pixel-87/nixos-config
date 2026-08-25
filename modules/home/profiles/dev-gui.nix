@@ -3,6 +3,7 @@
 {
   imports = [
     ./dev.nix
+    ../wallpaper.nix
   ];
 
   home.packages = with pkgs; [

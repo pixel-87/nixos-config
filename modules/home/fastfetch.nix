@@ -18,48 +18,93 @@ in
       enable = true;
       settings = {
         logo = {
-          source = "nixos";
           type = "auto";
-          height = 2;
+          source = ../../assets/nixos_logo_1.webp;
+          width = 32;
+          height = 16;
           padding = {
-            top = 1;
+            right = 4;
           };
         };
-        # general settings removed: "multithreading" is not a valid option
         display = {
-          size = {
-            binaryPrefix = "si";
+          separator = "  ";
+          color = {
+            keys = "magenta";
+            output = "white";
+            title = "magenta";
+            separator = "blue";
           };
-          color = "blue";
-          separator = "  ";
         };
         modules = [
-          "title"
-          "separator"
-          "os"
-          "host"
-          "kernel"
-          "uptime"
-          "shell"
-          "display"
-          "de"
-          "wm"
-          "wmtheme"
-          "theme"
-          "icons"
-          "font"
-          "cursor"
-          "terminal"
-          "terminalfont"
-          "cpu"
-          "gpu"
-          "memory"
-          "swap"
-          "locale"
-          "break"
-          "colors"
+          {
+            type = "title";
+            format = "{user-name}@{host-name}";
+          }
+          {
+            type = "custom";
+            format = "────────────────────────────";
+          }
+          {
+            type = "os";
+            key = " ";
+            format = "{name} {version}";
+          }
+          {
+            type = "kernel";
+            key = "󰌽 ";
+            format = "{release}";
+          }
+          {
+            type = "uptime";
+            key = "󰅐 ";
+          }
+          {
+            type = "packages";
+            key = "󰏖 ";
+          }
+          {
+            type = "shell";
+            key = " ";
+          }
+          {
+            type = "wm";
+            key = " ";
+          }
+          {
+            type = "terminal";
+            key = " ";
+          }
+          {
+            type = "cpu";
+            key = "󰍛 ";
+            format = "{name}";
+          }
+          {
+            type = "gpu";
+            key = "󰢮 ";
+            format = "{name}";
+          }
+          {
+            type = "memory";
+            key = "󰘚 ";
+          }
+          {
+            type = "disk";
+            key = "󰋊 ";
+            folders = [ "/" ];
+          }
+          {
+            type = "custom";
+            format = "────────────────────────────";
+          }
+          {
+            type = "colors";
+            symbol = "circle";
+          }
         ];
       };
     };
+
+    home.file.".config/fastfetch/logo/nixos_logo_1.webp".source = ../../assets/nixos_logo_1.webp;
   };
 }

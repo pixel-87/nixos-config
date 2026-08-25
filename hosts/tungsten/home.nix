@@ -57,7 +57,6 @@
       gimp
       figma-linux
       libresprite
-      inkscape
     ];
   };
 
@@ -114,7 +113,7 @@
     kitty = {
       enable = true;
       enableGitIntegration = true;
-      font.name = "Maple Mono NF";
+      font.name = lib.mkForce "Maple Mono NF";
       font.size = 12;
       themeFile = "Catppuccin-Mocha";
       extraConfig = ''

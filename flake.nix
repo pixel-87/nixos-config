@@ -8,7 +8,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.flake-parts.follows = "flake-parts";
     };
 
     flake-parts = {
@@ -16,6 +15,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -87,6 +90,7 @@
             modules = [
               ./hosts/laptop
               ./hosts/common
+              inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -109,6 +113,7 @@
             modules = [
               ./hosts/lithium
               ./hosts/common
+              inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -131,6 +136,7 @@
             modules = [
               ./hosts/tungsten
               ./hosts/common
+              inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {
