@@ -6,7 +6,7 @@
 }:
 {
   home.packages = with pkgs; [
-    swww
+    awww
     imagemagick
     libjxl
     rofi
@@ -40,7 +40,7 @@
               return 1
             fi
 
-            swww img "$wallpaper" --transition-type="$transition" --transition-duration="$duration" 2>/dev/null
+            awww img "$wallpaper" --transition-type="$transition" --transition-duration="$duration" 2>/dev/null
             echo "$wallpaper" > "$CURRENT_WALLPAPER_FILE"
           }
 
@@ -184,7 +184,7 @@
     '';
   };
 
-  # Script to initialize swww daemon
+  # Script to initialize awww daemon
   home.file.".local/bin/wallpaper-init" = {
     executable = true;
     text = ''
@@ -197,21 +197,21 @@
 
       mkdir -p "$CACHE_DIR"
 
-      # Start swww daemon if not running
-      if ! pgrep -x "swww-daemon" > /dev/null; then
-        swww-daemon
+      # Start awww daemon if not running
+      if ! pgrep -x "awww-daemon" > /dev/null; then
+        awww-daemon
         sleep 1
       fi
 
       # Set initial wallpaper
       if [[ -f "$CURRENT_WALLPAPER_FILE" ]]; then
         # Use last set wallpaper
-        swww img "$(cat "$CURRENT_WALLPAPER_FILE")" 2>/dev/null || true
+        awww img "$(cat "$CURRENT_WALLPAPER_FILE")" 2>/dev/null || true
       else
         # Use first available wallpaper
         local first_wallpaper=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -iname "*.png" | sort | head -1)
         if [[ -n "$first_wallpaper" ]]; then
-          swww img "$first_wallpaper"
+          awww img "$first_wallpaper"
         fi
       fi
     '';
