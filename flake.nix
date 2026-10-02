@@ -118,7 +118,6 @@
             modules = [
               ./hosts/lithium
               ./hosts/common
-              inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {

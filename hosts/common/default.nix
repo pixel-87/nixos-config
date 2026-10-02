@@ -7,9 +7,6 @@
 }:
 
 {
-  imports = [
-    ../../modules/nixos/stylix.nix
-  ];
   nix = {
     settings = {
       experimental-features = [

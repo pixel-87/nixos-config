@@ -8,6 +8,7 @@
 
 {
   imports = [
+    inputs.stylix.homeModules.stylix
     ../../modules/home
     ../../modules/home/profiles/dev-gui.nix
     ../../modules/home/hyprland/hyprland.nix

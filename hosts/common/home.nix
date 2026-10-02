@@ -9,7 +9,6 @@
 {
   imports = [
     ../../modules/home
-    ../../modules/home/profiles/dev.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
 

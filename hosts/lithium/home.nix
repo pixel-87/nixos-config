@@ -8,12 +8,18 @@
 {
   imports = [
     ../../modules/home
-    ../../modules/home/profiles/dev.nix
     inputs.nixvim.homeModules.nixvim
+    inputs.nix-index-database.homeModules.nix-index
   ];
 
-  # Configure git
-  myModules.git.userEmail = "edwardoliverthomas@gmail.com";
+  myModules = {
+    cli.enable = true;
+    shell.enable = true;
+    git = {
+      enable = true;
+      userEmail = "edwardoliverthomas@gmail.com";
+    };
+  };
 
   home.stateVersion = "25.05";
 
