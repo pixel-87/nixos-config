@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 {
   config,
   lib,
@@ -9,11 +5,19 @@
   ...
 }:
 
+let
+  nodeIP = "192.168.0.45";
+  lanInterface = "enp3s0";
+  apiPort = config.services.kubernetes.apiserver.securePort;
+in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/nixos/roles/k3s-server.nix
+
+    ../../modules/nixos/roles/k8s/common.nix
+    ../../modules/nixos/roles/k8s/control-plane.nix
+    ../../modules/nixos/roles/k8s/worker.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -25,24 +29,77 @@
 
   programs.dconf.enable = true;
 
-  networking.hostName = "lithium"; # Define your hostname.
-  networking.firewall = {
-    enable = true;
-    # Trust internal cluster interfaces to allow pod-to-pod communication
-    trustedInterfaces = [
-      "cni0"
-      "flannel.1"
-    ];
-    checkReversePath = "loose";
-    allowedTCPPorts = [
-      22
-      80
-      443
-      53
-    ];
-    allowedUDPPorts = [ 53 ];
+  networking = {
+    hostName = "lithium"; # Define your hostname.
+
+    extraHosts = ''
+      ${nodeIP} ${config.services.kubernetes.masterAddress}
+    '';
+
+    firewall = {
+      enable = true;
+
+      interfaces = {
+        ${lanInterface} = {
+          allowedTCPPorts = [
+            apiPort
+            config.services.kubernetes.kubelet.port
+          ];
+        };
+
+        "mynet".allowedTCPPorts = [ apiPort ];
+
+        "flannel.1".allowedTCPPorts = [ apiPort ];
+      };
+      # Trust internal cluster interfaces to allow pod-to-pod communication
+      trustedInterfaces = [
+        "cni0"
+        "flannel.1"
+      ];
+
+      checkReversePath = "loose";
+      allowedTCPPorts = [
+        22
+        80
+        443
+        53
+      ];
+      allowedUDPPorts = [
+        53
+        8472
+      ];
+    };
   };
   #networking.firewall.allowedUDPPorts = [ ... ];
+
+  services.kubernetes = {
+    apiserver.advertiseAddress = nodeIP;
+
+    kubelet = {
+      nodeIp = nodeIP;
+
+      extraConfig = {
+        systemReserved = {
+          cpu = "250m";
+          memory = "512Mi";
+        };
+
+        kubeReserved = {
+          cpu = "750m";
+          memory = "1536Mi";
+        };
+      };
+    };
+
+    services.flannel = {
+      iface = lanInterface;
+      backend = {
+        Type = "vxlan";
+        Port = 8472;
+      };
+    };
+
+  };
 
   time.timeZone = "Europe/London";
 
@@ -57,71 +114,15 @@
     ];
   };
 
-  networking.interfaces.enp3s0.ipv4.addresses = [
-    {
-      address = "192.168.0.40"; # A dedicated IP for the host
-      prefixLength = 24;
-    }
-  ];
   networking.defaultGateway = "192.168.0.1";
-  networking.nameservers = [ "1.1.1.1" ];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # programs.firefox.enable = true;
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # Or disable the firewall altogether.
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
