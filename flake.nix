@@ -10,6 +10,7 @@
       url = "github:nix-community/nixvim";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts = {

@@ -23,6 +23,8 @@
 
   #home-manager.users.lithium = import ./home.nix;
 
+  programs.dconf.enable = true;
+
   networking.hostName = "lithium"; # Define your hostname.
   networking.firewall = {
     enable = true;
