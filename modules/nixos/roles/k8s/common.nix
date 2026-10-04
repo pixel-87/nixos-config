@@ -3,7 +3,7 @@
 {
   services.kubernetes = {
     masterAddress = "master.ed-thomas.local";
-    apiserverAddress = "https://kubernetes-apiserver.ed-thomas.local:6443";
+    apiserverAddress = "https://master.ed-thomas.local:6443";
 
     easyCerts = true;
 

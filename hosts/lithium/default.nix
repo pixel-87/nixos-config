@@ -24,6 +24,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.graceful = true;
+  boot.kernelParams = ["systemd.swap=0"];
 
   #home-manager.users.lithium = import ./home.nix;
 
@@ -72,33 +73,34 @@ in
   };
   #networking.firewall.allowedUDPPorts = [ ... ];
 
-  services.kubernetes = {
-    apiserver.advertiseAddress = nodeIP;
+  services = {
+    kubernetes = {
+      apiserver.advertiseAddress = nodeIP;
 
-    kubelet = {
-      nodeIp = nodeIP;
+      kubelet = {
+        nodeIp = nodeIP;
 
-      extraConfig = {
-        systemReserved = {
-          cpu = "250m";
-          memory = "512Mi";
-        };
+        extraConfig = {
+          systemReserved = {
+            cpu = "250m";
+            memory = "512Mi";
+          };
 
-        kubeReserved = {
-          cpu = "750m";
-          memory = "1536Mi";
+          kubeReserved = {
+            cpu = "750m";
+            memory = "1536Mi";
+          };
         };
       };
     };
 
-    services.flannel = {
+    flannel = {
       iface = lanInterface;
       backend = {
         Type = "vxlan";
         Port = 8472;
       };
     };
-
   };
 
   time.timeZone = "Europe/London";
@@ -113,6 +115,9 @@ in
       git
     ];
   };
+
+  swapDevices = lib.mkForce [ ];
+  zramSwap.enable = lib.mkForce false;
 
   networking.defaultGateway = "192.168.0.1";
   # Configure network proxy if necessary
