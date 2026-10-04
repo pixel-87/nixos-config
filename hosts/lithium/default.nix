@@ -24,7 +24,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.graceful = true;
-  boot.kernelParams = ["systemd.swap=0"];
+  boot.kernelParams = [ "systemd.swap=0" ];
 
   #home-manager.users.lithium = import ./home.nix;
 
