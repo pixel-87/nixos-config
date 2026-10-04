@@ -9,12 +9,13 @@
   imports = [
     ../../modules/home
     inputs.nixvim.homeModules.nixvim
-    inputs.nix-index-database.homeModules.nix-index
   ];
 
   myModules = {
+    # Keep server CLI workflow enabled.
     cli.enable = true;
     shell.enable = true;
+    tmux.enable = true;
     git = {
       enable = true;
       userEmail = "edwardoliverthomas@gmail.com";
