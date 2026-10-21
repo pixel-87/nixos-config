@@ -65,7 +65,7 @@
     };
 
     wrapper-manager = {
-      url = "github:viperML/wrapper-manager";
+      url = "git+https://codeberg.org/viperML/wrapper-manager";
     };
 
     nix-index-database = {

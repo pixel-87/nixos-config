@@ -26,6 +26,7 @@
     #inputs.home-manager.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
     ../../modules/nixos/bluetooth.nix
+    ../../modules/nixos/stylix.nix
   ];
 
   programs.hyprland.enable = true;

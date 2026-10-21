@@ -20,6 +20,5 @@
     nodejs
     gcc
     tree-sitter
-    antigravity-cli
   ];
 }

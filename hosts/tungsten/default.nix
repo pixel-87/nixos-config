@@ -23,6 +23,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/bluetooth.nix
+    ../../modules/nixos/stylix.nix
   ];
 
   programs.hyprland.enable = true;

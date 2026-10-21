@@ -79,6 +79,8 @@ in
     programs.nixvim = {
       enable = true;
 
+      nixpkgs.useGlobalPackages = true;
+
       extraPackages = cfg.lspPackages;
 
       opts = {

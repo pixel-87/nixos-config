@@ -8,7 +8,6 @@
 
 {
   imports = [
-    inputs.stylix.homeModules.stylix
     ../../modules/home
     ../../modules/home/profiles/dev-gui.nix
     ../../modules/home/hyprland/hyprland.nix
@@ -49,7 +48,6 @@
       wireplumber
       openssh
       obsidian
-      zotero
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       grim
       slurp
