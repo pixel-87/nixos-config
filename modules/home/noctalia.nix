@@ -7,8 +7,8 @@ let
     inherit pkgs;
     modules = [
       {
-        wrappers.noctalia-shell = {
-          basePackage = pkgs.noctalia-shell;
+        wrappers.noctalia = {
+          basePackage = pkgs.noctalia;
           env = {
             NOCTALIA_SETTINGS_FILE.value = pkgs.writeText "config.json" (builtins.toJSON settings);
           };
@@ -28,7 +28,7 @@ in
     MOZ_ENABLE_WAYLAND = "1";
   };
 
-  systemd.user.services.noctalia-shell = {
+  systemd.user.services.noctalia = {
     Unit = {
       Description = "Noctalia Shell";
       After = [
@@ -42,7 +42,7 @@ in
     };
     Service = {
       Type = "simple";
-      ExecStart = "${noctalia-wrapped.config.build.toplevel}/bin/noctalia-shell";
+      ExecStart = "${noctalia-wrapped.config.build.toplevel}/bin/noctalia";
       Restart = "on-failure";
       RestartSec = 5;
     };

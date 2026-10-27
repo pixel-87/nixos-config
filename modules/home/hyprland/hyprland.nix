@@ -141,7 +141,7 @@ in
           "$mainMod, M, exit"
           "$mainMod, E, exec, nautilus"
           "$mainMod, V, togglefloating"
-          "$mainMod, R, exec, noctalia-shell ipc --any-display call launcher toggle"
+          "$mainMod, R, exec, noctalia msg panel-toggle launcher"
           "$mainMod, P, pseudo"
           "$mainMod, F, exec, zen"
 
@@ -212,9 +212,9 @@ in
           "$mainMod ALT, P, exec, screenshot edit"
 
           # Noctalia wallpaper controls
-          "$mainMod ALT, W, exec, noctalia-shell ipc --any-display call wallpaper toggle"
-          "$mainMod CTRL, right, exec, noctalia-shell ipc --any-display call wallpaper random"
-          "$mainMod CTRL, left, exec, noctalia-shell ipc --any-display call wallpaper random"
+          "$mainMod ALT, W, exec, noctalia msg panel-toggle wallpaper"
+          "$mainMod CTRL, right, exec, noctalia msg wallpaper-random"
+          "$mainMod CTRL, left, exec, noctalia msg wallpaper-random"
         ];
 
         bindm = [
