@@ -1,0 +1,11 @@
+helmDefaults:
+  wait: true
+  timeout: 600
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: oci://quay.io/cilium/charts/cilium
+    version: "1.20.2"
+    values:
+      - cilium-values.yaml

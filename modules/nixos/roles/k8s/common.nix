@@ -8,13 +8,13 @@
     easyCerts = true;
 
     flannel = {
-      enable = true;
+      enable = false;
       openFirewallPorts = false;
     };
 
     addons.dns = {
       enable = true;
-      clusterIp = "10.96.0.10";
+      clusterIp = "10.0.0.254";
       clusterDomain = "cluster.local";
     };
   };
