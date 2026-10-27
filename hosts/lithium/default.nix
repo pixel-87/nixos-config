@@ -18,6 +18,9 @@ in
     ../../modules/nixos/roles/k8s/common.nix
     ../../modules/nixos/roles/k8s/control-plane.nix
     ../../modules/nixos/roles/k8s/worker.nix
+    ../../modules/nixos/services/k3s/cilium.nix
+
+    ../../modules/nixos/tailscale.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -26,7 +29,7 @@ in
   boot.loader.systemd-boot.graceful = true;
   boot.kernelParams = [ "systemd.swap=0" ];
 
-  #home-manager.users.lithium = import ./home.nix;
+  #home-manager.users.pixel = import ./home.nix;
 
   programs.dconf.enable = true;
 
@@ -51,6 +54,9 @@ in
         "mynet".allowedTCPPorts = [ apiPort ];
 
         "flannel.1".allowedTCPPorts = [ apiPort ];
+
+	"cilium_host".allowedTCPPorts = [ 6443 ];
+	"lxc+".allowedTCPPorts = [ 6443 ];
       };
       # Trust internal cluster interfaces to allow pod-to-pod communication
       trustedInterfaces = [
@@ -64,6 +70,7 @@ in
         80
         443
         53
+	6443
       ];
       allowedUDPPorts = [
         53
@@ -108,10 +115,13 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pixel = {
     isNormalUser = true;
+    group = "lithium";
     shell = pkgs.fish;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = [ ];
   };
+
+  users.groups.lithium = {};
 
   swapDevices = lib.mkForce [ ];
   zramSwap.enable = lib.mkForce false;
@@ -122,7 +132,13 @@ in
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+
+    settings = {
+      PermitRootLogin = "no";
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
