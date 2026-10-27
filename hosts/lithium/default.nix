@@ -55,8 +55,8 @@ in
 
         "flannel.1".allowedTCPPorts = [ apiPort ];
 
-	"cilium_host".allowedTCPPorts = [ 6443 ];
-	"lxc+".allowedTCPPorts = [ 6443 ];
+        "cilium_host".allowedTCPPorts = [ 6443 ];
+        "lxc+".allowedTCPPorts = [ 6443 ];
       };
       # Trust internal cluster interfaces to allow pod-to-pod communication
       trustedInterfaces = [
@@ -70,7 +70,7 @@ in
         80
         443
         53
-	6443
+        6443
       ];
       allowedUDPPorts = [
         53
@@ -121,7 +121,7 @@ in
     packages = [ ];
   };
 
-  users.groups.lithium = {};
+  users.groups.lithium = { };
 
   swapDevices = lib.mkForce [ ];
   zramSwap.enable = lib.mkForce false;
