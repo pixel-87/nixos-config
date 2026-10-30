@@ -1,56 +1,26 @@
-{ pkgs, inputs, ... }:
+{ lib, ... }:
 
-let
-  settings = (builtins.fromJSON (builtins.readFile ./noctalia.json)).settings;
-
-  noctalia-wrapped = inputs.wrapper-manager.lib {
-    inherit pkgs;
-    modules = [
-      {
-        wrappers.noctalia = {
-          basePackage = pkgs.noctalia;
-          env = {
-            NOCTALIA_SETTINGS_FILE.value = pkgs.writeText "config.json" (builtins.toJSON settings);
-          };
-        };
-      }
-    ];
-  };
-in
 {
-  home.packages = [ noctalia-wrapped.config.build.toplevel ];
+  # fromTOML keeps the settings in a reviewable TOML file but evaluates as an
+  # attrset so stylix's noctalia integration (theme/fonts/opacity) can merge.
+  programs.noctalia = {
+    enable = true;
+    systemd.enable = true;
+    settings = builtins.fromTOML (builtins.readFile ./noctalia.toml);
+  };
 
   home.sessionVariables = {
-    QT_QPA_PLATFORM = "wayland;xcb";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     GDK_BACKEND = "wayland,x11";
     XDG_SESSION_TYPE = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
   };
 
-  systemd.user.services.noctalia = {
-    Unit = {
-      Description = "Noctalia Shell";
-      After = [
-        "hyprland-session.target"
-        "graphical-session.target"
-      ];
-      PartOf = [
-        "hyprland-session.target"
-        "graphical-session.target"
-      ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${noctalia-wrapped.config.build.toplevel}/bin/noctalia";
-      Restart = "on-failure";
-      RestartSec = 5;
-    };
-    Install = {
-      WantedBy = [
-        "hyprland-session.target"
-        "graphical-session.target"
-      ];
-    };
-  };
+  # Hyprland sources ~/.config/hypr/noctalia.conf (written by noctalia's
+  # "hyprland" theme template), which errors with "globbing: found no match"
+  # on first boot before noctalia has ever run. Create an empty placeholder on
+  # activation; noctalia overwrites it with real colors when it starts.
+  home.activation.noctaliaHyprTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p "$HOME/.config/hypr"
+    touch "$HOME/.config/hypr/noctalia.conf"
+  '';
 }

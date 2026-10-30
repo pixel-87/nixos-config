@@ -54,7 +54,6 @@ in
         exec-once = [
           "nm-applet --indicator"
           "blueman-applet"
-          "~/.local/bin/wallpaper-init"
           cfg.terminal
         ];
         monitor = [ ",preferred,auto,1" ];
@@ -213,8 +212,8 @@ in
 
           # Noctalia wallpaper controls
           "$mainMod ALT, W, exec, noctalia msg panel-toggle wallpaper"
-          "$mainMod CTRL, right, exec, noctalia msg wallpaper-random"
-          "$mainMod CTRL, left, exec, noctalia msg wallpaper-random"
+          "$mainMod CTRL, right, exec, noctalia msg wallpaper-next"
+          "$mainMod CTRL, left, exec, noctalia msg wallpaper-previous"
         ];
 
         bindm = [
@@ -233,7 +232,8 @@ in
         windowrule = opacity 0.95 0.75, match:class .*
 
         # Source Noctalia colors so the shell doesn't try to overwrite our symlink
-        source = ~/.config/hypr/noctalia/noctalia-colors.conf
+        # (written by noctalia's built-in "hyprland" theme template)
+        source = ~/.config/hypr/noctalia.conf
       '';
     };
 

@@ -644,30 +644,6 @@
         "type": "github"
       }
     },
-    "noctalia-qs": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ],
-        "treefmt-nix": "treefmt-nix"
-      },
-      "locked": {
-        "lastModified": 1783820560,
-        "narHash": "sha256-ZTpxiN6evzEEca3DeMba7GtUkMVC/FJBHyIYy4uTLVc=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-qs",
-        "rev": "606adedbfea92caba306730edd0f6adba4acf310",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-qs",
-        "type": "github"
-      }
-    },
     "noctalia-shell": {
       "inputs": {
         "nixpkgs": [
@@ -761,12 +737,10 @@
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "noctalia-qs": "noctalia-qs",
         "noctalia-shell": "noctalia-shell",
         "plugin-99": "plugin-99",
         "stylix": "stylix",
         "systems": "systems",
-        "wrapper-manager": "wrapper-manager",
         "zen-browser": "zen-browser"
       }
     },
@@ -905,42 +879,6 @@
         "owner": "tinted-theming",
         "repo": "base16-zed",
         "type": "github"
-      }
-    },
-    "treefmt-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "noctalia-qs",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780220602,
-        "narHash": "sha256-eynAfOmbmxJnkp7YewvCEbShNnnYJ9gLLqkzsYtBPeM=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "db947814a175b7ca6ded66e21383d938df01c227",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "wrapper-manager": {
-      "locked": {
-        "lastModified": 1788355120,
-        "narHash": "sha256-JEuM7FjlX48cpDhDrkeIch5nNYANux5o0wcw8vnwUuE=",
-        "ref": "refs/heads/master",
-        "rev": "5dbc685119c53a10c3f9a74b2716107413889796",
-        "revCount": 95,
-        "type": "git",
-        "url": "https://codeberg.org/viperML/wrapper-manager"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/viperML/wrapper-manager"
       }
     },
     "xdph": {

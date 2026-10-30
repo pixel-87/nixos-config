@@ -1,0 +1,218 @@
+# Noctalia shell configuration for the v5 (C++ rewrite) shell.
+#
+# Hand-ported from the v4-era noctalia.json after the 5.x rewrite replaced the
+# quickshell/JSON settings with native TOML. Stylix owns all styling (palette,
+# mode, fonts); this file covers layout, wallpaper engine, and behavior.
+# Where v5 clearly does it better we take the new machinery directly (see
+# comments); things with no v5 equivalent fall back to v5 defaults. GUI
+# corrections persist in ~/.local/state/noctalia/settings.toml and win over
+# this file, so both layers survive rebuilds.
+
+[shell]
+time_format = "{:%H:%M}"   # old: clockFormat "HH:mm"
+telemetry_enabled = false
+show_location = false      # old: hideWeatherCityName
+
+# Clock's old "HH:mm ddd, MMM dd" for horizontal/tooltip formats.
+[widget.clock]
+format = "{:%H:%M %a, %b %d}"
+tooltip_format = "{:%H:%M %a, %b %d}"
+
+# One stat per widget in v5, replacing the old single SystemMonitor with
+# cpu %, cpu temp, mem % and disk used (not %, as before).
+
+[widget.cpu]
+type = "sysmon"
+stat = "cpu_usage"
+
+[widget.temp]
+type = "sysmon"
+stat = "cpu_temp"
+
+[widget.ram]
+type = "sysmon"
+stat = "ram_used"
+
+[widget.disk]
+type = "sysmon"
+stat = "disk_used"
+path = "/"
+
+[widget.workspaces]
+max_label_chars = 2               # old: characterCount 2
+labels_only_when_occupied = true  # old: showLabelsOnlyWhenOccupied
+
+[widget.media]
+artist_first = true               # old: showArtistFirst
+max_length = 300                  # old: maxWidth
+hide_when_no_media = true         # old: hideMode "hidden"
+
+[widget.volume.actions]
+middle = "exec pwvucontrol || pavucontrol"  # old middleClickCommand
+
+[widget.tray]
+drawer = true                     # old: drawerEnabled
+
+# ── Bar ──────────────────────────────────────────────────────────────────────
+# Old: floating 5px margins, 0.86 opacity, no capsule/outline, radius 12,
+# right-click opens the control center (still the v5 default).
+# Lanes: old layout plus the clipboard widget from the v5 defaults.
+
+[bar.main]
+position = "top"
+margin_edge = 5
+margin_ends = 5
+widget_spacing = 6
+padding = 2
+background_opacity = 0.86
+radius = 12
+
+start  = ["control-center", "workspaces", "media"]
+center = ["clock"]
+end    = ["cpu", "temp", "ram", "disk", "notifications", "clipboard", "power_profile", "volume", "battery", "tray"]
+
+# ── Location & weather ───────────────────────────────────────────────────────
+
+[location]
+address = "Exeter"  # old location.name
+
+[weather]
+enabled = true
+effects = true      # old weatherShowEffects
+unit = "metric"     # old useFahrenheit = false
+
+# ── System monitor thresholds (old: warn at 80, critical at 90; v5 defaults warn earlier)
+
+[system.monitor]
+cpu_usage_activity_threshold = 80
+cpu_usage_critical_threshold = 90
+cpu_temp_activity_threshold = 80
+cpu_temp_critical_threshold = 90
+ram_pct_activity_threshold = 80
+ram_pct_critical_threshold = 90
+
+# Old batteryWarningThreshold 20 (v5 has a single warning threshold, no critical).
+[battery]
+warning_threshold = 20
+
+# ── Theme ────────────────────────────────────────────────────────────────────
+# Stylix owns the palette here: its noctalia integration injects theme.source
+# "custom" (the Catppuccin Mocha base16 palette), theme.mode from stylix
+# polarity, the sans font, and popup opacities - see modules/nixos/stylix.nix.
+# What remains below: templates and the runtime shell behavior itself.
+
+[theme.templates]
+builtin_ids = ["hyprland"]  # writes ~/.config/hypr/noctalia.conf (old: noctalia-colors.conf)
+
+# ── Wallpaper ────────────────────────────────────────────────────────────────
+
+[wallpaper]
+directory = "/home/pixel/nixos-config/assets/wallpapers"
+fill_mode = "crop"
+transition = ["fade", "disc", "stripes", "wipe", "honeycomb"]
+transition_duration = 1000
+edge_smoothness = 0.05
+
+# ── Panels ───────────────────────────────────────────────────────────────────
+# Old: control center "close_to_bar_button" (attached panels already default).
+
+[shell.panel]
+open_near_click_control_center = true
+
+# ── Launcher ─────────────────────────────────────────────────────────────────
+# All-apps list, centered, usage-sorted (old viewMode list + categories +
+# sortByMostUsed; clipboard history stays enabled by default).
+
+[shell.launcher]
+default_view = "all"
+
+# ── Control center shortcuts (old left: Network+Bluetooth, right: Notifications+PowerProfile)
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "power_profile"
+
+# ── Sessions & lock screen ───────────────────────────────────────────────────
+# Old sessionMenu: seven enabled actions, each with a 10 s countdown, keys 1-7.
+# lock_before_suspend (default true) covers the old lockOnSuspend, and blur/tint
+# 0 + no transition reproduce the old flat lock screen.
+
+[[shell.session.actions]]
+action = "lock"
+shortcut = "1"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "suspend"
+shortcut = "2"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "command"
+label = "Hibernate"
+glyph = "moon"
+command = "systemctl hibernate"
+shortcut = "3"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "reboot"
+shortcut = "4"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "logout"
+shortcut = "5"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "shutdown"
+shortcut = "6"
+countdown_seconds = 10
+
+[[shell.session.actions]]
+action = "reboot_uefi"
+shortcut = "7"
+countdown_seconds = 10
+
+[lockscreen]
+blur_intensity = 0.0  # old lockScreenBlur = 0
+tint_intensity = 0.0  # old lockScreenTint = 0
+transition = []       # old lockScreenAnimations = false
+
+# ── Audio, misc ──────────────────────────────────────────────────────────────
+
+[audio]
+enable_sounds = false  # old sounds.enabled = false
+
+# ── Night light & idle ───────────────────────────────────────────────────────
+# Old: 4000/6500 K, schedule from location; screen off 600 s, lock 660 s,
+# suspend 1800 s with a 5 s dim.
+
+[nightlight]
+enabled = true
+temperature_day = 6500
+temperature_night = 4000
+
+[idle]
+pre_action_fade_seconds = 5
+
+[idle.behavior.screen-off]
+timeout = 600
+action = "screen_off"
+
+[idle.behavior.lock]
+timeout = 660
+action = "lock"
+
+[idle.behavior.suspend]
+timeout = 1800
+action = "lock_and_suspend"

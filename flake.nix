@@ -58,16 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
-    };
-
-    wrapper-manager = {
-      url = "git+https://codeberg.org/viperML/wrapper-manager";
-    };
-
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -106,6 +96,7 @@
                   users.pixel.imports = [
                     ./hosts/common/home.nix
                     ./hosts/laptop/home.nix
+                    inputs.noctalia-shell.homeModules.default
                   ];
                 };
               }
@@ -151,6 +142,7 @@
                   users.pixel.imports = [
                     ./hosts/common/home.nix
                     ./hosts/tungsten/home.nix
+                    inputs.noctalia-shell.homeModules.default
                   ];
                 };
               }

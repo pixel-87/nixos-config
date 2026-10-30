@@ -20,6 +20,10 @@
   # Enable Hyprland module
   myModules.hyprland.enable = true;
 
+  # Noctalia owns the wallpaper; stylix's hyprpaper target would start a second
+  # wallpaper daemon painting its own static image.
+  stylix.targets.hyprland.hyprpaper.enable = false;
+
   # Configure git
   myModules.git.userEmail = "edwardoliverthomas@gmail.com";
 
