@@ -27,6 +27,7 @@
     inputs.lanzaboote.nixosModules.lanzaboote
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/stylix.nix
+    ../../modules/nixos/tailscale.nix
   ];
 
   programs.hyprland.enable = true;
