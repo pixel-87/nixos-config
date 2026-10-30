@@ -38,9 +38,15 @@ type = "sysmon"
 stat = "disk_used"
 path = "/"
 
-[widget.workspaces]
-max_label_chars = 2               # old: characterCount 2
-labels_only_when_occupied = true  # old: showLabelsOnlyWhenOccupied
+# Per-workspace app icons in place of numbered workspace pills. v5's workspaces
+# widget cannot draw app icons in its regular/minimal styles, so workspace
+# grouping comes from the taskbar instead (icons only, no numbers - flip
+# show_workspace_label = true to get numbered tags back).
+[widget.taskbar]
+group_by_workspace = true
+show_workspace_label = false
+group_single_icon_per_app = true
+hide_empty_workspaces = true
 
 [widget.media]
 artist_first = true               # old: showArtistFirst
@@ -67,7 +73,7 @@ padding = 2
 background_opacity = 0.86
 radius = 12
 
-start  = ["control-center", "workspaces", "media"]
+start  = ["control-center", "taskbar", "media"]
 center = ["clock"]
 end    = ["cpu", "temp", "ram", "disk", "notifications", "clipboard", "power_profile", "volume", "battery", "tray"]
 
