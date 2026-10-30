@@ -137,6 +137,9 @@
         confirm_os_window_close 0
         background_opacity 0.85
         background_blur 1
+        # Never restore a previous (e.g. maximized) window state - every new
+        # terminal would open maximized and cover the tiled layout.
+        remember_window_size no
 
         # Enable color support
         term xterm-256color

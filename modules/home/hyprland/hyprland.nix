@@ -153,14 +153,8 @@ in
           "$mainMod, k, movefocus, u"
           "$mainMod, l, movefocus, r"
 
-          "$mainMod, left, alterzorder, top"
-          "$mainMod, right, alterzorder, top"
-          "$mainMod, up, alterzorder, top"
-          "$mainMod, down, alterzorder, top"
-          "$mainMod, h, alterzorder, top"
-          "$mainMod, j, alterzorder, top"
-          "$mainMod, k, alterzorder, top"
-          "$mainMod, l, alterzorder, top"
+          "$mainMod, X, fullscreen"
+          "$mainMod SHIFT, X, fullscreen, 1"
 
           "CTRL ALT, up, exec, hyprctl dispatch focuswindow floating"
           "CTRL ALT, down, exec, hyprctl dispatch focuswindow tiled"
