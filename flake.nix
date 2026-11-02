@@ -2,7 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    # Temporary: carries the certmgr SAN fix until NixOS/nixpkgs#434442 lands.
+    nixpkgs.url = "github:pixel-87/nixpkgs/fix-certmgr-cert-mismatch";
 
     systems.url = "github:nix-systems/default-linux";
 
