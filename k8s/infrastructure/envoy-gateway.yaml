@@ -24,12 +24,10 @@ spec:
   targetNamespace: envoy-gateway-system
   install:
     createNamespace: true
-  chart:
-    spec:
-      sourceRef:
-        kind: OCIRepository
-        name: envoy-gateway
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: envoy-gateway
+    namespace: flux-system
   values:
     logging:
       level:
