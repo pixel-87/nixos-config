@@ -9,6 +9,7 @@
     ./fastfetch.nix
     ./starship.nix
     ./opencode.nix
+    ./egm.nix
     ./tmux.nix
   ];
 }

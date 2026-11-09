@@ -35,6 +35,8 @@
     plugins = [ "opencode-gemini-auth@latest" ];
   };
 
+  myModules.egm.enable = true;
+
   home = {
     username = "pixel";
     homeDirectory = "/home/pixel";

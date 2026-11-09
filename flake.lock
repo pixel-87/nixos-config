@@ -116,6 +116,22 @@
         "type": "github"
       }
     },
+    "elephant-goldfish-model": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793632279,
+        "narHash": "sha256-vZPj7RcqjXvh3LambRLwc6zvpdsWMB7Fs195LvUVN/g=",
+        "owner": "google",
+        "repo": "elephant-goldfish-model",
+        "rev": "a7efe38e0389137cece95392dbab1d94965a414d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "google",
+        "repo": "elephant-goldfish-model",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "flake": false,
       "locked": {
@@ -732,6 +748,7 @@
     },
     "root": {
       "inputs": {
+        "elephant-goldfish-model": "elephant-goldfish-model",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

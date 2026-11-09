@@ -54,6 +54,11 @@
       flake = false;
     };
 
+    elephant-goldfish-model = {
+      url = "github:google/elephant-goldfish-model";
+      flake = false;
+    };
+
     noctalia-shell = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
