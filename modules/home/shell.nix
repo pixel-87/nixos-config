@@ -139,6 +139,7 @@ in
         ripgrep # Better grep
         fzf # Fuzzy finder
         kubernetes-helm
+        go
       ]
       ++ lib.optionals cfg.enableNh [ nh ];
   };
