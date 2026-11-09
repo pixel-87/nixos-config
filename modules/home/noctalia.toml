@@ -106,9 +106,14 @@ warning_threshold = 20
 # "custom" (the Catppuccin Mocha base16 palette), theme.mode from stylix
 # polarity, the sans font, and popup opacities - see modules/nixos/stylix.nix.
 # What remains below: templates and the runtime shell behavior itself.
+#
+# No builtin templates: Home Manager owns ~/.config/hypr/hyprland.lua, so the
+# Hyprland colour template has nothing it can write to. Hyprland colours come
+# from Stylix, plus the two borders pinned in modules/home/hyprland/hyprland.nix.
+# Re-enabling this in the GUI only makes the template fail on a read-only file.
 
 [theme.templates]
-builtin_ids = ["hyprland"]  # writes ~/.config/hypr/noctalia.conf (old: noctalia-colors.conf)
+builtin_ids = []
 
 # ── Wallpaper ────────────────────────────────────────────────────────────────
 
