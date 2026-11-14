@@ -7,23 +7,9 @@
 }:
 
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      inherit (prev.lixPackageSets.stable)
-        nixpkgs-review
-        nix-eval-jobs
-        nix-fast-build
-        colmena
-        ;
-    })
-  ];
-
-  nix.package = pkgs.lixPackageSets.stable.lix;
-
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    #inputs.home-manager.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/stylix.nix
@@ -39,7 +25,6 @@
   boot.lanzaboote.enable = true;
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
   boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote.configurationLimit = 15;
 
   boot.kernelModules = [
@@ -67,6 +52,10 @@
     HibernateDelaySec = "30min";
   };
 
+  # Exeter, UK location
+  location.latitude = 50.7256;
+  location.longitude = -3.5275;
+
   services.logind.settings.Login = {
     HandleLidSwitch = "lock";
     KillUserProcesses = false;
@@ -75,60 +64,12 @@
     HandleLidSwitchDocked = "ignore";
   };
 
-  services.tuned = {
-    enable = true;
-    ppdSupport = true;
-
-    ppdSettings.main.battery_detection = true;
-  };
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Europe/London";
-
-  # Exeter, UK location
-  location.latitude = 50.7256;
-  location.longitude = -3.5275;
-
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "uk";
-
-  users.users.pixel = {
-    isNormalUser = true;
-    description = "pixel";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [ ];
-    shell = pkgs.fish;
-  };
-
-  environment.systemPackages = with pkgs; [
-    openssh
-  ];
+  users.users.pixel.extraGroups = [ "networkmanager" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -138,9 +79,6 @@
   #   enableSSHSupport = true;
   # };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Enable OneDrive background sync service
   services.onedrive.enable = true;
 
@@ -149,7 +87,4 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  system.stateVersion = "25.05"; # Dont change
-
 }

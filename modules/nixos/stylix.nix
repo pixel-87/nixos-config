@@ -1,6 +1,8 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 
 {
+  imports = [ inputs.stylix.nixosModules.stylix ];
+
   stylix = {
     enable = true;
     image = ../../assets/nixos_logo_1.webp;

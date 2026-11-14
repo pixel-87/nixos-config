@@ -2,6 +2,8 @@
 
 let
   mkHost = name: lib.nixosSystem {
+    specialArgs = { inherit inputs self; };
+
     modules = [
       ../../modules/nixos/common.nix
       ../../hosts/${name}
