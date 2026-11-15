@@ -6,6 +6,11 @@
 
     systems.url = "github:nix-systems/default-linux";
 
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.flake-parts.follows = "flake-parts";
