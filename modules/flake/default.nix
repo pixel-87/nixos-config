@@ -27,17 +27,18 @@
           package = pkgs.prek;
 
           hooks = {
-            nixfmt.enable = true;
-            deadnix.enable = true;
-            statix.enable = true;
             actionlint.enable = true;
+            check-added-large-files.enable = true;
+            check-merge-conflicts.enable = true;
+            check-symlinks.enable = true;
+            deadnix.enable = true;
+            end-of-file-fixer.enable = true;
+            nixfmt.enable = true;
             shellcheck.enable = true;
             shfmt.enable = true;
-            check-merge-conflicts.enable = true;
-            check-added-large-files.enable = true;
-            check-symlinks.enable = true;
-            end-of-file-fixer.enable = true;
+            statix.enable = true;
             trim-trailing-whitespace.enable = true;
+            zizmor.enable = true;
           };
         };
       };
