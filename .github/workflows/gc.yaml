@@ -1,0 +1,56 @@
+name: Cache GC
+
+concurrency:
+  group: hestia-gc
+  cancel-in-progress: false
+
+on:
+  schedule:
+    # Daily, off-peak (UTC).
+    - cron: "23 3 * * *"
+  # Manual runs for debugging and one-off cleanups.
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Plan only; do not repack, touch, or delete anything.
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  gc:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      # REST cache deletes need actions:write.
+      actions: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+
+      - name: Build hestia
+        run: nix build github:Mic92/hestia -o hestia-bin
+
+      - name: nix cache
+        uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
+        with:
+          version: ""
+
+      - name: Run garbage collection
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then
+            args+=(--dry-run)
+          fi
+          ./hestia-bin/bin/hestia gc "${args[@]}"

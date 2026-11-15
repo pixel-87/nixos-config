@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/**"
+  pull_request:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/**"
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  eval:
+    name: Evaluate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      any-jobs: ${{ steps.matrix.outputs.any-jobs }}
+      manifest-version: ${{ steps.matrix.outputs.manifest-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          persist-credentials: false
+
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+
+      - name: Eval flake
+        run: nix flake check --no-build --option allow-import-from-derivation false
+
+      - name: Start cache daemon
+        uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
+
+      - name: Build matrix
+        id: matrix
+        uses: Mic92/hestia/matrix@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
+        with:
+          flake: ".#checks"
+          nix-eval-jobs: "nix run nixpkgs#nix-eval-jobs --"
+          runner-map: |
+            x86_64-linux=ubuntu-24.04
+
+  build:
+    name: ${{ matrix.name }} (${{ matrix.system }})
+    needs: eval
+    if: needs.eval.outputs.any-jobs == 'true'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.eval.outputs.matrix) }}
+    steps:
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+
+      - name: Start cache daemon
+        uses: Mic92/hestia@dfed9ced335d28978ba74e513939a10db1f71025 # v3.1.0
+        with:
+          wait-manifest-version: ${{ needs.eval.outputs.manifest-version }}
+          upstream-cache-filter: true
+
+      - name: Prefetch derivation closure
+        env:
+          HESTIA_INSTALLABLES: ${{ matrix.installables }}
+        run: |
+          read -r -a installables <<< "$HESTIA_INSTALLABLES"
+          "$HESTIA_BIN" prefetch "${installables[@]}"
+
+      - name: Build
+        env:
+          INSTALLABLES: ${{ matrix.installables }}
+        run: |
+          read -r -a installables <<< "$INSTALLABLES"
+          nix build --print-build-logs "${installables[@]}"
+
+  lint:
+    name: lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          persist-credentials: false
+
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+
+      - name: Run prek hooks
+        run: nix develop --command prek run --all-files --show-diff-on-failure
+
+  gate:
+    name: Gate
+    if: always()
+    needs: [eval, build, lint]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0
+        with:
+          jobs: ${{ toJSON(needs) }}
