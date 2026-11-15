@@ -3,7 +3,7 @@
 
   inputs = {
     # Temporary: carries the certmgr SAN fix until NixOS/nixpkgs#434442 lands.
-    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixeprs.tar.zst";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
 
     systems.url = "github:nix-systems/default-linux";
 
