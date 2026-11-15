@@ -20,15 +20,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
           persist-credentials: false
 
-      - name: Install Determinate Nix 
-        uses: DeterminateSystems/nix-installer-action@v3
-        with:
-          extra-args: --determinate
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
 
       - name: Check flake.lock
         run: nix run github:tgirlcloud/pkgs#locker

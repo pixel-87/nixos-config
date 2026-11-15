@@ -4,4 +4,3 @@ resources:
   - grafana.secret.yaml
   - kube-prometheus-stack.yaml
   - ingress.yaml
-

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+_:
 
 let
   fluxSystemPath = ../../../../k8s/flux-system;

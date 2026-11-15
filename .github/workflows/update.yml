@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: "3 0 * * *"
 
-permissions: {} 
+permissions: {}
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
@@ -17,14 +17,14 @@ jobs:
       branch: ${{ steps.pr.outputs.pull-request-branch }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/nix-installer-action@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          extra-args: --determinate
+          persist-credentials: false
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       - name: Update Lockfile
         id: pr
-        uses: DeterminateSystems/update-flake-lock@v28
+        uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29.0.0
         with:
           token: ${{ secrets.GH_ACTION_TOKEN }}
           commit-msg: "flake.lock: update all inputs"
@@ -38,7 +38,7 @@ jobs:
   check:
     name: Check Flake
     needs: update-lockfile
-    uses: ./.github/workflows/check.yml
+    uses: $/.github/workflows/check.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
     # Note: Ensure check.yml defines its own 'permissions: contents: read'
@@ -46,14 +46,14 @@ jobs:
   check-lock:
     name: Check Lock
     needs: update-lockfile
-    uses: ./.github/workflows/check-lock.yml
+    uses: $/.github/workflows/check-lock.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
   check-fmt:
     name: Check Formatting
     needs: update-lockfile
-    uses: ./.github/workflows/fmt.yml
+    uses: $/.github/workflows/fmt.yml
     permissions:
       contents: read
     with:
@@ -65,10 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     # FIXED: Added 'contents: read' so checkout can actually fetch the code
     permissions:
-      contents: read 
+      contents: read
     steps:
       - name: Free Disk Space
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6 # v2.0.0
         with:
           tool-cache: true
           android: true
@@ -79,29 +79,27 @@ jobs:
           swap-storage: true
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ needs.update-lockfile.outputs.branch }}
           persist-credentials: false
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/nix-installer-action@v3
-        with:
-          extra-args: --determinate
+      - name: Install nix with cachix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
       - name: Build NixOS Configs
         # Added -L to see build logs in CI
         run: |
           nix build .#nixosConfigurations.laptop.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-laptop
           nix build .#nixosConfigurations.lithium.config.system.build.toplevel --option allow-import-from-derivation false -L -o result-lithium
-      
+
       # Package results as tarballs to avoid copying special files (sockets/devices)
       - name: Prepare Artifacts
         run: |
           mkdir -p build-output
           tar -C result-laptop -czf build-output/result-laptop.tar.gz .
           tar -C result-lithium -czf build-output/result-lithium.tar.gz .
-          
+
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 #v7.0.2
         with:
           name: updated-nixos-config-build
           path: build-output/

@@ -308,4 +308,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- Tinymist (Typst LSP) configuration is now handled by Nixvim directly
-

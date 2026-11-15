@@ -27,7 +27,10 @@
           package = pkgs.prek;
 
           hooks = {
-            actionlint.enable = true;
+            actionlint = {
+              enable = true;
+              package = pkgs.callPackage ../../pkgs/actionlint/package.nix { };
+            };
             check-added-large-files.enable = true;
             check-merge-conflicts.enable = true;
             check-symlinks.enable = true;
@@ -42,5 +45,7 @@
           };
         };
       };
+
+      packages.actionlint = pkgs.callPackage ../../pkgs/actionlint/package.nix { };
     };
 }
