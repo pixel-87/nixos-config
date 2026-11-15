@@ -2,7 +2,6 @@
   description = "Nixos config flake";
 
   inputs = {
-    # Temporary: carries the certmgr SAN fix until NixOS/nixpkgs#434442 lands.
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
 
     systems.url = "github:nix-systems/default-linux";
@@ -70,8 +69,10 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs =
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ ./modules/flake ];
+      systems = [ "x86_64-linux" ];
     };
 }

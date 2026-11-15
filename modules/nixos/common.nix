@@ -90,8 +90,6 @@
 
   services.tuned = {
     enable = true;
-    ppdSupport = true;
-    ppdSettings.main.battery_detection = true;
   };
 
   # --- Users -------------------------------------------------------------

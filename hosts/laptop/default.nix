@@ -26,6 +26,12 @@
     "sdhci-pci"
   ];
 
+  services.tuned = {
+    # enabled in modules/nixos/common.nix
+    ppdSupport = true;
+    ppdSettings.main.battery_detection = true;
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;
 

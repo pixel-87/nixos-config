@@ -1,12 +1,16 @@
 {
   imports = [ ./hosts.nix ];
 
-  perSystem = { pkgs, ... }:
-  {
-    formatter = pkgs.nixfmt-tree;
+  perSystem =
+    { pkgs, ... }:
+    {
+      formatter = pkgs.nixfmt-tree;
 
-    devShells.default = pkgs.mkShell {
-      packages = [pkgs.git pkgs.nvim];
+      devShells.default = pkgs.mkShell {
+        packages = [
+          pkgs.git
+          pkgs.nvim
+        ];
+      };
     };
-  };
 }

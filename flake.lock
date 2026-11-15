@@ -623,18 +623,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1793625070,
-        "narHash": "sha256-6LuGTKgRuE6JnoyyQHSONUuUCvYgf1JY2/8Vu86X6iI=",
-        "owner": "pixel-87",
-        "repo": "nixpkgs",
-        "rev": "dc2954755424afd52909c8e5bac11520db4ecdd4",
-        "type": "github"
+        "lastModified": 1794495034,
+        "narHash": "sha256-QG/HY0t5t3sfT2ozW/Ikis5Klqf0X4nfTuLvFaBpNno=",
+        "rev": "2074cc672349f14240fb7ea90d509e0b643e9dd4",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1118975.2074cc672349/nixexprs.tar.zst?lastModified=1794495034&rev=2074cc672349f14240fb7ea90d509e0b643e9dd4"
       },
       "original": {
-        "owner": "pixel-87",
-        "ref": "certmgr-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
       }
     },
     "nixvim": {
