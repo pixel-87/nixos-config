@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   # fromTOML keeps the settings in a reviewable TOML file but evaluates as an
   # attrset so stylix's noctalia integration (theme/fonts/opacity) can merge.
   programs.noctalia = {

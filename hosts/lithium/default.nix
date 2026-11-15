@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -24,9 +23,14 @@ in
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.graceful = true;
-  boot.kernelParams = [ "systemd.swap=0" ];
+  boot = {
+    loader.systemd-boot = {
+      enable = true;
+      graceful = true;
+    };
+
+    kernelParams = [ "systemd.swap=0" ];
+  };
 
   #home-manager.users.pixel = import ./home.nix;
 

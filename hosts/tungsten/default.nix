@@ -1,8 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
-  inputs,
   ...
 }:
 
@@ -12,16 +9,16 @@
     ../../modules/nixos/profiles/gui.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot = {
+    loader.systemd-boot.enable = true;
+    kernelParams = [ "acpi=force" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   networking.hostName = "tungsten";
   networking.networkmanager.enable = true;
 
   swapDevices = [ ];
-
-  boot.kernelParams = [ "acpi=force" ];
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.onedrive.enable = true;
 

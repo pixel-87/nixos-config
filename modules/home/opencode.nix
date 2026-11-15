@@ -32,7 +32,7 @@ in
     xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
       "$schema" = "https://opencode.ai/config.json";
       plugin = cfg.plugins;
-      model = cfg.model;
+      inherit (cfg) model;
     };
   };
 }

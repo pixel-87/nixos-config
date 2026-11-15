@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -16,20 +14,43 @@
   ];
 
   # Bootloader.
-  boot.lanzaboote.enable = true;
-  boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
-  boot.loader.systemd-boot.enable = false;
-  boot.lanzaboote.configurationLimit = 15;
+  boot = {
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      configurationLimit = 15;
+    };
 
-  boot.kernelModules = [
-    "sdhci"
-    "sdhci-pci"
-  ];
+    loader.systemd-boot.enable = false;
 
-  services.tuned = {
-    # enabled in modules/nixos/common.nix
-    ppdSupport = true;
-    ppdSettings.main.battery_detection = true;
+    kernelModules = [
+      "sdhci"
+      "sdhci-pci"
+    ];
+
+    kernelParams = [
+      "resume=UUID=896ab1c6-052c-49d5-8f91-e6a83065cfd6"
+      "resume_offset=18919424"
+    ];
+
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  services = {
+    tuned = {
+      # enabled in modules/nixos/common.nix
+      ppdSupport = true;
+      ppdSettings.main.battery_detection = true;
+    };
+
+    logind.settings.Login = {
+      HandleLidSwitch = "lock";
+      HandleLidSwitchDocked = "ignore";
+      KillUserProcesses = false;
+    };
+
+    # Enable OneDrive background sync service
+    onedrive.enable = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -41,12 +62,6 @@
       size = 16384;
     }
   ];
-  boot.kernelParams = [
-    "resume=UUID=896ab1c6-052c-49d5-8f91-e6a83065cfd6"
-    "resume_offset=18919424"
-  ];
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   systemd.sleep.settings.Sleep = {
     HibernateDelaySec = "30min";
@@ -55,14 +70,6 @@
   # Exeter, UK location
   location.latitude = 50.7256;
   location.longitude = -3.5275;
-
-  services.logind.settings.Login = {
-    HandleLidSwitch = "lock";
-    KillUserProcesses = false;
-  };
-  services.logind.settings.Login = {
-    HandleLidSwitchDocked = "ignore";
-  };
 
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -78,9 +85,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # Enable OneDrive background sync service
-  services.onedrive.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

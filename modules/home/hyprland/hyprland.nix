@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -38,7 +37,7 @@ let
       name
       {
         type = "bezier";
-        points = points;
+        inherit points;
       }
     ];
   };

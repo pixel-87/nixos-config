@@ -1,19 +1,21 @@
 {
   imports = [ ../../modules/home/profiles/gui.nix ];
 
-  # Configure git
-  myModules.git.userEmail = "edwardoliverthomas@gmail.com";
+  myModules = {
+    # Configure git
+    git.userEmail = "edwardoliverthomas@gmail.com";
 
-  # Enable pentesting tools
-  myModules.pentesting.enable = true;
+    # Enable pentesting tools
+    pentesting.enable = true;
 
-  myModules.fastfetch.enable = true;
-  myModules.starship.enable = true;
+    fastfetch.enable = true;
+    starship.enable = true;
 
-  myModules.opencode = {
-    enable = true;
-    plugins = [ "opencode-gemini-auth@latest" ];
+    opencode = {
+      enable = true;
+      plugins = [ "opencode-gemini-auth@latest" ];
+    };
+
+    egm.enable = true;
   };
-
-  myModules.egm.enable = true;
 }

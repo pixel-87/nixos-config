@@ -1,10 +1,14 @@
 { lib, pkgs, ... }:
 
 {
-  services.kubernetes.flannel.enable = false;
-  services.flannel.enable = false;
+  services = {
+    kubernetes = {
+      flannel.enable = false;
+      apiserver.allowPrivileged = true;
+    };
 
-  services.kubernetes.apiserver.allowPrivileged = true;
+    flannel.enable = false;
+  };
 
   virtualisation.containerd.settings.plugins."io.containerd.grpc.v1.cri".cni = {
     bin_dir = lib.mkForce "/var/lib/cni/bin";

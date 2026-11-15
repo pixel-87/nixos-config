@@ -106,55 +106,57 @@ in
 
       globals.mapleader = " ";
 
-      plugins.lsp = {
-        enable = true;
-        servers = {
-          nixd.enable = true;
-          lua_ls = {
-            enable = true;
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = [ "vim" ];
-                };
-                workspace = {
-                  checkThirdParty = false;
+      plugins = {
+        lsp = {
+          enable = true;
+          servers = {
+            nixd.enable = true;
+            lua_ls = {
+              enable = true;
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = [ "vim" ];
+                  };
+                  workspace = {
+                    checkThirdParty = false;
+                  };
                 };
               };
             };
-          };
-          ts_ls.enable = true;
-          bashls.enable = true;
-          jsonls.enable = true;
-          yamlls.enable = true;
-          marksman.enable = true;
-          pyright.enable = true;
-          gopls.enable = true;
-          templ.enable = true;
-          tinymist = {
-            enable = true;
-            settings = {
-              exportPdf = "onSave";
-              projectSpecification = "lockDatabase";
+            ts_ls.enable = true;
+            bashls.enable = true;
+            jsonls.enable = true;
+            yamlls.enable = true;
+            marksman.enable = true;
+            pyright.enable = true;
+            gopls.enable = true;
+            templ.enable = true;
+            tinymist = {
+              enable = true;
+              settings = {
+                exportPdf = "onSave";
+                projectSpecification = "lockDatabase";
+              };
+            };
+            rust_analyzer = {
+              enable = true;
+              installCargo = false;
+              installRustc = false;
             };
           };
-          rust_analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
         };
-      };
 
-      plugins.markdown-preview = {
-        enable = true;
-        settings.auto_start = 0;
-      };
+        markdown-preview = {
+          enable = true;
+          settings.auto_start = 0;
+        };
 
-      plugins.render-markdown = {
-        enable = true;
-        settings = {
-          latex.enabled = false;
+        render-markdown = {
+          enable = true;
+          settings = {
+            latex.enabled = false;
+          };
         };
       };
 

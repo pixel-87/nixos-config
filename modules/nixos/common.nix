@@ -28,7 +28,7 @@
     config.allowUnfree = true;
 
     overlays = [
-      (final: prev: {
+      (_: prev: {
         inherit (prev.lixPackageSets.stable)
           nixpkgs-review
           nix-eval-jobs
@@ -44,7 +44,7 @@
       # switch-to-configuration with status 4. Required here because
       # services.tuned.ppdSupport forces services.upower.enable.
       # Remove once nixpkgs ships a fixed upower (> 1.91.4).
-      (final: prev: {
+      (_: prev: {
         upower = prev.upower.overrideAttrs (_: rec {
           version = "1.91.3";
           src = prev.fetchFromGitLab {
@@ -80,16 +80,15 @@
 
   console.keyMap = "uk";
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
+  services = {
+    xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
 
-  # --- Services ----------------------------------------------------------
-  services.openssh.enable = true;
+    openssh.enable = true;
 
-  services.tuned = {
-    enable = true;
+    tuned.enable = true;
   };
 
   # --- Users -------------------------------------------------------------
