@@ -2,6 +2,7 @@
 {
   imports = [
     ./hosts.nix
+    ./checks/check-build.nix
     inputs.git-hooks.flakeModule
     inputs.treefmt-nix.flakeModule
   ];
