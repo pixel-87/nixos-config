@@ -11,15 +11,9 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.lanzaboote.nixosModules.lanzaboote
-    ../../modules/nixos/bluetooth.nix
-    ../../modules/nixos/stylix.nix
+    ../../modules/nixos/profiles/gui.nix
     ../../modules/nixos/tailscale.nix
   ];
-
-  programs.hyprland.enable = true;
-  programs.hyprland.package = pkgs.hyprland;
-
-  hardware.graphics.enable = true;
 
   # Bootloader.
   boot.lanzaboote.enable = true;

@@ -14,7 +14,6 @@
     ../../modules/home/neovim.nix
     ../../modules/home/vim.nix
     ../../modules/home/profiles/dev.nix
-    inputs.nixvim.homeModules.nixvim
   ];
 
   myModules = {

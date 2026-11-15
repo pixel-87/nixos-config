@@ -9,14 +9,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/bluetooth.nix
-    ../../modules/nixos/stylix.nix
+    ../../modules/nixos/profiles/gui.nix
   ];
-
-  programs.hyprland.enable = true;
-  programs.hyprland.package = pkgs.hyprland;
-
-  hardware.graphics.enable = true;
 
   boot.loader.systemd-boot.enable = true;
 
