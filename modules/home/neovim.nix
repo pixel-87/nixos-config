@@ -112,13 +112,43 @@ in
         comment.enable = true;
         indent-blankline.enable = true;
 
+        leap.enable = true;
+
         lualine = {
           enable = true;
           settings.options.theme = "auto";
         };
 
+        mini-ai.enable = true;
+        mini-surround.enable = true;
+
+        nvim-autopairs.enable = true;
+
+        oil = {
+          enable = true;
+          settings.view_options.show_hidden = true;
+        };
+
+        telescope = {
+          enable = true;
+
+          settings.defaults.mappings.i = {
+            "<C-k>" = "move_selection_previous";
+            "<C-j>" = "move_selection_next";
+          };
+
+          keymaps = {
+            "<leader>ff" = "find_files";
+            "<leader>fg" = "live_grep";
+            "<leader>fb" = "buffers";
+          };
+
+          extensions.fzf-native.enable = true;
+        };
+
         todo-comments.enable = true;
         web-devicons.enable = true;
+        which-key.enable = true;
 
         lsp = {
           enable = true;
@@ -325,16 +355,7 @@ in
 
         # Core + navigation
         plenary-nvim
-        telescope-nvim
-        telescope-fzf-native-nvim
         harpoon
-        which-key-nvim
-        oil-nvim
-
-        # Editing ergonomics
-        nvim-autopairs
-        mini-nvim
-        leap-nvim
 
         # Git
         gitsigns-nvim

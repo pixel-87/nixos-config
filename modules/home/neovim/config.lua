@@ -65,29 +65,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 -- Theme is configured by Nixvim (colorscheme / colorschemes.catppuccin)
 
--- Which-key
-require("which-key").setup({})
+-- Which-key, telescope, oil, leap and the mini modules are configured by
+-- Nixvim (plugins.which-key, plugins.telescope, plugins.oil, plugins.leap,
+-- plugins.mini-ai, plugins.mini-surround).
 
--- Telescope
-local telescope = require("telescope")
-telescope.setup({
-  defaults = {
-    mappings = {
-      i = {
-        ["<C-k>"] = "move_selection_previous",
-        ["<C-j>"] = "move_selection_next",
-      },
-    },
-  },
-})
-pcall(telescope.load_extension, "fzf")
-
--- Oil (file explorer)
-require("oil").setup({
-  view_options = {
-    show_hidden = true,
-  },
-})
 -- Harpoon
 local harpoon_mark = require("harpoon.mark")
 local harpoon_ui = require("harpoon.ui")
@@ -99,9 +80,6 @@ vim.keymap.set("n", "<leader>h3", function() harpoon_ui.nav_file(3) end, { desc 
 vim.keymap.set("n", "<leader>h4", function() harpoon_ui.nav_file(4) end, { desc = "Harpoon file 4" })
 
 -- Keymaps (general)
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
@@ -113,14 +91,9 @@ vim.keymap.set(
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
--- Surround, ai, motions
-require("mini.surround").setup()
-require("mini.ai").setup()
-require("leap").setup({})
+-- Surround and ai text objects are configured by Nixvim (mini-surround/mini-ai)
 
--- Autopairs
-local autopairs = require("nvim-autopairs")
-autopairs.setup({})
+-- Autopairs and leap are configured by Nixvim (plugins.nvim-autopairs/plugins.leap)
 
 -- Git signs
 require("gitsigns").setup({
