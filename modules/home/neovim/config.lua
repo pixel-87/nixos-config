@@ -176,13 +176,6 @@ require("lualine").setup({
   options = { theme = "auto" },
 })
 
--- Manually start treesitter for all buffers (workaround for recent nvim-treesitter issues)
-vim.api.nvim_create_autocmd({"FileType", "BufRead"}, {
-  callback = function()
-    pcall(vim.treesitter.start)
-  end,
-})
-
 -- Render Markdown setup is handled by nixvim module
 
 -- 99 (AI Agent by ThePrimeagen)

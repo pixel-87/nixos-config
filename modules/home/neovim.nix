@@ -158,6 +158,15 @@ in
             latex.enabled = false;
           };
         };
+
+        treesitter = {
+          enable = true;
+          grammarPackages = map (
+            name: config.programs.nixvim.plugins.treesitter.package.builtGrammars.${name}
+          ) cfg.treesitterParsers;
+          highlight.enable = true;
+          indent.enable = true;
+        };
       };
 
       extraPlugins = with pkgs.vimPlugins; [
@@ -208,9 +217,6 @@ in
 
         # Terminals
         toggleterm-nvim
-
-        # Treesitter with chosen parsers
-        (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: map (name: p.${name}) cfg.treesitterParsers))
       ];
 
       extraConfigLua = builtins.readFile ./neovim/config.lua;
