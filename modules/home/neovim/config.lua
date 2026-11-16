@@ -7,10 +7,26 @@ vim.opt.tabstop = 2
 -- Persistent undo (save undo history across sessions)
 vim.opt.undofile = true
 
--- Treat .mdx files as markdown (MDX is Markdown + JSX)
+-- Filetype detection for formats Neovim doesn't know out of the box:
+-- MDX (Markdown + JSX), OpenTofu, Helm charts, Docker Compose and Ansible.
 vim.filetype.add({
   extension = {
     mdx = "markdown",
+    tofu = "opentofu",
+  },
+  pattern = {
+    -- Helm: chart templates and values files
+    [".*/templates/.*%.ya?ml"] = "helm",
+    [".*/values%.ya?ml"] = "yaml.helm-values",
+    -- Docker Compose
+    ["compose%.ya?ml"] = "yaml.docker-compose",
+    ["compose%.override%.ya?ml"] = "yaml.docker-compose",
+    ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
+    ["docker%-compose%.override%.ya?ml"] = "yaml.docker-compose",
+    -- Ansible
+    [".*/ansible/.*%.ya?ml"] = "yaml.ansible",
+    [".*/playbooks/.*%.ya?ml"] = "yaml.ansible",
+    [".*/roles/.*%.ya?ml"] = "yaml.ansible",
   },
 })
 

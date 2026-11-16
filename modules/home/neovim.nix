@@ -30,25 +30,24 @@ let
     "go"
     "rust"
     "dockerfile"
+    "helm"
+    "gotmpl"
+    "hcl"
+    "terraform"
+    "jsonnet"
     "sql"
     "templ"
     "typst"
   ];
 
   defaultLspPackages = with pkgs; [
-    nixd
-    lua-language-server
-    typescript-language-server
-    typescript
-    vscode-langservers-extracted
-    yaml-language-server
-    bash-language-server
-    pyright
-    gopls
-    rust-analyzer
-    marksman
-    templ
-    tinymist
+    # Language servers are installed automatically by nixvim; this list is for
+    # extra executables they need.
+    typescript # ts_ls
+    opentofu # tofu_ls
+    kubernetes-helm # helm_ls
+    ansible # ansiblels
+    ansible-lint # ansiblels
   ];
 
   plugin-99 = pkgs.vimUtils.buildVimPlugin {
@@ -71,7 +70,7 @@ in
     lspPackages = lib.mkOption {
       type = with lib.types; listOf package;
       default = defaultLspPackages;
-      description = "Language servers to install via Nix; passed to nixvim.extraPackages.";
+      description = "Extra executables to make available to Neovim (passed to nixvim.extraPackages). Language servers themselves are installed automatically by nixvim.";
     };
   };
 
@@ -110,7 +109,7 @@ in
         lsp = {
           enable = true;
           servers = {
-            nixd.enable = true;
+            nil_ls.enable = true;
             lua_ls = {
               enable = true;
               settings = {
@@ -127,10 +126,34 @@ in
             ts_ls.enable = true;
             bashls.enable = true;
             jsonls.enable = true;
+            cssls.enable = true;
+            html.enable = true;
+            emmet_language_server.enable = true;
             yamlls.enable = true;
             marksman.enable = true;
-            pyright.enable = true;
+            basedpyright.enable = true;
+            ruff.enable = true;
             gopls.enable = true;
+
+            tofu_ls = {
+              enable = true;
+              # lspconfig defaults to opentofu/opentofu-vars/terraform; add
+              # terraform-vars so *.tfvars attaches too.
+              filetypes = [
+                "opentofu"
+                "opentofu-vars"
+                "terraform"
+                "terraform-vars"
+              ];
+            };
+            helm_ls.enable = true;
+            jsonnet_ls.enable = true;
+            dockerls.enable = true;
+            docker_compose_language_service.enable = true;
+            ansiblels = {
+              enable = true;
+              package = pkgs.ansible-language-server;
+            };
             templ.enable = true;
             tinymist = {
               enable = true;
