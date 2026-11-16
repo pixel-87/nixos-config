@@ -8,8 +8,6 @@
   ];
 
   home = {
-    username = lib.mkDefault "pixel";
-    homeDirectory = lib.mkDefault "/home/pixel";
     stateVersion = lib.mkDefault "25.05";
   };
 

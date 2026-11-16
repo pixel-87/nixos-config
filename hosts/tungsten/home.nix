@@ -1,6 +1,11 @@
 {
   imports = [ ../../modules/home/profiles/gui.nix ];
 
+  home = {
+    username = "pixel";
+    homeDirectory = "/home/pixel";
+  };
+
   myModules = {
     # Configure git
     git.userEmail = "edwardoliverthomas@gmail.com";

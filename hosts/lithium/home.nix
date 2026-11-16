@@ -25,6 +25,9 @@
     };
   };
 
-  home.stateVersion = "25.05";
-
+  home = {
+    username = "pixel";
+    homeDirectory = "/home/pixel";
+    stateVersion = "25.05";
+  };
 }

@@ -58,6 +58,11 @@ let
     laptop = { };
     lithium = { };
     tungsten = { };
+
+    silicon = {
+      class = "darwin";
+      arch = "aarch64";
+    };
   };
 
   hostsOfClass = class: lib.filterAttrs (_: host: (host.class or "nixos") == class) hosts;
