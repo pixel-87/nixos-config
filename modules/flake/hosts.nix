@@ -6,15 +6,36 @@
 }:
 
 let
+  # A host is the pair of a NixOS/darwin system module (hosts/<name>/default.nix)
+  # and a Home Manager module (hosts/<name>/home.nix). Everything else about a
+  # machine lives in those two files.
   mkHost =
     name:
-    lib.nixosSystem {
+    {
+      class ? "nixos",
+      arch ? "x86_64",
+    }:
+    let
+      isDarwin = class == "darwin";
+
+      system = "${arch}-${if isDarwin then "darwin" else "linux"}";
+
+      evalSystem = if isDarwin then inputs.nix-darwin.lib.darwinSystem else lib.nixosSystem;
+
+      homeManagerModule =
+        if isDarwin then
+          inputs.home-manager.darwinModules.home-manager
+        else
+          inputs.home-manager.nixosModules.home-manager;
+    in
+    evalSystem {
+      inherit system;
       specialArgs = { inherit inputs self; };
 
       modules = [
-        ../../modules/nixos/common.nix
+        ../../modules/${class}/common.nix
         ../../hosts/${name}
-        inputs.home-manager.nixosModules.home-manager
+        homeManagerModule
         {
           home-manager = {
             useGlobalPkgs = true;
@@ -29,7 +50,19 @@ let
         }
       ];
     };
+
+  # arch is the CPU part of the system string; class selects the eval function
+  # and the modules/<class> directory. A darwin host looks like:
+  #   macbook = { class = "darwin"; arch = "aarch64"; };
+  hosts = {
+    laptop = { };
+    lithium = { };
+    tungsten = { };
+  };
+
+  hostsOfClass = class: lib.filterAttrs (_: host: (host.class or "nixos") == class) hosts;
 in
 {
-  flake.nixosConfigurations = lib.genAttrs [ "laptop" "lithium" "tungsten" ] mkHost;
+  flake.nixosConfigurations = lib.mapAttrs mkHost (hostsOfClass "nixos");
+  flake.darwinConfigurations = lib.mapAttrs mkHost (hostsOfClass "darwin");
 }
