@@ -170,6 +170,83 @@ in
           };
         };
 
+        cmp = {
+          enable = true;
+
+          settings = {
+            snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+
+            mapping.__raw = ''
+              cmp.mapping.preset.insert({
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete(),
+                ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                  if cmp.visible() then
+                    cmp.select_next_item()
+                  elseif require("luasnip").expand_or_jumpable() then
+                    require("luasnip").expand_or_jump()
+                  else
+                    fallback()
+                  end
+                end, { "i", "s" }),
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                  if cmp.visible() then
+                    cmp.select_prev_item()
+                  elseif require("luasnip").jumpable(-1) then
+                    require("luasnip").jump(-1)
+                  else
+                    fallback()
+                  end
+                end, { "i", "s" }),
+              })
+            '';
+
+            sources = [
+              {
+                name = "nvim_lsp";
+                group_index = 1;
+              }
+              {
+                name = "luasnip";
+                group_index = 1;
+              }
+              {
+                name = "buffer";
+                group_index = 2;
+              }
+              {
+                name = "path";
+                group_index = 2;
+              }
+            ];
+          };
+
+          cmdline = {
+            "/" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              sources = [ { name = "buffer"; } ];
+            };
+            "?" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              sources = [ { name = "buffer"; } ];
+            };
+            ":" = {
+              mapping.__raw = "cmp.mapping.preset.cmdline()";
+              sources = [
+                { name = "path"; }
+                { name = "cmdline"; }
+              ];
+            };
+          };
+        };
+
+        luasnip = {
+          enable = true;
+          fromVscode = [ { } ];
+        };
+
         markdown-preview = {
           enable = true;
           settings.auto_start = 0;
@@ -228,15 +305,7 @@ in
         precognition-nvim
 
         # Completion & LSP glue
-        nvim-cmp
-        cmp-nvim-lsp
-        cmp-buffer
-        cmp-path
-        cmp-cmdline
-        cmp_luasnip
-        luasnip
         friendly-snippets
-        nvim-lspconfig
 
         # Terminals
         toggleterm-nvim
