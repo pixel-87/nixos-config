@@ -69,15 +69,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Nixvim (plugins.which-key, plugins.telescope, plugins.oil, plugins.leap,
 -- plugins.mini-ai, plugins.mini-surround).
 
--- Harpoon
-local harpoon_mark = require("harpoon.mark")
-local harpoon_ui = require("harpoon.ui")
-vim.keymap.set("n", "<leader>ha", harpoon_mark.add_file, { desc = "Harpoon add file" })
-vim.keymap.set("n", "<leader>hh", harpoon_ui.toggle_quick_menu, { desc = "Harpoon list" })
-vim.keymap.set("n", "<leader>h1", function() harpoon_ui.nav_file(1) end, { desc = "Harpoon file 1" })
-vim.keymap.set("n", "<leader>h2", function() harpoon_ui.nav_file(2) end, { desc = "Harpoon file 2" })
-vim.keymap.set("n", "<leader>h3", function() harpoon_ui.nav_file(3) end, { desc = "Harpoon file 3" })
-vim.keymap.set("n", "<leader>h4", function() harpoon_ui.nav_file(4) end, { desc = "Harpoon file 4" })
+-- Harpoon is configured by Nixvim (plugins.harpoon + top-level keymaps)
 
 -- Keymaps (general)
 vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
@@ -95,38 +87,7 @@ vim.keymap.set(
 
 -- Autopairs and leap are configured by Nixvim (plugins.nvim-autopairs/plugins.leap)
 
--- Git signs
-require("gitsigns").setup({
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
-
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-    end, { expr = true, desc = "Next git hunk" })
-
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, { expr = true, desc = "Prev git hunk" })
-
-    -- Actions
-    map('n', '<leader>gp', gs.preview_hunk, { desc = "Preview git hunk" })
-    map('n', '<leader>gr', gs.reset_hunk, { desc = "Reset git hunk" })
-    map('v', '<leader>gr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { desc = "Reset git hunk (visual)" })
-    map('n', '<leader>gR', gs.reset_buffer, { desc = "Reset git buffer" })
-    map('n', '<leader>gb', function() gs.blame_line({ full = true }) end, { desc = "Git blame line" })
-    map('n', '<leader>gd', gs.diffthis, { desc = "Git diff this" })
-    map('n', '<leader>gD', function() gs.diffthis('~') end, { desc = "Git diff this ~" })
-  end
-})
+-- Gitsigns (including its keymaps) is configured by Nixvim (plugins.gitsigns).
 
 -- TODO comments are configured by Nixvim (plugins.todo-comments)
 

@@ -131,11 +131,88 @@ in
           action = "<cmd>Trouble qflist toggle<cr>";
           options.desc = "Quickfix list";
         }
+        {
+          key = "<leader>ha";
+          action.__raw = ''function() require("harpoon"):list():add() end'';
+          options.desc = "Harpoon add file";
+        }
+        {
+          key = "<leader>hh";
+          action.__raw = ''function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end'';
+          options.desc = "Harpoon list";
+        }
+        {
+          key = "<leader>hn";
+          action.__raw = ''function() require("harpoon"):list():next() end'';
+          options.desc = "Harpoon next file";
+        }
+        {
+          key = "<leader>hp";
+          action.__raw = ''function() require("harpoon"):list():prev() end'';
+          options.desc = "Harpoon prev file";
+        }
+        {
+          key = "<leader>h1";
+          action.__raw = ''function() require("harpoon"):list():select(1) end'';
+          options.desc = "Harpoon file 1";
+        }
+        {
+          key = "<leader>h2";
+          action.__raw = ''function() require("harpoon"):list():select(2) end'';
+          options.desc = "Harpoon file 2";
+        }
+        {
+          key = "<leader>h3";
+          action.__raw = ''function() require("harpoon"):list():select(3) end'';
+          options.desc = "Harpoon file 3";
+        }
+        {
+          key = "<leader>h4";
+          action.__raw = ''function() require("harpoon"):list():select(4) end'';
+          options.desc = "Harpoon file 4";
+        }
       ];
 
       plugins = {
         comment.enable = true;
+        gitsigns = {
+          enable = true;
+
+          settings.on_attach = ''
+            function(bufnr)
+              local gs = package.loaded.gitsigns
+
+              local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+              end
+
+              map("n", "]c", function()
+                if vim.wo.diff then return "]c" end
+                vim.schedule(function() gs.next_hunk() end)
+              end, { expr = true, desc = "Next git hunk" })
+
+              map("n", "[c", function()
+                if vim.wo.diff then return "[c" end
+                vim.schedule(function() gs.prev_hunk() end)
+                return "<Ignore>"
+              end, { expr = true, desc = "Prev git hunk" })
+
+              map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview git hunk" })
+              map("n", "<leader>gr", gs.reset_hunk, { desc = "Reset git hunk" })
+              map("v", "<leader>gr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset git hunk (visual)" })
+              map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset git buffer" })
+              map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, { desc = "Git blame line" })
+              map("n", "<leader>gd", gs.diffthis, { desc = "Git diff this" })
+              map("n", "<leader>gD", function() gs.diffthis("~") end, { desc = "Git diff this ~" })
+            end
+          '';
+        };
+
         indent-blankline.enable = true;
+
+        harpoon.enable = true;
 
         leap.enable = true;
 
@@ -413,10 +490,6 @@ in
       extraPlugins = with pkgs.vimPlugins; [
         # Core + navigation
         plenary-nvim
-        harpoon
-
-        # Git
-        gitsigns-nvim
 
         # Snippets (loaded by luasnip)
         friendly-snippets
