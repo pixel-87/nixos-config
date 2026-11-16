@@ -262,7 +262,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>ld", vim.diagnostic.open_float, "Show diagnostics")
-    map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
+    map("n", "<leader>lf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, "Format buffer")
   end,
 })
 

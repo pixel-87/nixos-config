@@ -170,6 +170,42 @@ in
           };
         };
 
+        conform-nvim = {
+          enable = true;
+          autoInstall.enable = true;
+
+          settings = {
+            formatters_by_ft = {
+              bash = [ "shfmt" ];
+              css = [ "prettierd" ];
+              go = [ "gofumpt" ];
+              hcl = [ "tofu_fmt" ];
+              html = [ "prettierd" ];
+              javascript = [ "prettierd" ];
+              json = [ "prettierd" ];
+              jsonnet = [ "jsonnetfmt" ];
+              lua = [ "stylua" ];
+              markdown = [ "prettierd" ];
+              nix = [ "nixfmt" ];
+              python = [ "ruff_format" ];
+              rust = [ "rustfmt" ];
+              sh = [ "shfmt" ];
+              terraform = [ "tofu_fmt" ];
+              toml = [ "taplo" ];
+              tsx = [ "prettierd" ];
+              typescript = [ "prettierd" ];
+              yaml = [ "yamlfmt" ];
+              "yaml.ansible" = [ "yamlfmt" ];
+              "yaml.docker-compose" = [ "yamlfmt" ];
+              "yaml.helm-values" = [ "yamlfmt" ];
+            };
+
+            format_on_save = {
+              lsp_format = "fallback";
+            };
+          };
+        };
+
         cmp = {
           enable = true;
 
