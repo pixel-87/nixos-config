@@ -80,6 +80,9 @@ in
 
       nixpkgs.useGlobalPackages = true;
 
+      colorscheme = "catppuccin-mocha";
+      colorschemes.catppuccin.enable = true;
+
       extraPackages = cfg.lspPackages;
 
       opts = {
@@ -106,6 +109,17 @@ in
       globals.mapleader = " ";
 
       plugins = {
+        comment.enable = true;
+        indent-blankline.enable = true;
+
+        lualine = {
+          enable = true;
+          settings.options.theme = "auto";
+        };
+
+        todo-comments.enable = true;
+        web-devicons.enable = true;
+
         lsp = {
           enable = true;
           servers = {
@@ -306,11 +320,6 @@ in
       };
 
       extraPlugins = with pkgs.vimPlugins; [
-        # UI / theme
-        catppuccin-nvim
-        lualine-nvim
-        nvim-web-devicons
-
         # AI
         plugin-99
 
@@ -323,7 +332,6 @@ in
         oil-nvim
 
         # Editing ergonomics
-        comment-nvim
         nvim-autopairs
         mini-nvim
         leap-nvim
@@ -332,8 +340,6 @@ in
         gitsigns-nvim
 
         # Syntax / visuals
-        indent-blankline-nvim
-        todo-comments-nvim
         trouble-nvim
         noice-nvim
         nvim-notify

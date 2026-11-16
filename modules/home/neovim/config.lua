@@ -63,9 +63,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.softtabstop = 2
   end,
 })
--- Theme
-require("catppuccin").setup({})
-vim.cmd.colorscheme("catppuccin-mocha")
+-- Theme is configured by Nixvim (colorscheme / colorschemes.catppuccin)
 
 -- Which-key
 require("which-key").setup({})
@@ -115,8 +113,7 @@ vim.keymap.set(
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
--- Comment, surround, ai, motions
-require("Comment").setup()
+-- Surround, ai, motions
 require("mini.surround").setup()
 require("mini.ai").setup()
 require("leap").setup({})
@@ -158,11 +155,7 @@ require("gitsigns").setup({
   end
 })
 
--- Indent guides
-require("ibl").setup()
-
--- Todo comments
-require("todo-comments").setup()
+-- TODO comments are configured by Nixvim (plugins.todo-comments)
 
 -- Precognition
 require("precognition").setup({
@@ -187,10 +180,7 @@ require("noice").setup({
   },
 })
 
--- Lualine
-require("lualine").setup({
-  options = { theme = "auto" },
-})
+-- Lualine is configured by Nixvim (plugins.lualine)
 
 -- Render Markdown setup is handled by nixvim module
 
