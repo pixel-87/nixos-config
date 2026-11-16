@@ -62,6 +62,7 @@ jobs:
           nix-eval-jobs: "nix run nixpkgs#nix-eval-jobs --"
           runner-map: |
             x86_64-linux=ubuntu-24.04
+            aarch64-darwin=macos-latest
 
   build:
     name: ${{ matrix.name }} (${{ matrix.system }})
