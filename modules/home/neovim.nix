@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -49,13 +48,6 @@ let
     ansible # ansiblels
     ansible-lint # ansiblels
   ];
-
-  plugin-99 = pkgs.vimUtils.buildVimPlugin {
-    pname = "99";
-    version = "master";
-    src = inputs.plugin-99;
-    doCheck = false;
-  };
 in
 {
   options.myModules.neovim = {
@@ -108,6 +100,39 @@ in
 
       globals.mapleader = " ";
 
+      keymaps = [
+        {
+          key = "<leader>xx";
+          action = "<cmd>Trouble diagnostics toggle<cr>";
+          options.desc = "Diagnostics (workspace)";
+        }
+        {
+          key = "<leader>xX";
+          action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
+          options.desc = "Diagnostics (buffer)";
+        }
+        {
+          key = "<leader>cs";
+          action = "<cmd>Trouble symbols toggle focus=false<cr>";
+          options.desc = "Symbols";
+        }
+        {
+          key = "<leader>cl";
+          action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
+          options.desc = "LSP references";
+        }
+        {
+          key = "<leader>xL";
+          action = "<cmd>Trouble loclist toggle<cr>";
+          options.desc = "Location list";
+        }
+        {
+          key = "<leader>xQ";
+          action = "<cmd>Trouble qflist toggle<cr>";
+          options.desc = "Quickfix list";
+        }
+      ];
+
       plugins = {
         comment.enable = true;
         indent-blankline.enable = true;
@@ -149,6 +174,42 @@ in
         todo-comments.enable = true;
         web-devicons.enable = true;
         which-key.enable = true;
+
+        noice = {
+          enable = true;
+          settings = {
+            lsp = {
+              progress.enabled = false;
+              override = {
+                "vim.lsp.util.convert_input_to_markdown_lines" = true;
+                "vim.lsp.util.stylize_markdown" = true;
+              };
+            };
+            presets = {
+              command_palette = true;
+              lsp_doc_border = true;
+            };
+          };
+        };
+
+        notify.enable = true;
+
+        precognition = {
+          enable = true;
+          settings.startVisible = false;
+        };
+
+        toggleterm = {
+          enable = true;
+          settings = {
+            open_mapping = "[[<c-\\>]]";
+            shade_terminals = true;
+            shading_factor = 2;
+            direction = "horizontal";
+          };
+        };
+
+        trouble.enable = true;
 
         lsp = {
           enable = true;
@@ -350,9 +411,6 @@ in
       };
 
       extraPlugins = with pkgs.vimPlugins; [
-        # AI
-        plugin-99
-
         # Core + navigation
         plenary-nvim
         harpoon
@@ -360,18 +418,8 @@ in
         # Git
         gitsigns-nvim
 
-        # Syntax / visuals
-        trouble-nvim
-        noice-nvim
-        nvim-notify
-        nui-nvim
-        precognition-nvim
-
-        # Completion & LSP glue
+        # Snippets (loaded by luasnip)
         friendly-snippets
-
-        # Terminals
-        toggleterm-nvim
       ];
 
       extraConfigLua = builtins.readFile ./neovim/config.lua;

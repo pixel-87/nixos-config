@@ -72,11 +72,6 @@
       };
     };
 
-    plugin-99 = {
-      url = "github:ThePrimeagen/99";
-      flake = false;
-    };
-
     elephant-goldfish-model = {
       url = "github:google/elephant-goldfish-model";
       flake = false;

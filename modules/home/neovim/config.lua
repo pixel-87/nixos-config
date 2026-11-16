@@ -130,80 +130,15 @@ require("gitsigns").setup({
 
 -- TODO comments are configured by Nixvim (plugins.todo-comments)
 
--- Precognition
-require("precognition").setup({
-  startVisible = false,
-})
-
--- Trouble
-require("trouble").setup({})
-
-vim.notify = require("notify")
-require("noice").setup({
-  command_palette = true,
-  lsp_doc_border = true,
-  lsp = {
-    progress = {
-      enabled = false,
-    },
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-    },
-  },
-})
+-- Precognition, trouble, noice and notify are configured by Nixvim
+-- (plugins.precognition, plugins.trouble, plugins.noice, plugins.notify).
 
 -- Lualine is configured by Nixvim (plugins.lualine)
 
 -- Render Markdown setup is handled by nixvim module
 
--- 99 (AI Agent by ThePrimeagen)
--- Requires 'opencode' to be installed and setup
-local _99 = require("99")
-local cwd = vim.uv.cwd()
-local basename = vim.fs.basename(cwd)
-_99.setup({
-  logger = {
-    level = _99.DEBUG,
-    path = "/tmp/" .. basename .. ".99.debug",
-    print_on_error = true,
-  },
-  completion = {
-    -- custom_rules = { "scratch/custom_rules/" }, -- Example
-    source = "cmp",
-  },
-  md_files = {
-    "AGENT.md",
-  },
-})
-
-vim.keymap.set("n", "<leader>9f", function()
-  if type(_99.visual) == "function" then
-    _99.visual()
-  end
-end, { desc = "99: Visual" })
--- Open 99 visual helper from visual OR normal mode
-vim.keymap.set("v", "<leader>9v", function() _99.visual() end, { desc = "99: Visual" })
-vim.keymap.set("n", "<leader>9v", function()
-  if type(_99.visual) == "function" then
-    _99.visual()
-  end
-end, { desc = "99: Visual" })
-vim.keymap.set("v", "<leader>9s", function() _99.stop_all_requests() end, { desc = "99: Stop all" })
-vim.keymap.set("n", "<leader>9fd", function()
-  if type(_99.visual) == "function" then
-    _99.visual()
-  end
-end, { desc = "99: Visual" })
-
--- ToggleTerm (terminal runner)
-  require("toggleterm").setup({
-    open_mapping = [[<c-\>]],
-    shade_terminals = true,
-    shading_factor = 2,
-    direction = "horizontal",
-  })
-  vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
+-- ToggleTerm (setup is handled by plugins.toggleterm)
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 -- nvim-cmp and luasnip are configured by Nixvim (plugins.cmp / plugins.luasnip).
 -- The autopairs integration has no declarative equivalent.
 require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
