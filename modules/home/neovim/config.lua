@@ -1,9 +1,3 @@
--- Indentation
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.tabstop = 2
-
 -- Persistent undo (save undo history across sessions)
 vim.opt.undofile = true
 
@@ -50,7 +44,7 @@ vim.api.nvim_create_autocmd({"BufLeave", "FocusLost"}, {
       return
     end
     if vim.bo[bufnr].modified then
-      vim.cmd.write()
+      vim.cmd("silent! write")
     end
   end,
 })
@@ -75,7 +69,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set("n", "<leader>e", require("oil").open_float, { desc = "File explorer" })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown Preview" })
-vim.keymap.set("n", "<leader>tp", function() require("precognition").toggle() end, { desc = "Toggle Precognition" })
 
 vim.keymap.set(
   "n",
@@ -104,25 +97,5 @@ vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Toggle termin
 -- The autopairs integration has no declarative equivalent.
 require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
 
--- LSP keymaps on attach (works with nixvim's lsp module)
-local lsp_group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = lsp_group,
-  callback = function(ev)
-    local map = function(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
-    end
-    map("n", "gd", vim.lsp.buf.definition, "LSP definition")
-    map("n", "gr", vim.lsp.buf.references, "LSP references")
-    map("n", "gi", vim.lsp.buf.implementation, "LSP implementation")
-    map("n", "K", vim.lsp.buf.hover, "LSP hover")
-    map("n", "<leader>rn", vim.lsp.buf.rename, "LSP rename")
-    map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP code action")
-    map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-    map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-    map("n", "<leader>ld", vim.diagnostic.open_float, "Show diagnostics")
-    map("n", "<leader>lf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, "Format buffer")
-  end,
-})
-
--- Tinymist (Typst LSP) configuration is now handled by Nixvim directly
+-- LSP keymaps, diagnostics and formatting are configured by Nixvim
+-- (plugins.lsp.keymaps, diagnostic.settings, plugins.conform-nvim).

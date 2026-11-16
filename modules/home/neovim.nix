@@ -96,6 +96,20 @@ in
         scrolloff = 6;
         sidescrolloff = 4;
         clipboard = "unnamedplus";
+        mouse = "a";
+        splitbelow = true;
+        splitright = true;
+      };
+
+      diagnostic.settings = {
+        severity_sort = true;
+        update_in_insert = false;
+        underline = true;
+        signs = true;
+        float = {
+          border = "rounded";
+          source = true;
+        };
       };
 
       globals.mapleader = " ";
@@ -170,6 +184,11 @@ in
           key = "<leader>h4";
           action.__raw = ''function() require("harpoon"):list():select(4) end'';
           options.desc = "Harpoon file 4";
+        }
+        {
+          key = "<leader>tp";
+          action.__raw = ''function() require("precognition").toggle() end'';
+          options.desc = "Toggle Precognition";
         }
       ];
 
@@ -250,7 +269,35 @@ in
 
         todo-comments.enable = true;
         web-devicons.enable = true;
-        which-key.enable = true;
+        which-key = {
+          enable = true;
+          settings.spec = [
+            {
+              __unkeyed-1 = "<leader>f";
+              group = "Find";
+            }
+            {
+              __unkeyed-1 = "<leader>h";
+              group = "Harpoon";
+            }
+            {
+              __unkeyed-1 = "<leader>g";
+              group = "Git";
+            }
+            {
+              __unkeyed-1 = "<leader>x";
+              group = "Diagnostics";
+            }
+            {
+              __unkeyed-1 = "<leader>c";
+              group = "Code";
+            }
+            {
+              __unkeyed-1 = "<leader>l";
+              group = "LSP";
+            }
+          ];
+        };
 
         noice = {
           enable = true;
@@ -290,6 +337,36 @@ in
 
         lsp = {
           enable = true;
+
+          keymaps = {
+            lspBuf = {
+              gd = "definition";
+              gr = "references";
+              gi = "implementation";
+              K = "hover";
+              "<leader>rn" = "rename";
+              "<leader>ca" = "code_action";
+            };
+
+            diagnostic = {
+              "[d" = "goto_prev";
+              "]d" = "goto_next";
+              "<leader>ld" = "open_float";
+            };
+
+            extra = [
+              {
+                key = "<leader>lf";
+                action.__raw = ''
+                  function()
+                    require("conform").format({ async = true, lsp_format = "fallback" })
+                  end
+                '';
+                options.desc = "Format buffer";
+              }
+            ];
+          };
+
           servers = {
             nil_ls.enable = true;
             lua_ls = {
@@ -313,7 +390,14 @@ in
             emmet_language_server.enable = true;
             yamlls.enable = true;
             marksman.enable = true;
-            basedpyright.enable = true;
+            basedpyright = {
+              enable = true;
+              settings.python.analysis = {
+                autoSearchPaths = true;
+                useLibraryCodeForTypes = true;
+                diagnosticMode = "openFilesOnly";
+              };
+            };
             ruff.enable = true;
             gopls.enable = true;
 
