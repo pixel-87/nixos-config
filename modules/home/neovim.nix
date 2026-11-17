@@ -186,6 +186,21 @@ in
           options.desc = "Harpoon file 4";
         }
         {
+          key = "<leader>oo";
+          action = "<cmd>AerialToggle<cr>";
+          options.desc = "Outline";
+        }
+        {
+          key = "<leader>oj";
+          action = "<cmd>AerialNext<cr>";
+          options.desc = "Next symbol";
+        }
+        {
+          key = "<leader>ok";
+          action = "<cmd>AerialPrev<cr>";
+          options.desc = "Previous symbol";
+        }
+        {
           key = "<leader>tp";
           action.__raw = ''function() require("precognition").toggle() end'';
           options.desc = "Toggle Precognition";
@@ -193,6 +208,19 @@ in
       ];
 
       plugins = {
+        aerial = {
+          enable = true;
+          settings = {
+            backends = [
+              "treesitter"
+              "lsp"
+            ];
+            attach_mode = "global";
+            highlight_on_hover = true;
+            layout.default_direction = "right";
+          };
+        };
+
         comment.enable = true;
         gitsigns = {
           enable = true;
@@ -237,11 +265,27 @@ in
 
         lualine = {
           enable = true;
-          settings.options.theme = "auto";
+          settings = {
+            options = {
+              theme = "auto";
+              disabled_filetypes.winbar = [ "aerial" ];
+            };
+            winbar.lualine_c = [
+              { __unkeyed-1 = "navic"; }
+            ];
+          };
         };
 
         mini-ai.enable = true;
         mini-surround.enable = true;
+
+        navic = {
+          enable = true;
+          settings = {
+            lsp.auto_attach = true;
+            highlight = true;
+          };
+        };
 
         nvim-autopairs.enable = true;
 
@@ -295,6 +339,10 @@ in
             {
               __unkeyed-1 = "<leader>l";
               group = "LSP";
+            }
+            {
+              __unkeyed-1 = "<leader>o";
+              group = "Outline";
             }
           ];
         };
