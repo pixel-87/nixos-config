@@ -368,7 +368,12 @@ in
           };
 
           servers = {
-            nixd.enable = true;
+            nixd = {
+              enable = true;
+              settings.nixpkgs.expr = ''
+                import (builtins.getFlake "/home/pixel/nixos-config").inputs.nixpkgs { }
+              '';
+            };
             lua_ls = {
               enable = true;
               settings = {
