@@ -368,7 +368,7 @@ in
           };
 
           servers = {
-            nil_ls.enable = true;
+            nixd.enable = true;
             lua_ls = {
               enable = true;
               settings = {
