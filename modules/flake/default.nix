@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [
     ./hosts.nix
@@ -31,7 +31,7 @@
           with pkgs;
           [
             just
-            nil
+            nixd
           ]
           ++ config.pre-commit.settings.enabledPackages;
 
@@ -42,47 +42,38 @@
         settings = {
           package = pkgs.prek;
 
-          hooks = {
-            # Formatters first; everything else runs concurrently after.
-            treefmt = {
-              enable = true;
-              priority = 1;
-            };
+          hooks =
+            let
+              commonHooks =
+                lib.genAttrs
+                  [
+                    "check-added-large-files"
+                    "check-merge-conflicts"
+                    "check-symlinks"
+                    "end-of-file-fixer"
+                    "shellcheck"
+                    "trim-trailing-whitespace"
+                    "zizmor"
+                  ]
+                  (_name: {
+                    enable = true;
+                    priority = 10;
+                  });
+            in
+            commonHooks
+            // {
+              # Formatters first; everything else runs concurrently after.
+              treefmt = {
+                enable = true;
+                priority = 1;
+              };
 
-            actionlint = {
-              enable = true;
-              priority = 10;
-              package = pkgs.callPackage ../../pkgs/actionlint/package.nix { };
+              actionlint = {
+                enable = true;
+                priority = 10;
+                package = pkgs.callPackage ../../pkgs/actionlint/package.nix { };
+              };
             };
-            check-added-large-files = {
-              enable = true;
-              priority = 10;
-            };
-            check-merge-conflicts = {
-              enable = true;
-              priority = 10;
-            };
-            check-symlinks = {
-              enable = true;
-              priority = 10;
-            };
-            end-of-file-fixer = {
-              enable = true;
-              priority = 10;
-            };
-            shellcheck = {
-              enable = true;
-              priority = 10;
-            };
-            trim-trailing-whitespace = {
-              enable = true;
-              priority = 10;
-            };
-            zizmor = {
-              enable = true;
-              priority = 10;
-            };
-          };
         };
       };
 
