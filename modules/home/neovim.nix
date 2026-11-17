@@ -266,12 +266,17 @@ in
         lualine = {
           enable = true;
           settings = {
-            options = {
-              theme = "auto";
-              disabled_filetypes.winbar = [ "aerial" ];
-            };
+            options.theme = "auto";
+
+            # A one-space filler keeps the winbar non-empty when navic has no
+            # context, so the window layout does not shift.
             winbar.lualine_c = [
               { __unkeyed-1 = "navic"; }
+              { __unkeyed-1.__raw = "function() return \" \" end"; }
+            ];
+            inactive_winbar.lualine_c = [
+              { __unkeyed-1 = "navic"; }
+              { __unkeyed-1.__raw = "function() return \" \" end"; }
             ];
           };
         };
