@@ -14,6 +14,7 @@ let
     {
       class ? "nixos",
       arch ? "x86_64",
+      username ? "pixel",
     }:
     let
       isDarwin = class == "darwin";
@@ -42,7 +43,7 @@ let
             useUserPackages = true;
             extraSpecialArgs = { inherit inputs; };
             backupFileExtension = "hm-backup";
-            users.pixel.imports = [
+            users.${username}.imports = [
               ../../modules/home/common.nix
               ../../hosts/${name}/home.nix
             ];
@@ -52,8 +53,9 @@ let
     };
 
   # arch is the CPU part of the system string; class selects the eval function
-  # and the modules/<class> directory. A darwin host looks like:
-  #   macbook = { class = "darwin"; arch = "aarch64"; };
+  # and the modules/<class> directory; username selects the Home Manager
+  # account. A darwin host looks like:
+  #   macbook = { class = "darwin"; arch = "aarch64"; username = "jane"; };
   hosts = {
     laptop = { };
     lithium = { };

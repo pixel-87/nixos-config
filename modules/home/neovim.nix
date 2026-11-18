@@ -268,15 +268,26 @@ in
           settings = {
             options.theme = "auto";
 
-            # A one-space filler keeps the winbar non-empty when navic has no
-            # context, so the window layout does not shift.
+            # A zero-width space keeps the winbar occupied when navic has no
+            # context. Disable the component separator so no powerline glyph
+            # is drawn after the breadcrumbs.
             winbar.lualine_c = [
-              { __unkeyed-1 = "navic"; }
-              { __unkeyed-1.__raw = "function() return \" \" end"; }
+              {
+                __unkeyed-1 = "navic";
+                separator = "";
+              }
+              {
+                __unkeyed-1.__raw = "function() return vim.fn.nr2char(0x200b) end";
+              }
             ];
             inactive_winbar.lualine_c = [
-              { __unkeyed-1 = "navic"; }
-              { __unkeyed-1.__raw = "function() return \" \" end"; }
+              {
+                __unkeyed-1 = "navic";
+                separator = "";
+              }
+              {
+                __unkeyed-1.__raw = "function() return vim.fn.nr2char(0x200b) end";
+              }
             ];
           };
         };
@@ -424,7 +435,7 @@ in
             nixd = {
               enable = true;
               settings.nixpkgs.expr = ''
-                import (builtins.getFlake "/home/pixel/nixos-config").inputs.nixpkgs { }
+                import (builtins.getFlake "${config.myModules.shell.flakePath}").inputs.nixpkgs { }
               '';
             };
             lua_ls = {

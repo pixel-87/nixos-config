@@ -25,6 +25,12 @@
       ];
       options = "--delete-older-than 40d";
     };
+
+    # Local Linux VM builder, so x86_64-linux derivations can be built without
+    # a remote machine. On Apple Silicon this runs the builder through Rosetta;
+    # install it once with:
+    #   softwareupdate --install-rosetta --agree-to-license
+    linux-builder.enable = true;
   };
 
   nixpkgs.config.allowUnfree = true;
