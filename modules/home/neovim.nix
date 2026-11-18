@@ -268,16 +268,17 @@ in
           settings = {
             options.theme = "auto";
 
-            # A zero-width space keeps the winbar occupied when navic has no
-            # context. Disable the component separator so no powerline glyph
-            # is drawn after the breadcrumbs.
+            # A single space keeps the winbar occupied when navic has no
+            # context. Do not use U+200B: Neovim treats it as unprintable and
+            # renders it literally as "<200b>". Disable the component
+            # separator so no powerline glyph is drawn after the breadcrumbs.
             winbar.lualine_c = [
               {
                 __unkeyed-1 = "navic";
                 separator = "";
               }
               {
-                __unkeyed-1.__raw = "function() return vim.fn.nr2char(0x200b) end";
+                __unkeyed-1.__raw = ''function() return " " end'';
               }
             ];
             inactive_winbar.lualine_c = [
@@ -286,7 +287,7 @@ in
                 separator = "";
               }
               {
-                __unkeyed-1.__raw = "function() return vim.fn.nr2char(0x200b) end";
+                __unkeyed-1.__raw = ''function() return " " end'';
               }
             ];
           };
