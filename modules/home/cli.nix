@@ -80,6 +80,9 @@ in
         ps = "procs";
       };
 
+      # Silence direnv/nix-direnv status output
+      sessionVariables.DIRENV_LOG_FORMAT = "";
+
       # Build nix-index database on first activation
       activation.nix-index = ''
         if [ ! -f "$HOME/.cache/nix-index/files" ]; then

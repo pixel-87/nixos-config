@@ -42,6 +42,7 @@ let
     # Git
     gs = "git status";
     ga = "git add";
+    gap = "git add -p";
     gc = "git commit";
     gp = "git push";
     gl = "git log --oneline -10";
